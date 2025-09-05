@@ -5,95 +5,44 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <cassert>
-#include <cmath>
-#include <cstddef>
+#include <numeric>
 
-//////////////////////////////////////////////////////////////////////////////////////////////
 
-auto factorial(int x) -> int 
-{ 
-	return x > 1 ? x * factorial(x - 1) : 1;
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-auto combination_v1(int x, int y)
+int mygcd(int a, int b)
 {
-	return x < y ? 0 : factorial(x) / factorial(y) / factorial(x - y);
+	while (b != 0) {
+		int tmp = a;
+		a = b;
+		b = tmp % a;
+	}
+	return a;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-auto combination_v2(int x, int y) -> int
+int mylcm(int a, int b)
 {
-	if (x >= y)
+	int t = a % b;
+	if (t == 0)
 	{
-		return x == y || y == 0 ? 1 : combination_v2(x - 1, y - 1) + combination_v2(x - 1, y);
+		return a;
 	}
-	else
-	{
-		return 0;
-	}
+	return a * mylcm(b, t) / t;
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-auto catalan_v1(int x) 
-{ 
-	return combination_v1(2 * x, x) / (x + 1);
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-auto catalan_v2(int x) 
-{ 
-	return combination_v2(2 * x, x) - combination_v2(x * x, x - 1);
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-auto catalan_v3(std::size_t size, std::size_t left = 0, std::size_t right = 0) -> std::size_t
-{
-	auto counter = 0uz;
-
-	if (left < size || right < size)
-	{
-		if (left < size ) { counter += catalan_v3(size, left + 1, right    ); }
-
-		if (left > right) { counter += catalan_v3(size, left,     right + 1); }
-	}
-	
-	return counter > 0 ? counter : 1uz;
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-auto catalan_v4(std::size_t size, std::size_t left = 0, std::size_t right = 0) -> std::size_t
-{
-	auto counter = 0uz;
-
-	if (left < size)
-	{
-		for (auto i = size; i > std::max(left, right + 1) - 1; --i)
-		{
-			counter += catalan_v4(size, i, right + 1);
-		}
-	}
-
-	return counter > 0 ? counter : 1uz;
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-	assert(catalan_v1(5) == 42);
-	
-	assert(catalan_v2(5) == 42);
+	assert(std::gcd(5, 2) == mygcd(5, 2));
+	assert(std::gcd(12, 4) == mygcd(12, 4));
+	assert(std::gcd(14, 63) == mygcd(14, 63));
+	assert(std::gcd(23, 5) == mygcd(23, 5));
+	assert(std::gcd(7, 56) == mygcd(7, 56));
 
-	assert(catalan_v3(5) == 42);
-	
-	assert(catalan_v4(5) == 42);
+	assert(std::lcm(5, 2) == mylcm(5, 2));
+	assert(std::lcm(13, 4) == mylcm(13, 4));
+	assert(std::lcm(16, 9) == mylcm(16, 9));
+	assert(std::lcm(14, 12) == mylcm(14, 12));
+	assert(std::lcm(13, 19) == mylcm(13, 19));
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

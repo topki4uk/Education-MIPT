@@ -1,31 +1,47 @@
 /////////////////////////////////////////////////////////////
 
 #include <iostream>
+#include <cmath>
 
 /////////////////////////////////////////////////////////////
 
 int main()
 {
-    auto x = 0;
+    const double EPS = 1e-5;
+    double a, b, c;
+    double discr;
+    std::cin >> a >> b >> c;
 
-//  ---------------------------------------------------------
-
-    std::cout << "main : enter int x : "; std::cin >> x;
-
-//  ---------------------------------------------------------
-
-    if (auto y = x; y > 0) // support : compiler-explorer.com
+    if (a == 0) 
     {
-        std::cout << "main : selection (1)\n";
+        std::cout << "Not a quadratic equation!\n";
+        return 0;
     }
-    else if (0 == y)
+
+    discr = b * b - 4 * a * c;
+
+    if (discr > EPS) 
     {
-        std::cout << "main : selection (2)\n";
-    }
-    else
+        double x1, x2;
+        x1 = (-b + std::sqrt(discr)) / (2 * a);
+        x2 = (-b - std::sqrt(discr)) / (2 * a);
+
+        std::cout << "Two solutions!\n" << "x1 is " << x1 << ", x2 is " << x2 << '\n';
+
+    } 
+    else if (std::abs(discr) < EPS)
     {
-        std::cout << "main : selection (3)\n";
+        double x;
+        x = (-b) / (2 * a);
+        
+        std::cout << "One solution!\n" << "x is " << x << '\n';
     }
+    else 
+    {
+        std::cout << "No real solutions!\n";
+    }
+
+    return 0;
 }
 
 /////////////////////////////////////////////////////////////

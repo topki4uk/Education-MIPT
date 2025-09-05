@@ -1,60 +1,21 @@
 ///////////////////////////
 
 #include <cassert>
+#include <iostream>
+#include <cmath>
 
 ///////////////////////////
 
 int main()
 {
-	auto x = 1, y = 2;
+	const double SQRT_FIVE = std::sqrt(5);
+	int sequence_index;
+	std::cin >> sequence_index;
 
-//  -----------------------
+	double sequence_number = (std::pow((1 + SQRT_FIVE) / 2, sequence_index) - std::pow((1 - SQRT_FIVE) / 2, sequence_index)) / SQRT_FIVE;
+	std::cout << sequence_number << '\n';
 
-	assert((x +  y) == +3);
-	
-	assert((x -  y) == -1);
-
-	assert((x *  y) == +2);
-
-	assert((x /  y) == +0);
-
-	assert((x %  y) == +1);
-
-//  -----------------------
-
-	assert((x += y) == +3);
-
-	assert((x -= y) == +1);
-
-	assert((x *= y) == +2);
-
-	assert((x /= y) == +1);
-
-	assert((x %= y) == +1);
-
-//  -----------------------
-
-	assert((x ++  ) == +1);
-
-	assert((x --  ) == +2);
-
-	assert((  ++ y) == +3);
-
-	assert((  -- y) == +2);
-
-//  -----------------------
-
-	assert((x <  y) ==  1);
-
-	assert((x >  y) ==  0);
-
-	assert((x <= y) ==  1);
-
-	assert((x >= y) ==  0);
-
-	assert((x == y) ==  0);
-
-	assert((x != y) ==  1);
+	return 0;
 }
 
 ///////////////////////////

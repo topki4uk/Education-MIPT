@@ -6,28 +6,19 @@
 
 int main()
 {
-	auto x = 0;
+	double eps;
+	double summa = 1, term = 1.0;
+	std::cin >> eps;
 
-//  --------------------------------------------------------
-
-	while (x > 0)
+	int i = 1;
+	while (term >= eps)
 	{
-		std::cout << "main : enter int x : "; std::cin >> x;
+		term /= i;
+		summa += term;
+		i++;
 	}
-
-//  --------------------------------------------------------
-
-	while (true)
-	{
-		std::cout << "main : enter int x : "; std::cin >> x;
-
-	//  ----------------------------------------------------
-
-		if (x == 0)
-		{
-			break;
-		}
-	}
+	
+	std::cout << summa << '\n';
 }
 
 ////////////////////////////////////////////////////////////
