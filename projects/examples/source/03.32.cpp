@@ -44,7 +44,7 @@ private :
 int main()
 {
     Entity entity_1(1, 1);
-    
+
     Entity entity_2(2, 2);
 
     Entity entity_3(2, 3);

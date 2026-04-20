@@ -20,7 +20,7 @@
 
 class Entity_v1
 {
-private : 
+private :
 
 	void * m_x = nullptr;
 };
@@ -28,16 +28,16 @@ private :
 ///////////////////////////////////////////////////////////
 
 class Client_v1 : public Entity_v1
-{ 
-private : 
-	
+{
+private :
+
 	void * m_y = nullptr;
 };
 
 ///////////////////////////////////////////////////////////
 
 class Entity_v2
-{ 
+{
 public :
 
 	virtual ~Entity_v2() = default;
@@ -45,11 +45,11 @@ public :
 //  ------------------------------------
 
 	virtual void test() const
-	{ 
+	{
 		std::print("Entity_v2::test\n");
 	}
 
-private : 
+private :
 
 	void * m_x = nullptr;
 };
@@ -61,12 +61,12 @@ class Client_v2 : public Entity_v2
 public:
 
 	void test() const override
-	{ 
+	{
 		std::print("Client_v2::test\n");
 	}
 
-private : 
-	
+private :
+
 	void * m_y = nullptr;
 };
 

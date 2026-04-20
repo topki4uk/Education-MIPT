@@ -35,7 +35,7 @@ private :
 //  --------------------------------------------------------------
 
     static void test(Key_v1) { std::print("Entity::test (1)\n"); }
-    
+
     static void test(Key_v2) { std::print("Entity::test (2)\n"); }
 };
 

@@ -91,7 +91,7 @@ public :
 
 		delete[] m_array;
 	}
-	
+
 //  --------------------------------------------------------------------------------
 
 //	auto & operator=(Vector const & other) // error

@@ -77,7 +77,7 @@ public :
 private :
 
     int       m_x = 0;
-          
+
     int const m_y = 0;
 };
 
@@ -90,7 +90,7 @@ int main()
 //	Entity entity_2(); // error
 
 	Entity entity_3(3, 3);
-	
+
 	Entity entity_4(4);
 
 //  -----------------------------------

@@ -42,7 +42,7 @@ public :
 
 //  -------------------------------------------------------------
 
-    void set(int x) 
+    void set(int x)
     {
         if (x > 0)
         {
@@ -61,7 +61,7 @@ public :
 
 private :
 
-	class Cache 
+	class Cache
 	{
 	public :
 

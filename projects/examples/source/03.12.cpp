@@ -24,22 +24,22 @@ class Entity
 {
 public :
 
-	void test_v1() const 
-	{ 
+	void test_v1() const
+	{
 		std::print("Entity::test_v1\n");
 	}
 
 protected :
 
-	void test_v2() const 
-	{ 
+	void test_v2() const
+	{
 		std::print("Entity::test_v2\n");
 	}
 };
 
 /////////////////////////////////////////
 
-class Client_v1 : private Entity 
+class Client_v1 : private Entity
 {
 public :
 
@@ -53,7 +53,7 @@ public :
 
 /////////////////////////////////////////
 
-class Client_v2 
+class Client_v2
 {
 public :
 
@@ -64,7 +64,7 @@ public :
 	//	m_entity.test_v2(); // error
 	}
 
-private : 
+private :
 
 	Entity m_entity;
 };

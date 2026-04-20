@@ -27,8 +27,8 @@ public :
 
     auto operator<=>(Entity const & other) const
     {
-        if (m_x == 0 || other.m_x == 0)           
-        { 
+        if (m_x == 0 || other.m_x == 0)
+        {
             return std::partial_ordering::unordered;
         }
 
@@ -49,7 +49,7 @@ private :
 int main()
 {
     Entity entity_1(1, 1);
-    
+
     Entity entity_2(2, 2);
 
     Entity entity_3(2, 3);

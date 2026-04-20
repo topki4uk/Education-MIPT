@@ -37,7 +37,7 @@
 
 /////////////////////////////////////////////////////////////
 
-class Entity 
+class Entity
 {
 public :
 
@@ -53,7 +53,7 @@ public :
 //  ------------------------------------
 
 	virtual void test() const
-	{ 
+	{
 		std::print("Entity::test\n");
 	}
 };
@@ -72,14 +72,14 @@ public :
 //  ------------------------------------
 
 	void test() const override final
-	{ 
+	{
 		std::print("Client::test\n");
 	}
 };
 
 /////////////////////////////////////////////////////////////
 
-class Server final : public Entity 
+class Server final : public Entity
 {
 public:
 

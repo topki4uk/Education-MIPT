@@ -44,7 +44,7 @@ public :
 /////////////////////////////////////////////////
 
 void Entity::test_v1() const
-{ 
+{
 	std::print("Entity::test_v1\n");
 }
 
@@ -54,10 +54,10 @@ class Client : public Entity
 {
 public :
 
-    void test_v1() const override 
-	{ 
+    void test_v1() const override
+	{
 		std::print("Client::test_v1\n");
-		
+
 		Entity::test_v1();
 	}
 };
@@ -68,10 +68,10 @@ class Server : public Entity
 {
 public :
 
-    void test_v1() const override 
-	{ 
+    void test_v1() const override
+	{
 		std::print("Server::test_v1\n");
-		
+
 		Entity::test_v1();
 	}
 };

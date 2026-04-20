@@ -42,7 +42,7 @@ int main()
 //  ------------------------------------------------------
 
 	assert((x += y) == boost::rational < int > (+3, 1));
-	
+
 	assert((x -= y) == boost::rational < int > (+1, 1));
 
 	assert((x *= y) == boost::rational < int > (+2, 1));

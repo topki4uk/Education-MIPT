@@ -16,8 +16,8 @@
 
 //////////////////////////////////////////////////
 
-class Entity_v1 
-{ 
+class Entity_v1
+{
 public :
 
 	virtual ~Entity_v1() = default;
@@ -29,7 +29,7 @@ class Client_v1 : public Entity_v1 {};
 
 //////////////////////////////////////////////////
 
-class Entity_v2 
+class Entity_v2
 {
 public :
 
@@ -38,7 +38,7 @@ public :
 //  ----------------------------------------------
 
 	virtual Entity_v1 * make_entity_v1() const
-	{ 
+	{
 		std::print("Entity_v2::make_entity_v1\n");
 
 		return new Entity_v1;
@@ -51,8 +51,8 @@ class Client_v2 : public Entity_v2
 {
 public :
 
-	Client_v1 * make_entity_v1() const override 
-	{ 
+	Client_v1 * make_entity_v1() const override
+	{
 		std::print("Client_v2::make_entity_v1\n");
 
 		return new Client_v1;

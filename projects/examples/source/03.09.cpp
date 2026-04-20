@@ -39,7 +39,7 @@ private :
 
 //  --------------------------------------
 
-    static void test_v1() 
+    static void test_v1()
     {
         std::print("Attorney::test_v1\n");
 
@@ -48,7 +48,7 @@ private :
 
 //  --------------------------------------
 
-    static void test_v2() 
+    static void test_v2()
     {
         std::print("Attorney::test_v2\n");
     }

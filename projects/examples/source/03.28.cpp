@@ -38,11 +38,11 @@ public :
 
 ////////////////////////////////////////////////////////////////////
 
-auto make_entity_v1() 
+auto make_entity_v1()
 {
 	std::print("make_entity_v1\n");
 
-	return Entity(); 
+	return Entity();
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ auto make_entity_v2()
 	Entity entity;
 
 //	return std::move(entity); // error
-	
+
 	return entity;
 }
 
@@ -72,7 +72,7 @@ auto make_entity_v3(Entity entity)
 int main()
 {
     [[maybe_unused]] auto entity_1 = make_entity_v1();
-	
+
 	[[maybe_unused]] auto entity_2 = make_entity_v2();
 
 //  ----------------------------------------------------------

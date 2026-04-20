@@ -22,7 +22,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 
-class Entity 
+class Entity
 {
 public :
 
@@ -40,7 +40,7 @@ int main()
 	auto x = 1, & y = x;
 
 //  -----------------------------------------------------------------------------
-		
+
 	Entity * entity = new Client;
 
 //  -----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ int main()
 //  -----------------------------------------------------------------------------
 
 	assert(type_id_with_cvr < decltype(      x) > ().pretty_name() == "int"    );
-	
+
 	assert(type_id_with_cvr < decltype(      y) > ().pretty_name() == "int&"   );
 
 	assert(type_id_with_cvr < decltype( entity) > ().pretty_name() == "Entity*");

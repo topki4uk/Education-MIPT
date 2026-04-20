@@ -38,7 +38,7 @@ public :
 //  -------------------------
 
     auto get() const
-    { 
+    {
     //	++m_x; // error
 
         return m_x;
@@ -47,14 +47,14 @@ public :
 //  -------------------------
 
 //	void set_v1(int x) // bad
-//  { 
-//      m_x = x; 
+//  {
+//      m_x = x;
 //  }
 
 //  -------------------------
 
-    void set_v2(int x) 
-    { 
+    void set_v2(int x)
+    {
         if (x > 0)
         {
             m_x = x;
@@ -86,7 +86,7 @@ int main()
     Entity const entity_2(2);
 
 //  ----------------------------
-		
+
     assert(entity_1.get() == 1);
 
     assert(entity_2.get() == 2);
@@ -98,7 +98,7 @@ int main()
 //  entity_2.set_v2(3); // error
 
 //  ----------------------------
-		
+
     assert(entity_1.get() == 2);
 
     assert(entity_2.get() == 2);

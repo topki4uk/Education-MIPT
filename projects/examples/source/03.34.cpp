@@ -35,7 +35,7 @@ public :
 //  ---------------------------------------------------------------------------------
 
     friend auto & operator<<(std::ostream & stream, Entity const & entity)
-    {        
+    {
         return entity.put(stream << "{ ") << " }";
     }
 
@@ -52,7 +52,7 @@ private :
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-class Client : public Entity 
+class Client : public Entity
 {
 public :
 
@@ -64,7 +64,7 @@ public :
 //  --------------------------------------------------------
 
     std::ostream & put(std::ostream & stream) const override
-    { 
+    {
         return Entity::put(stream) << ", " << m_y;
     }
 
@@ -82,7 +82,7 @@ int main()
     std::stringstream stream_2;
 
 //  -----------------------------------------
-    
+
     Entity * entity = new Client;
 
 //  -----------------------------------------

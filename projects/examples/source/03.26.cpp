@@ -30,15 +30,15 @@ public :
 ////////////////////////////////////////////////////////////////
 
 auto   make_entity_v1() {        Entity entity; return entity; }
-	  
+
 auto & make_entity_v2() { static Entity entity; return entity; }
 
 ////////////////////////////////////////////////////////////////
 
 int main()
-{		
+{
 	make_entity_v1().test();
-		
+
 	make_entity_v2().test();
 }
 

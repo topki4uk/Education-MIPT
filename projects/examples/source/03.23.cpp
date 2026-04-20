@@ -25,7 +25,7 @@ struct Entity {};
 ////////////////////////////////////////////////////////////////////////////
 
 auto         make_entity_v1() { return Entity(); }
-	  
+
 auto const   make_entity_v2() { return Entity(); }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@ int main()
 
 //  -----------------------------------------------------------------------
 
-    [[maybe_unused]] Entity       && entity_09 = make_entity_v1(); 
+    [[maybe_unused]] Entity       && entity_09 = make_entity_v1();
 
 //  [[maybe_unused]] Entity       && entity_10 = make_entity_v2(); // error
 
@@ -68,9 +68,9 @@ int main()
 
 //  -----------------------------------------------------------------------
 
-    [[maybe_unused]] Entity const && entity_13 = make_entity_v1(); 
+    [[maybe_unused]] Entity const && entity_13 = make_entity_v1();
 
-    [[maybe_unused]] Entity const && entity_14 = make_entity_v2(); 
+    [[maybe_unused]] Entity const && entity_14 = make_entity_v2();
 
 //  [[maybe_unused]] Entity const && entity_15 = make_entity_v3(); // error
 

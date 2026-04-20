@@ -56,7 +56,7 @@ public :
 //  -------------------------------------------------------------------------------------------
 
 	explicit operator double() const
-	{ 
+	{
 		return 1.0 * m_num / m_den;
 	}
 
@@ -67,7 +67,7 @@ public :
 		auto lcm = std::lcm(m_den, other.m_den);
 
 		m_num = m_num * (lcm / m_den) + other.m_num * (lcm / other.m_den);
-		
+
 		m_den = lcm;
 
 		reduce();
@@ -77,8 +77,8 @@ public :
 
 //  -------------------------------------------------------------------------------------------
 
-	auto & operator-=(Rational const & other) 
-	{ 
+	auto & operator-=(Rational const & other)
+	{
 		return *this += Rational(other.m_num * -1, other.m_den);
 	}
 
@@ -96,9 +96,9 @@ public :
 	}
 
 //  -------------------------------------------------------------------------------------------
-	
-	auto & operator/=(Rational const & other) 
-	{ 
+
+	auto & operator/=(Rational const & other)
+	{
 		return *this *= Rational(other.m_den, other.m_num);
 	}
 
@@ -134,7 +134,7 @@ public :
 //  -------------------------------------------------------------------------------------------
 
 	friend auto operator> (Rational const & lhs, Rational const & rhs) { return  (rhs < lhs); }
-	
+
 	friend auto operator<=(Rational const & lhs, Rational const & rhs) { return !(lhs > rhs); }
 
 	friend auto operator>=(Rational const & lhs, Rational const & rhs) { return !(lhs < rhs); }
@@ -273,7 +273,6 @@ int main()
 //  -----------------------------------------------------------------------
 
 	assert((x <  y) == 0);
-	
 	assert((x >  y) == 0);
 
 	assert((x <= y) == 1);
@@ -289,7 +288,7 @@ int main()
 	std::stringstream stream_1("1/2");
 
 	std::stringstream stream_2;
-	
+
 //  -----------------------------------------------------------------------
 
 	stream_1 >> x;

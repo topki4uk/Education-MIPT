@@ -64,7 +64,7 @@ struct Server { Client * client = nullptr; };
 int main()
 {
 	Entity entity_1(1);
-	
+
 	Entity entity_2(2);
 
 //  -------------------------

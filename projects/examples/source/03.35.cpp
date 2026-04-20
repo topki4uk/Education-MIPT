@@ -24,7 +24,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-class Vector 
+class Vector
 {
 public :
 
@@ -32,7 +32,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-    auto const & operator[](std::size_t index) const 
+    auto const & operator[](std::size_t index) const
     {
         std::print("Vector::operator[] (1)\n");
 

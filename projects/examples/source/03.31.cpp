@@ -30,7 +30,7 @@ public :
 //  --------------------------------------------------
 
     auto operator<=>(Entity const & other) const
-    { 
+    {
         auto comparison = m_x <=> other.m_x;
 
         if (comparison != std::strong_ordering::equal)
