@@ -1,56 +1,46 @@
-///////////////////////////////////////////////
+//////////////////////////////////////////
 
 // chapter : Parallelism
 
-///////////////////////////////////////////////
+//////////////////////////////////////////
 
 // section : Processors
 
-///////////////////////////////////////////////
+//////////////////////////////////////////
 
 // content : Chip Pervasive Logic
-//
-// content : Built-In Self-Testing and Boosting
 //
 // content : Interconnections
 //
 // content : Cache L2
 //
-// content : Translation Lookaside Buffers
-//
 // content : Tags
 //
-// content : Instruction Cache L1
+// content : Translation Lookaside Buffers
 //
-// content : Register RIP
+// content : Instruction Register
 //
-// content : Decoder
+// content : Cache L1I
 //
-// content : Fetching, Decoding and Renaming
-//
-// content : Predictor
+// content : Branch Predictor
 //
 // content : Branch Target Buffers
 //
+// content : Decoder
+//
 // content : Microcode ROM and Cache
+//
+// content : Microoperations
 //
 // content : Execution Engine
 //
 // content : Scheduler
 //
-// content : Out-Of-Order Execution Policy
-//
 // content : Re-Order Buffer
 //
-// content : Load and Store Buffers
+// content : Load and Store Unit
 //
-// content : Memory Order Buffer
-//
-// content : Address Generation Unit
-//
-// content : Data Cache L1
-//
-// content : Cache Coherence Protocol MESI
+// content : Cache L1D
 //
 // content : Arithmetic Logic Unit
 //
@@ -60,8 +50,6 @@
 //
 // content : Vector Regfile
 //
-// content : Single Instruction Multiple Data
-//
 // content : Simultaneous Multithreading
 
-///////////////////////////////////////////////
+//////////////////////////////////////////
