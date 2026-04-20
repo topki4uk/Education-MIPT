@@ -41,11 +41,11 @@
 
 void order(std::vector < int > & vector, std::size_t left, std::size_t right)
 {
-	for (auto i = left + 1; i < right; ++i) 
+	for (auto i = left + 1; i < right; ++i)
 	{
 		for (auto j = i; j > left; --j)
 		{
-			if (vector[j - 1] > vector[j]) 
+			if (vector[j - 1] > vector[j])
 			{
 				std::swap(vector[j], vector[j - 1]);
 			}
@@ -61,7 +61,7 @@ void merge(std::vector < int > & vector_1, std::size_t left, std::size_t right)
 
 	std::vector < int > vector_2(size, 0);
 
-	for (auto i = left, j = middle, k = 0uz; k < size; ++k) 
+	for (auto i = left, j = middle, k = 0uz; k < size; ++k)
 	{
 		if (i < middle && ((j < right && vector_1[i] <= vector_1[j]) || j == right))
 		{
@@ -73,7 +73,7 @@ void merge(std::vector < int > & vector_1, std::size_t left, std::size_t right)
 		}
 	}
 
-	for (auto i = 0uz, j = 0uz; j < size; ++j) 
+	for (auto i = 0uz, j = 0uz; j < size; ++j)
 	{
 		vector_1[left + i++] = vector_2[j];
 	}
@@ -88,7 +88,7 @@ void split(std::vector < int > & vector, std::size_t left, std::size_t right)
 		auto middle = std::midpoint(left, right);
 
 		split(vector, left,   middle);
-		
+
 		split(vector, middle, right );
 
 		merge(vector, left,   right );

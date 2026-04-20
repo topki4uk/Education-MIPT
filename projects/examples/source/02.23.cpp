@@ -38,8 +38,8 @@ int main()
 			std::print("main : enter int x : "); std::cin >> x;
 
 		//  ---------------------------------------------------
-			
-			if (x == 0) 
+
+			if (x == 0)
 			{
 				goto label;
 			}

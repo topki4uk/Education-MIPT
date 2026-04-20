@@ -53,7 +53,7 @@ int main()
 //  -----------------------------------------------------
 
 	assert(std::numeric_limits < char > ::max() == +127);
-		
+
 	assert(std::numeric_limits < char > ::min() == -128);
 }
 

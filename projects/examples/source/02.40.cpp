@@ -25,15 +25,15 @@
 
 /////////////////////////////////////////////////////////////////////
 
-void test(int x, int * y, int & z) 
-{ 
+void test(int x, int * y, int & z)
+{
 	++x, ++(*y), ++z;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void show(int * array, std::size_t size) 
-{ 
+void show(int * array, std::size_t size)
+{
 	std::print("show : array = {{ ");
 
 	for (auto i = 0uz; i < size; ++i)
@@ -41,13 +41,13 @@ void show(int * array, std::size_t size)
 		std::print("{} ", array[i]);
 	}
 
-	std::print("}}\n"); 
+	std::print("}}\n");
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void show(std::span < int const > span) 
-{ 
+void show(std::span < int const > span)
+{
 	std::print("show : span = {{ ");
 
 	for (auto i = 0uz; i < std::size(span); ++i)
@@ -60,8 +60,8 @@ void show(std::span < int const > span)
 
 /////////////////////////////////////////////////////////////////////
 
-void show(std::string const & string) 
-{ 
+void show(std::string const & string)
+{
 	std::print("show : string = {{ ");
 
 	for (auto i = 0uz; i < std::size(string); ++i)
@@ -74,8 +74,8 @@ void show(std::string const & string)
 
 /////////////////////////////////////////////////////////////////////
 
-void show(std::vector < int > const & vector) 
-{ 
+void show(std::vector < int > const & vector)
+{
 	std::print("show : vector = {{ ");
 
 	for (auto i = 0uz; i < std::size(vector); ++i)
@@ -83,7 +83,7 @@ void show(std::vector < int > const & vector)
 		std::print("{} ", vector[i]);
 	}
 
-	std::print("}}\n"); 
+	std::print("}}\n");
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ int main()
     auto x = 1, y = 2, z = 3;
 
 //  -----------------------------------------------
-	
+
 	test(x, &y, z);
 
 //  -----------------------------------------------
@@ -111,7 +111,7 @@ int main()
 //  -----------------------------------------------
 
 	show(array, size);
-    
+
 //  -----------------------------------------------
 
 	show(std::span < int const > (array, size));

@@ -28,7 +28,7 @@ int main()
 	do
 	{
 		std::print("main : enter int x : "); std::cin >> x;
-	} 
+	}
 	while (x > 0);
 }
 

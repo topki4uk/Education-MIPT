@@ -19,7 +19,7 @@
 // content : Type void
 //
 // content : Dereferencing Pointers
-// 
+//
 // content : Operator *
 //
 // content : Literal nullptr

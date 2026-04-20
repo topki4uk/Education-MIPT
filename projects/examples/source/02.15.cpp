@@ -8,7 +8,7 @@
 
 ///////////////////////////////////////////////
 
-// content : Operator / 
+// content : Operator /
 //
 // content : Comparing Floating-Point Numbers
 //

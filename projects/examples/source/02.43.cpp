@@ -36,8 +36,8 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-auto factorial(int x) -> int 
-{ 
+auto factorial(int x) -> int
+{
 	return x > 1 ? x * factorial(x - 1) : 1;
 }
 
@@ -64,15 +64,15 @@ auto combination_v2(int x, int y) -> int
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-auto catalan_v1(int x) 
-{ 
+auto catalan_v1(int x)
+{
 	return combination_v1(2 * x, x) / (x + 1);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-auto catalan_v2(int x) 
-{ 
+auto catalan_v2(int x)
+{
 	return combination_v2(2 * x, x) - combination_v2(x * x, x - 1);
 }
 
@@ -88,7 +88,7 @@ auto catalan_v3(std::size_t size, std::size_t left = 0, std::size_t right = 0) -
 
 		if (left > right) { counter += catalan_v3(size, left,     right + 1); }
 	}
-	
+
 	return counter > 0 ? counter : 1uz;
 }
 
@@ -114,11 +114,11 @@ auto catalan_v4(std::size_t size, std::size_t left = 0, std::size_t right = 0) -
 int main()
 {
 	assert(catalan_v1(5) == 42);
-	
+
 	assert(catalan_v2(5) == 42);
 
 	assert(catalan_v3(5) == 42);
-	
+
 	assert(catalan_v4(5) == 42);
 }
 

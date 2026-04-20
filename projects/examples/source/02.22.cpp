@@ -34,7 +34,7 @@ int main()
 		std::print("main : enter int x : "); std::cin >> x;
 
 	//  ---------------------------------------------------
-			
+
 		if (x == 0)
 		{
 			break; // support : compiler-explorer.com
@@ -48,7 +48,7 @@ int main()
 		std::print("main : enter int x : "); std::cin >> x;
 
 	//  ---------------------------------------------------
-			
+
 		if (x == 0)
 		{
 			break;

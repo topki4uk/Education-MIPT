@@ -26,7 +26,7 @@ int main()
     std::print("main : enter int x : "); std::cin >> x;
 
 //  -----------------------------------------------------------
-    
+
     std::print("main : selection {}\n", x > 0 ? "(1)" : "(2)");
 }
 

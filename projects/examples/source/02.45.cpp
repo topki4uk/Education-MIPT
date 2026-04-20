@@ -31,7 +31,7 @@ auto find(std::vector < int > const & vector, int x)
 		auto left = 0uz, right = size - 1, middle = 0uz;
 
 		while (left < right)
-		{		
+		{
 			middle = std::midpoint(left, right);
 
 			vector[middle] < x ? left = middle + 1 : right = middle;
@@ -39,7 +39,7 @@ auto find(std::vector < int > const & vector, int x)
 
 		return vector[left] == x;
 	}
-	
+
 	return false;
 }
 

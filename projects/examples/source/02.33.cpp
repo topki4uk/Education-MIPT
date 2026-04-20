@@ -17,7 +17,7 @@
 int main()
 {
     auto       x = 1;
-	
+
 	auto const y = 2;
 
 //  ---------------------------------------------
@@ -33,7 +33,7 @@ int main()
 	[[maybe_unused]] int const & z4 = x;
 
 	[[maybe_unused]] int const & z5 = y;
-	
+
     [[maybe_unused]] int const & z6 = 3;
 }
 

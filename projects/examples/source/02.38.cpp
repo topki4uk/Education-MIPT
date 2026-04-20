@@ -10,7 +10,7 @@
 
 // content : Procedural Programming
 //
-// content : Procedures 
+// content : Procedures
 //
 // content : Default Arguments
 
@@ -21,14 +21,14 @@
 /////////////////////////////////////////////////////
 
 void test_v1(int x, int y = 0)
-{ 
+{
 	std::print("test_v1 : x = {} y = {}\n", x, y);
 }
 
 /////////////////////////////////////////////////////
 
 // void test_v2(int x = 0, int y) // error
-// { 
+// {
 //     std::print("test_v2 : x = {} y = {}\n", x, y);
 // }
 

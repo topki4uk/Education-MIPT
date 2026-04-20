@@ -36,7 +36,7 @@ int main()
     switch (auto y = x; y) // support : compiler-explorer.com
     {
         [[likely]] case 1 :
-            
+
         [[likely]] case 2 :
 
     //  ---------------------------------------------------------
@@ -44,9 +44,9 @@ int main()
         [[likely]] case 3 :
         {
             std::print("main : selection (1)\n");
-            
+
         //  -------------------------------------
-            
+
             [[fallthrough]];
         }
 
@@ -57,13 +57,13 @@ int main()
         case 5 : { std::print("main : selection (3)\n"); break; }
 
     //  ---------------------------------------------------------
-        
+
         [[unlikely]] default :
         {
             std::print("main : selection (4)\n");
 
         //  -------------------------------------
-            
+
             break;
         }
     }

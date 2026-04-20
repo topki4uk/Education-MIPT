@@ -25,9 +25,9 @@ int main()
 //	assert // bad
 //  (
 //      static_cast < bool > (x) ==
-//        
+//
 //      static_cast < bool > (y)
-//  ); 
+//  );
 
 //  -------------------------------
 
