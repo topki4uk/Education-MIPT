@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 template < typename T > class is_integral : public std::integral_constant
-< 
+<
 	bool, std::is_same_v < T, bool > ||
 
           std::is_same_v < T, char > ||

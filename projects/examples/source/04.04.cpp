@@ -23,9 +23,9 @@
 ////////////////////////////////////////////////////////
 
 template
-< 
+<
 	typename T, std::size_t S1, std::size_t S2
-> 
+>
 auto max(T const (&array_1)[S1], T const (&array_2)[S2])
 {
 	for (auto i = 0uz; i < std::min(S1, S2); ++i)

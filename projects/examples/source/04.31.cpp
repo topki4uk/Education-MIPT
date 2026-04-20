@@ -23,8 +23,8 @@ template < typename T > std::add_rvalue_reference_t < T > declval();
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-class Entity 
-{ 
+class Entity
+{
 private :
 
 	Entity() = default;

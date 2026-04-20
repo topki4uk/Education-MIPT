@@ -34,7 +34,7 @@ public :
 	Tuple(T && x, Ts && ... xs)
 	:
 		m_head(std::forward < T  > (x )   ),
-		
+
 		m_tail(std::forward < Ts > (xs)...)
 	{}
 
@@ -55,7 +55,7 @@ public :
 private :
 
 	T m_head;
-	
+
 	Tuple < Ts ... > m_tail;
 };
 

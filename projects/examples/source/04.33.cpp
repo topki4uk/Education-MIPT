@@ -33,7 +33,7 @@ private :
 	);
 
 public :
-      
+
 	constexpr static auto value = decltype(test < B > (1))::value;
 };
 
@@ -43,8 +43,8 @@ template < typename B > constexpr auto is_polymorphic_v = is_polymorphic < B > :
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-class Entity 
-{ 
+class Entity
+{
 public :
 
 	virtual ~Entity() = default;

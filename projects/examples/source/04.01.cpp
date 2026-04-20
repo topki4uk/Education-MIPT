@@ -48,7 +48,7 @@ template < typename T > T max_v1(T x, T y)
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T1, typename T2 > T1 max_v2(T1 x, T2 y) 
+template < typename T1, typename T2 > T1 max_v2(T1 x, T2 y)
 {
 	return x < y ? y : x;
 }
@@ -109,7 +109,7 @@ int main()
     assert(equal(max_v1(1,   2  ), 2)); // support : cppinsights.io
 
 	assert(equal(max_v1(1.0, 2.0), 2)); // support : cppinsights.io
- 
+
 //	assert(equal(max_v1(1,   2.0), 2)); // error
 
 //  ---------------------------------------------------------------
@@ -137,7 +137,7 @@ int main()
 //  ---------------------------------------------------------------
 
 	assert(equal(max_v5(1, 2.0), 2));
-		
+
 	assert(equal(max_v6(1, 2.0), 2));
 
 	assert(equal(max_v7(1, 2.0), 2));
@@ -149,7 +149,7 @@ int main()
 	assert(equal(std::max(1,   2  ), 2));
 
 	assert(equal(std::max(1.0, 2.0), 2));
-	
+
 //	assert(equal(std::max(1,   2.0), 2)); // error
 }
 

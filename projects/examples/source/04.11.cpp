@@ -47,15 +47,15 @@ public :
 
 //  ----------------------------------------------------------------------
 
-	auto & operator-=(Rational const & other) 
-	{ 
+	auto & operator-=(Rational const & other)
+	{
 		return *this += Rational(other.m_num * -1, other.m_den);
 	}
 
 //  ----------------------------------------------------------------------
 
 	friend auto operator+ (Rational lhs, Rational const & rhs)
-	{ 
+	{
 		return lhs += rhs;
 	}
 
@@ -92,7 +92,7 @@ private :
 //////////////////////////////////////////////////////////////////////////////////////
 
 template < typename T > auto operator-(Rational < T > lhs, Rational < T > const & rhs)
-{ 
+{
 	return lhs -= rhs;
 }
 

@@ -10,7 +10,7 @@
 
 // content : Wrapper std::tuple
 //
-// content : Function std::make_tuple 
+// content : Function std::make_tuple
 //
 // content : Metafunction std::tuple_size
 //

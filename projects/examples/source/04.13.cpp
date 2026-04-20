@@ -36,28 +36,28 @@ auto const & make_entity_v4() { static Entity const entity; return entity; }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-auto make_typename_v1(auto entity) 
+auto make_typename_v1(auto entity)
 {
 	return boost::typeindex::type_id_with_cvr < decltype(entity) > ().pretty_name();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-auto make_typename_v2(auto & entity) 
+auto make_typename_v2(auto & entity)
 {
 	return boost::typeindex::type_id_with_cvr < decltype(entity) > ().pretty_name();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-auto make_typename_v3(auto const & entity) 
+auto make_typename_v3(auto const & entity)
 {
 	return boost::typeindex::type_id_with_cvr < decltype(entity) > ().pretty_name();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-auto make_typename_v4(auto && entity) 
+auto make_typename_v4(auto && entity)
 {
 	return boost::typeindex::type_id_with_cvr < decltype(entity) > ().pretty_name();
 }

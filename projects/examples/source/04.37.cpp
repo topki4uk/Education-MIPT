@@ -31,7 +31,7 @@ template < typename R > concept range = requires (R range)
 
 /////////////////////////////////////////////////////////////////////////
 
-template < typename R > concept sized_range = 
+template < typename R > concept sized_range =
 (
     range < R > && requires (R range){ std::size(range); }
 );

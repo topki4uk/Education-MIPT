@@ -17,7 +17,7 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-template < typename T, std::size_t S1, std::size_t S2 > struct Array 
+template < typename T, std::size_t S1, std::size_t S2 > struct Array
 {
     T array[S1][S2]{};
 };

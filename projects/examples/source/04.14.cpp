@@ -35,29 +35,29 @@ using namespace std::literals;
 class Entity_v1
 {
 public :
-	
-	Entity_v1(std::string const & string) : m_string(string) 
+
+	Entity_v1(std::string const & string) : m_string(string)
 	{
 		std::print("Entity_v1::Entity_v1 (1)\n");
 	}
 
 //  -------------------------------------------------------------------
 
-	Entity_v1(std::string && string) : m_string(std::move(string)) 
+	Entity_v1(std::string && string) : m_string(std::move(string))
 	{
 		std::print("Entity_v1::Entity_v1 (2)\n");
 	}
 
 //  -------------------------------------------------------------------
-	
-	Entity_v1(Entity_v1 const & other) : m_string(other.m_string) 
+
+	Entity_v1(Entity_v1 const & other) : m_string(other.m_string)
 	{
 		std::print("Entity_v1::Entity_v1 (3)\n");
 	}
 
 //  -------------------------------------------------------------------
 
-	Entity_v1(Entity_v1 && other) : m_string(std::move(other.m_string)) 
+	Entity_v1(Entity_v1 && other) : m_string(std::move(other.m_string))
 	{
 		std::print("Entity_v1::Entity_v1 (4)\n");
 	}
@@ -72,22 +72,22 @@ private :
 class Entity_v2
 {
 public :
-	
+
     template < typename S > Entity_v2(S && string) : m_string(std::forward < S > (string))
 	{
 		std::print("Entity_v2::Entity_v2 (1)\n");
 	}
 
 //  --------------------------------------------------------------------------------------
-	
-	Entity_v2(Entity_v2 const & other) : m_string(other.m_string) 
+
+	Entity_v2(Entity_v2 const & other) : m_string(other.m_string)
 	{
 		std::print("Entity_v2::Entity_v2 (2)\n");
 	}
 
 //  --------------------------------------------------------------------------------------
 
-	Entity_v2(Entity_v2 && other) : m_string(std::move(other.m_string)) 
+	Entity_v2(Entity_v2 && other) : m_string(std::move(other.m_string))
 	{
 		std::print("Entity_v2::Entity_v2 (3)\n");
 	}
@@ -102,13 +102,13 @@ private :
 class Entity_v3
 {
 public :
-	
-    template 
-	< 
-		typename S, typename = std::enable_if_t 
-		< 
-			std::is_convertible_v < S, std::string > , void 
-		> 
+
+    template
+	<
+		typename S, typename = std::enable_if_t
+		<
+			std::is_convertible_v < S, std::string > , void
+		>
 	>
 	Entity_v3(S && string) : m_string(std::forward < S > (string))
 	{
@@ -116,15 +116,15 @@ public :
 	}
 
 //  -------------------------------------------------------------------
-	
-	Entity_v3(Entity_v3 const & other) : m_string(other.m_string) 
+
+	Entity_v3(Entity_v3 const & other) : m_string(other.m_string)
 	{
 		std::print("Entity_v3::Entity_v3 (2)\n");
 	}
 
 //  -------------------------------------------------------------------
 
-	Entity_v3(Entity_v3 && other) : m_string(std::move(other.m_string)) 
+	Entity_v3(Entity_v3 && other) : m_string(std::move(other.m_string))
 	{
 		std::print("Entity_v3::Entity_v3 (3)\n");
 	}
@@ -139,24 +139,24 @@ private :
 class Entity_v4
 {
 public :
-	
+
     template < std::convertible_to < std::string > S > Entity_v4(S && string)
-	: 
+	:
 		m_string(std::forward < S > (string))
 	{
 		std::print("Entity_v4::Entity_v4 (1)\n");
 	}
 
 //  -------------------------------------------------------------------------
-	
-	Entity_v4(Entity_v4 const & other) : m_string(other.m_string) 
+
+	Entity_v4(Entity_v4 const & other) : m_string(other.m_string)
 	{
 		std::print("Entity_v4::Entity_v4 (2)\n");
 	}
 
 //  -------------------------------------------------------------------------
 
-	Entity_v4(Entity_v4 && other) : m_string(std::move(other.m_string)) 
+	Entity_v4(Entity_v4 && other) : m_string(std::move(other.m_string))
 	{
 		std::print("Entity_v4::Entity_v4 (3)\n");
 	}

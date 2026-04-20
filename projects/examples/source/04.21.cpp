@@ -29,7 +29,7 @@
 template < int N = 0, int D = 1 > struct Ratio
 {
 	constexpr static auto num = N;
-	
+
 	constexpr static auto den = D;
 };
 
@@ -42,7 +42,7 @@ template < typename R1, typename R2 > struct Sum
 	constexpr static auto den = R1::den * R2::den;
 
 //  ------------------------------------------------------------------
-	
+
 	using type = Ratio < num, den > ;
 };
 
@@ -52,24 +52,24 @@ template < typename R1, typename R2 > using sum = typename Sum < R1, R2 > ::type
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T, typename R = Ratio < 1 > > struct Duration 
+template < typename T, typename R = Ratio < 1 > > struct Duration
 {
 	T x = T();
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-template 
-< 
-	typename T1, typename R1, 
-	
-	typename T2, typename R2 
+template
+<
+	typename T1, typename R1,
+
+	typename T2, typename R2
 >
 constexpr auto operator+(Duration < T1, R1 > const & lhs, Duration < T2, R2 > const & rhs)
 {
 	using ratio_t = Ratio < 1, sum < R1, R2 > ::den > ;
 
-	auto x = 
+	auto x =
 	(
 		lhs.x * ratio_t::den / R1::den * R1::num +
 

@@ -45,7 +45,7 @@ void test_v3(std::integral auto x)
 int main()
 {
     test_v1(1);
-    
+
     test_v2(1);
 
     test_v3(1);

@@ -37,16 +37,16 @@ private :
 	);
 
 public :
-      
+
 	constexpr static auto value = decltype(test_v2 < D, B > (1))::value;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 
-template 
-< 
-	typename D, typename B 
-> 
+template
+<
+	typename D, typename B
+>
 constexpr auto is_convertible_v = is_convertible < D, B > ::value;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -59,8 +59,8 @@ class Client : public Entity {};
 
 //////////////////////////////////////////////////////////////////////////////
 
-class Server 
-{ 
+class Server
+{
 public :
 
 	explicit Server(int) {}

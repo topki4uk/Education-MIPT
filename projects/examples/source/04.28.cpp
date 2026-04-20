@@ -18,7 +18,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > struct is_function : std::integral_constant 
+template < typename T > struct is_function : std::integral_constant
 <
     bool, !std::is_const_v < T const > && !std::is_reference_v < T >
 

@@ -38,7 +38,7 @@ consteval auto test_v2(int x) { return x; }
 
 //////////////////////////////////////////////////////////////////////
 
-consteval auto factorial_v1(int x) -> int 
+consteval auto factorial_v1(int x) -> int
 {
 	return x > 1 ? x * factorial_v1(x - 1) : 1;
 }

@@ -16,18 +16,18 @@
 
 ///////////////////////////////////////////////////////////////
 
-template 
-< 
-	typename T, typename ... Ts 
-> 
+template
+<
+	typename T, typename ... Ts
+>
 constexpr auto is_any_of_v = (std::is_same_v < T, Ts > || ...);
 
 ///////////////////////////////////////////////////////////////
 
-template 
-< 
-	typename T, typename ... Ts 
-> 
+template
+<
+	typename T, typename ... Ts
+>
 constexpr auto is_all_of_v = (std::is_same_v < T, Ts > && ...);
 
 ///////////////////////////////////////////////////////////////

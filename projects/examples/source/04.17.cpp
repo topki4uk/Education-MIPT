@@ -31,8 +31,8 @@ template < int X > struct Factorial
 
 ////////////////////////////////////////////////////////////////////////
 
-template <> struct Factorial < 0 > 
-{ 
+template <> struct Factorial < 0 >
+{
 	static inline auto const value = 1;
 };
 

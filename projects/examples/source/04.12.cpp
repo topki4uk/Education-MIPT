@@ -40,14 +40,14 @@ void test_v2(Entity const & entity) { test_v1(entity); }
 //////////////////////////////////////////////////////////////
 
 void test_v2(Entity && entity)
-{ 
+{
 	test_v1(std::move(entity));
 }
 
 //////////////////////////////////////////////////////////////
 
-template < typename E > void test_v3(E && entity) 
-{ 
+template < typename E > void test_v3(E && entity)
+{
 	test_v1(std::forward < E > (entity));
 }
 
@@ -76,7 +76,7 @@ int main()
 	test_v3(entity_2);
 
 //  -----------------------------
-	
+
 	test_v3(std::move(entity_1));
 }
 

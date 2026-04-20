@@ -48,8 +48,8 @@ template < typename D > struct Front {};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T, typename ... Ts > struct Front < Deque < T, Ts ... > > 
-{ 
+template < typename T, typename ... Ts > struct Front < Deque < T, Ts ... > >
+{
     using type = T;
 };
 
@@ -93,15 +93,15 @@ template < typename D > struct Back {};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > struct Back < Deque < T > > 
-{ 
+template < typename T > struct Back < Deque < T > >
+{
     using type = T;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T, typename ... Ts > struct Back < Deque < T, Ts ... > > 
-{ 
+template < typename T, typename ... Ts > struct Back < Deque < T, Ts ... > >
+{
     using type = typename Back < Deque < Ts ... > > ::type;
 };
 
@@ -137,8 +137,8 @@ template < typename D > struct Pop_Back {};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > struct Pop_Back < Deque < T > > 
-{ 
+template < typename T > struct Pop_Back < Deque < T > >
+{
     using type = Deque <> ;
 };
 
@@ -186,9 +186,9 @@ public :
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename D > class Max_Type < D, true > 
-{ 
-public : 
+template < typename D > class Max_Type < D, true >
+{
+public :
 
     using type = std::byte;
 };

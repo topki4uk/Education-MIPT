@@ -37,7 +37,7 @@ int main()
     int * x = nullptr;
 
 //  ------------------
-	
+
 	test_v1(x);
 
 	test_v2(x);
