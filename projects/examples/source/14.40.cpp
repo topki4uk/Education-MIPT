@@ -1,123 +1,89 @@
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+// chapter : Parallelism
+
+//////////////////////////////////////////////////////////////////
+
+// section : Atomics
+
+//////////////////////////////////////////////////////////////////
+
+// content : Microbenchmarking
+//
+// content : Pointer std::shared_ptr
+//
+// content : Reference Counting
+
+//////////////////////////////////////////////////////////////////
 
 #include <atomic>
-#include <functional>
-#include <memory>
-#include <thread>
-#include <tuple>
+#include <vector>
 
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
-#include <boost/noncopyable.hpp>
+#include <benchmark/benchmark.h>
 
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
-template < typename T > class Stack : private boost::noncopyable
+struct alignas(1 * 8) Entity_v1 { int x = 0; };
+
+struct alignas(2 * 8) Entity_v2 { int x = 0; };
+
+//////////////////////////////////////////////////////////////////
+
+void test(benchmark::State & state) 
 {
-private :
+    auto argument = state.range(0);
 
-    struct Node
+    auto size = 1uz << 10;
+
+    std::vector <               Entity_v1   > entities_v1_1(size);
+
+    std::vector < std::atomic < Entity_v1 > > entities_v1_2(size);
+
+    std::vector <               Entity_v2   > entities_v2_1(size);
+
+    std::vector < std::atomic < Entity_v2 > > entities_v2_2(size);
+
+    Entity_v1 entity_v1(1);
+
+    Entity_v2 entity_v2(1);
+
+    for (auto element : state)
     {
-        std::shared_ptr < T > x;
-
-        std::atomic < std::shared_ptr < Node > > next;
-    };
-
-public :
-
-   ~Stack()
-    {
-        while (top_and_pop());
-    }
-
-//  --------------------------------------------------------------------------------
-
-    void push(T x)
-    {
-        auto node = std::make_shared < Node > (std::make_shared < T > (x), nullptr);
-
-        auto expected = m_head.load(std::memory_order::relaxed);
-
-        do
+        for (auto i = 0uz; i < size; ++i)
         {
-            node->next = expected;
-        }
-        while
-        (
-            !m_head.compare_exchange_weak
-            (
-                expected, node,
+            switch (argument)
+            {
+                case 1 : { entities_v1_1[i] = entity_v1; break; }
 
-                std::memory_order::release,
+                case 2 : { entities_v1_2[i] = entity_v1; break; }
 
-                std::memory_order::relaxed
-            )
-        );
-    }
+                case 3 : { entities_v2_1[i] = entity_v2; break; }
 
-//  --------------------------------------------------------------------------------
-
-    auto top_and_pop()
-    {
-        auto head = m_head.load(std::memory_order::relaxed);
-
-        while 
-        (
-            head && !m_head.compare_exchange_weak
-            (
-                head, head->next.load(std::memory_order::relaxed),
-
-                std::memory_order::acquire,
-
-                std::memory_order::relaxed
-            )
-        );
-
-        if (head)
-        {
-            head->next = std::shared_ptr < Node > ();
-
-            return head->x;
+                case 4 : { entities_v2_2[i] = entity_v2; break; }
+            }
         }
 
-        return std::shared_ptr < T > ();
+        benchmark::DoNotOptimize(entities_v1_1);
+
+        benchmark::DoNotOptimize(entities_v1_2);
+
+        benchmark::DoNotOptimize(entities_v2_1);
+
+        benchmark::DoNotOptimize(entities_v2_2);
     }
-
-private :
-
-    std::atomic < std::shared_ptr < Node > > m_head = nullptr;
-};
-
-////////////////////////////////////////////////////////////////////////////////////
-
-void top_and_pop(Stack < int > & stack)
-{
-    std::ignore = stack.top_and_pop();
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+BENCHMARK(test)->Arg(1)->Arg(2)->Arg(3)->Arg(4);
+
+//////////////////////////////////////////////////////////////////
 
 int main()
 {
-    static_assert(!std::atomic < std::shared_ptr < int > >::is_always_lock_free);
-
-//  -----------------------------------------------------------------------------
-
-    Stack < int > stack;
-
-//  -----------------------------------------------------------------------------
-
-    stack.push(1);
-
-    stack.push(2);
-
-//  -----------------------------------------------------------------------------
-
-    {
-        std::jthread jthread_1(top_and_pop, std::ref(stack));
-
-        std::jthread jthread_2(top_and_pop, std::ref(stack));
-    }
+    benchmark::RunSpecifiedBenchmarks();
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////

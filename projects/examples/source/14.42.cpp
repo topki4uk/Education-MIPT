@@ -1,99 +1,90 @@
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
-#include <algorithm>
-#include <barrier>
-#include <functional>
-#include <future>
-#include <memory>
-#include <new>
-#include <ranges>
+// chapter : Parallelism
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// section : Atomics
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// content : Thread Launch Synchronization
+//
+// content : Context Switches
+//
+// content : Function std::this_thread::yield
+
+////////////////////////////////////////////////////////////////////////////////////
+
+#include <atomic>
+#include <chrono>
+#include <format>
+#include <iostream>
+#include <syncstream>
 #include <thread>
-#include <vector>
 
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
-#include <benchmark/benchmark.h>
+using namespace std::literals;
 
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
-#include "08.35.hpp"
-
-//////////////////////////////////////////////////////////////////////////////
-
-class Task
+class Entity
 {
 public :
 
-    auto operator()(std::barrier <> & barrier)
+    void test() const
     {
-        auto kb = 1uz << 10;
-
-        std::vector < void * > vector(kb, nullptr);
-
-        barrier.arrive_and_wait();
-
-        Timer timer;
-
-		for (auto i = 0uz; i < kb; ++i)
-		{
-			vector[i] = operator new(kb);
-		}
-
-		for (auto i = 0uz; i < kb; ++i)
-		{
-			operator delete(vector[i], kb);
-		}
-
-        return timer.elapsed().count();
-    }
-};
-
-//////////////////////////////////////////////////////////////////////////////
-
-void test(benchmark::State & state)
-{
-    auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
-
-    std::vector < std::future < double > > futures(concurrency);
-
-    auto task = std::make_shared < Task > ();
-
-    std::barrier <> barrier(concurrency + 1);
-
-    auto lambda = [](auto & future){ return future.get(); };
-
-    for (auto element : state)
-    {
-        for (auto & future : futures)
+        trace(); 
+        
+        while (!m_x)
         {
-            future = std::async
-            (
-                std::launch::async, &Task::operator(), task, std::ref(barrier)
-            );
+            std::this_thread::yield();
         }
 
-        barrier.arrive_and_wait();
-
-        auto time = *std::ranges::fold_left_first
-        (
-            std::views::transform(futures, lambda), std::plus()
-        );
-
-        state.SetIterationTime(time / concurrency);
-
-		benchmark::DoNotOptimize(*task);
+        trace(); 
     }
-}
 
-//////////////////////////////////////////////////////////////////////////////
+//  --------------------------------------------------------------------------------
 
-BENCHMARK(test);
+    void release() const
+    {
+        m_x = true;
+    }
 
-//////////////////////////////////////////////////////////////////////////////
+private :
+
+    void trace() const
+    {
+        auto id = std::this_thread::get_id();
+
+        std::osyncstream(std::cout) << std::format("Entity::trace : id = {}\n", id);
+    }
+
+//  --------------------------------------------------------------------------------
+
+    mutable std::atomic < bool > m_x = false;
+};
+
+////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-    benchmark::RunSpecifiedBenchmarks();
+    Entity entity;
+
+//  -----------------------------------------------
+
+    std::jthread jthread_1(&Entity::test, &entity);
+
+    std::jthread jthread_2(&Entity::test, &entity);
+
+//  -----------------------------------------------
+
+    std::this_thread::sleep_for(1s);
+
+//  -----------------------------------------------
+
+    entity.release();
 }
 
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////

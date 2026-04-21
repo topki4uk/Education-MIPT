@@ -1,217 +1,108 @@
-// content : Garbage Collectors
+///////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
+// chapter : Parallelism
+
+///////////////////////////////////////////////////////////////////
+
+// section : Atomics
+
+///////////////////////////////////////////////////////////////////
+
+// content : Trivial Types
+//
+// content : Type Trait std::is_trivially_copyable
+//
+// content : Instruction Compare and Swap
+//
+// content : Macro __GCC_HAVE_SYNC_COMPARE_AND_SWAP_X
+
+///////////////////////////////////////////////////////////////////
 
 #include <atomic>
-#include <cstddef>
-#include <functional>
-#include <memory>
-#include <thread>
-#include <tuple>
+#include <print>
+#include <type_traits>
 
-//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-#include <boost/noncopyable.hpp>
+struct alignas(1 * 8) Entity_v1 { int x = 0; };
 
-//////////////////////////////////////////////////////////////////////////
+struct alignas(2 * 8) Entity_v2 { int x = 0; };
 
-template < typename T > class Stack : private boost::noncopyable
+///////////////////////////////////////////////////////////////////
+
+class Entity_v3
 {
-private :
-
-    struct Node
-    {
-        std::shared_ptr < T > x;
-
-        Node * next = nullptr;
-    };
-
 public :
 
-   ~Stack()
+    auto & operator=(Entity_v3 const &)
     {
-        while (top_and_pop_v3());
+        std::print("Entity_v3::operator=\n");
+
+        return *this;
     }
-
-//  ----------------------------------------------------------------------
-
-    void push(T x)
-    {
-        auto node = new Node(std::make_shared < T > (x), nullptr);
-
-        node->next = m_head.load(std::memory_order::relaxed);
-
-        while
-        (
-            !m_head.compare_exchange_weak
-            (
-                node->next, node, 
-
-                std::memory_order::release, 
-
-                std::memory_order::relaxed
-            )
-        );
-    }
-
-//  ----------------------------------------------------------------------
-
-//  void top_and_pop_v1(T & x) // error
-//	{
-//		auto head = m_head.load();
-//
-//		while (!m_head.compare_exchange_weak(head, head->next));
-//
-//		x = head->x;
-//	}
-
-//  ----------------------------------------------------------------------
-
-//  auto top_and_pop_v2() // error
-//  {
-//      auto head = m_head.load();
-//
-//      while (head && !m_head.compare_exchange_weak(head, head->next));
-//
-//      return head ? head->x : std::shared_ptr < T > ();
-//  }
-
-//  ----------------------------------------------------------------------
-
-    auto top_and_pop_v3()
-    {
-        m_counter.fetch_add(1, std::memory_order::relaxed);
-
-        auto head = m_head.load(std::memory_order::relaxed);
-
-        while 
-        (
-            head && !m_head.compare_exchange_weak
-            (
-                head, head->next,
-
-                std::memory_order::acquire,
-
-                std::memory_order::relaxed
-            )
-        );
-
-        std::shared_ptr < T > x;
-
-        if (head)
-        {
-            x.swap(head->x);
-        }
-
-        try_clear(head);
-
-        return x;
-    }
-
-private :
-
-    void try_clear(Node * head)
-    {
-        if (m_counter.load(std::memory_order::relaxed) == 1)
-        {
-            auto tail = m_tail.exchange(nullptr);
-
-            if (!(m_counter.fetch_sub(1, std::memory_order::relaxed) - 1))
-            {
-                clear(tail);
-            }
-            else if (tail)
-            {
-                save_nodes(tail);
-            }
-
-            delete head;
-        }
-        else
-        {
-            save_node(head);
-
-            m_counter.fetch_sub(1, std::memory_order::relaxed);
-        }
-    }
-
-//  ----------------------------------------------------------------------
-
-    void clear(Node * nodes) const
-    {
-        while (nodes)
-        {
-            auto next = nodes->next;
-
-            delete nodes;
-
-            nodes = next;
-        }
-    }
-
-//  ----------------------------------------------------------------------
-
-    void save_nodes(Node * nodes)
-    {
-        auto end = nodes;
-
-        while(auto next = end->next)
-        {
-            end = next;
-        }
-
-        save_nodes(nodes, end);
-    }
-
-//  ----------------------------------------------------------------------
-
-    void save_nodes(Node * begin, Node * end)
-    {
-        end->next = m_tail;
-
-        while (!m_tail.compare_exchange_weak(end->next, begin));
-    }
-
-//  ----------------------------------------------------------------------
-
-    void save_node(Node * node)
-    {
-        save_nodes(node, node);
-    }
-
-//  ----------------------------------------------------------------------
-
-    std::atomic < Node * > m_head = nullptr, m_tail = nullptr;
-
-    std::atomic < std::size_t > m_counter = 0;
 };
 
-//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-void top_and_pop(Stack < int > & stack)
+class Entity_v4
 {
-    std::ignore = stack.top_and_pop_v3();
-}
+public :
 
-//////////////////////////////////////////////////////////////////////////
+   ~Entity_v4() {};
+};
+
+///////////////////////////////////////////////////////////////////
+
+class Entity_v5 
+{
+public :
+
+    virtual ~Entity_v5() = default;
+};
+
+///////////////////////////////////////////////////////////////////
+
+class Entity_v6 : public virtual Entity_v5 {};
+
+///////////////////////////////////////////////////////////////////
 
 int main()
 {
-    Stack < int > stack;
+    static_assert(std::is_trivially_copyable_v < Entity_v1 > == 1);
 
-//  ---------------------------------------------------------
+    static_assert(std::is_trivially_copyable_v < Entity_v2 > == 1);
+
+//  ---------------------------------------------------------------
+
+    static_assert(std::is_trivially_copyable_v < Entity_v3 > == 0);
+
+    static_assert(std::is_trivially_copyable_v < Entity_v4 > == 0);
+
+    static_assert(std::is_trivially_copyable_v < Entity_v5 > == 0);
+
+    static_assert(std::is_trivially_copyable_v < Entity_v6 > == 0);
+
+//  ---------------------------------------------------------------
+
+    static_assert(sizeof(Entity_v1) == 1 * 8);
+
+    static_assert(sizeof(Entity_v2) == 2 * 8);
+
+//  ---------------------------------------------------------------
+
+#if defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8)
+
+    static_assert(std::atomic < Entity_v1 > ::is_always_lock_free);
+
+#endif
+
+//  ---------------------------------------------------------------
+
+#if defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_16)
+
+    static_assert(std::atomic < Entity_v2 > ::is_always_lock_free);
     
-    stack.push(1);
-
-    stack.push(2);
-
-//  ---------------------------------------------------------
-
-    {
-        std::jthread jthread_1(top_and_pop, std::ref(stack));
-
-        std::jthread jthread_2(top_and_pop, std::ref(stack));
-    }
+#endif
 }
 
-//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////

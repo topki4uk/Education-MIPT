@@ -1,14 +1,16 @@
-//////////////////////////////////////////
+/////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////
 
 // section : Processors
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////
 
 // content : Chip Pervasive Logic
+//
+// content : Built-In Self-Testing and Boosting
 //
 // content : Interconnections
 //
@@ -28,9 +30,13 @@
 //
 // content : Decoder
 //
+// content : Fetching, Decoding and Renaming
+//
 // content : Microcode ROM and Cache
 //
 // content : Microoperations
+//
+// content : Architectural and Physical Registers
 //
 // content : Execution Engine
 //
@@ -44,12 +50,10 @@
 //
 // content : Arithmetic Logic Unit
 //
-// content : Integer Regfile
+// content : Integer and Vector Regfiles
 //
 // content : Floating Point Unit
 //
-// content : Vector Regfile
-//
 // content : Simultaneous Multithreading
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////
