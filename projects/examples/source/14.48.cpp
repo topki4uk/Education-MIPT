@@ -12,6 +12,10 @@
 //
 // content : Memory Ordering
 //
+// content : Read-Modify-Write Instructions
+//
+// content : Cache Thrashing
+//
 // content : Cache Coherency Traffic
 //
 // content : Reducing Load-Store Unit Utilization
