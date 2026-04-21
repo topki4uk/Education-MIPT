@@ -48,7 +48,8 @@ class Server : public Entity
 public :
 
     Entity * copy() const override
-    { 
+    {
+
         return new Server(*this);
     }
 };

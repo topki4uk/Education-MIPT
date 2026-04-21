@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////
 
-class Observer 
+class Observer
 {
 public :
 
@@ -30,13 +30,13 @@ public :
 
 /////////////////////////////////////////////////
 
-class Entity 
+class Entity
 {
 public :
 
    ~Entity()
     {
-        for (auto observer : m_observers) 
+        for (auto observer : m_observers)
         {
             delete observer;
         }
@@ -45,26 +45,26 @@ public :
 //  ---------------------------------------
 
     void add(Observer * observer)
-    { 
+    {
         m_observers.push_back(observer);
     }
 
 //  ---------------------------------------
 
-    void set(int x) 
-    { 
+    void set(int x)
+    {
         m_x = x;
-        
+
         notify_all();
     }
 
 //  ---------------------------------------
 
     void notify_all() const
-    { 
+    {
         for (auto observer : m_observers)
         {
-            if (observer) 
+            if (observer)
             {
                 observer->test(m_x);
             }
@@ -74,13 +74,13 @@ public :
 private :
 
     int m_x = 0;
-    
+
     std::vector < Observer * > m_observers;
 };
 
 /////////////////////////////////////////////////
 
-class Client : public Observer 
+class Client : public Observer
 {
 public :
 

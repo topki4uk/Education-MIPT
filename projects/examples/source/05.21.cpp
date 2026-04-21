@@ -53,10 +53,10 @@ protected :
 
 /////////////////////////////////////////////////////////////////////////////////
 
-class Entity 
-: 
-    private Comparable < Entity > , 
-    
+class Entity
+:
+    private Comparable < Entity > ,
+
     private Equivalent < Entity >
 {
 public :
@@ -80,13 +80,13 @@ private :
 int main()
 {
     Entity entity_1(1);
-    
+
     Entity entity_2(2);
 
 //  ------------------------------------
 
     assert((entity_1 <  entity_2) == 1);
-    
+
     assert((entity_1 >  entity_2) == 0);
 
     assert((entity_1 <= entity_2) == 1);

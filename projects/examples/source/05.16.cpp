@@ -27,7 +27,7 @@ public :
 //  ---------------------------------------------------------
 
 	void template_method() const
-	{ 
+	{
 		test_v1();
 
 		test_v2();
@@ -35,7 +35,7 @@ public :
 		test_v3();
 
 		test_v4();
-	} 
+	}
 
 private :
 
@@ -52,8 +52,8 @@ private :
 
 //////////////////////////////////////////////////////////////////////
 
-class Client : public Entity 
-{ 
+class Client : public Entity
+{
 private :
 
 	void test_v2() const override { std::print("Client::test_v2\n"); }
@@ -68,7 +68,7 @@ class Server : public Entity
 private :
 
 	void test_v2() const override { std::print("Server::test_v2\n"); }
-	
+
 	void test_v4() const override { std::print("Server::test_v4\n"); }
 };
 
@@ -83,7 +83,7 @@ int main()
 	entity->template_method();
 
 //  -----------------------------
-	
+
 	delete entity;
 }
 

@@ -24,10 +24,10 @@ template < typename D > class Singleton : private boost::noncopyable
 {
 public :
 
-    static auto & get() 
-    { 
+    static auto & get()
+    {
         static D d;
-		
+
 		return d;
     }
 
@@ -38,7 +38,7 @@ protected :
 
 ////////////////////////////////////////////////////////////////////
 
-class Entity_v1 : public Singleton < Entity_v1 > 
+class Entity_v1 : public Singleton < Entity_v1 >
 {
 public :
 
@@ -52,7 +52,7 @@ private :
     friend Singleton < Entity_v1 > ;
 
 //  ------------------------------------
-	
+
 	Entity_v1() = default;
 };
 

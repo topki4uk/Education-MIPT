@@ -16,7 +16,7 @@
 
 ////////////////////////////////////////////////////
 
-class Entity 
+class Entity
 {
 public :
 
@@ -29,26 +29,26 @@ public :
 
 ////////////////////////////////////////////////////
 
-class Client : public Entity 
-{ 
-public : 
-    
-    void test() const override 
-    { 
+class Client : public Entity
+{
+public :
+
+    void test() const override
+    {
         std::print("Client::test\n");
-    } 
+    }
 };
 
 ////////////////////////////////////////////////////
 
-class Server : public Entity 
-{ 
-public : 
-    
-    void test() const override 
-    { 
+class Server : public Entity
+{
+public :
+
+    void test() const override
+    {
         std::print("Server::test\n");
-    } 
+    }
 };
 
 ////////////////////////////////////////////////////
@@ -62,9 +62,9 @@ public :
 //  ------------------------------------------------
 
     void test() const override
-    { 
+    {
         std::print("Decorator::test : ");
-        
+
         m_entity.test();
     }
 
@@ -88,7 +88,7 @@ int main()
 //  ---------------------------------------------
 
     delete entity_2;
-     
+
     delete entity_1;
 }
 

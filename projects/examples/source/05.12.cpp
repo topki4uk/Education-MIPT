@@ -23,7 +23,7 @@
 
 ////////////////////////////////////////////////////////////////////////
 
-class Memento 
+class Memento
 {
 public :
 
@@ -84,14 +84,14 @@ private :
 //  --------------------------------------------------------------------
 
     friend auto operator-(State const & lhs, State const & rhs) -> Delta
-    { 
+    {
         return Delta(lhs.x - rhs.x);
     }
 
 //  --------------------------------------------------------------------
 
     friend auto operator+(State const & lhs, Delta const & rhs) -> State
-    { 
+    {
         return State(lhs.x + rhs.x);
     }
 
@@ -104,7 +104,7 @@ private :
 
 ////////////////////////////////////////////////////////////////////////
 
-int main() 
+int main()
 {
     Memento memento;
 
@@ -116,9 +116,9 @@ int main()
     }
 
 //  --------------------------------------
-    
+
     assert(memento.load_v1(1).get() == 1);
-    
+
     assert(memento.load_v2(2).get() == 2);
 }
 

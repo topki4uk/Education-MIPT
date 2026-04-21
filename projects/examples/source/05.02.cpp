@@ -30,8 +30,8 @@ public :
     public :
 
         static auto make_client() -> Entity *
-        { 
-            return new Client; 
+        {
+            return new Client;
         }
     };
 
@@ -51,8 +51,8 @@ public :
     public :
 
         static auto make_server() -> Entity *
-        { 
-            return new Server; 
+        {
+            return new Server;
         }
     };
 

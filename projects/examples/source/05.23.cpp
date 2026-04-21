@@ -21,14 +21,14 @@ class Entity
 public :
 
     auto get() const
-    { 
+    {
         return m_x;
     }
 
 //  ----------------
-    
-    void set(int x) 
-    { 
+
+    void set(int x)
+    {
         m_x = x;
     }
 
@@ -43,24 +43,24 @@ template < typename B > class Undoable : public B
 {
 public :
 
-    void set(int x) 
-    { 
+    void set(int x)
+    {
         m_x = B::get();
-        
+
         B::set(x);
     }
 
 //  -------------------
 
-    auto & undo() 
-    { 
+    auto & undo()
+    {
         B::set(m_x);
 
         return *this;
     }
-    
+
 private :
-    
+
     int m_x = 0;
 };
 
@@ -70,30 +70,30 @@ template < typename B > class Redoable : public B
 {
 public :
 
-    void set(int x) 
-    { 
+    void set(int x)
+    {
         m_x = x;
-        
+
         B::set(x);
     }
 
 //  -----------------
 
-    auto & redo() 
-    { 
+    auto & redo()
+    {
         B::set(m_x);
 
         return *this;
     }
-    
+
 private :
-    
+
     int m_x = 0;
 };
 
 /////////////////////////////////////////////////
 
-int main() 
+int main()
 {
     Redoable < Undoable < Entity > > entity;
 

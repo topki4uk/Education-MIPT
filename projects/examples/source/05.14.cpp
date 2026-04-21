@@ -34,8 +34,8 @@ public :
 
 ////////////////////////////////////////////////////////////////////////
 
-class Slow : public State 
-{ 
+class Slow : public State
+{
 public :
 
     void to_slow([[maybe_unused]] class Entity * entity) const override;
@@ -45,8 +45,8 @@ public :
 
 ////////////////////////////////////////////////////////////////////////
 
-class Fast : public State 
-{ 
+class Fast : public State
+{
 public :
 
     void to_slow([[maybe_unused]] class Entity * entity) const override;
@@ -64,15 +64,15 @@ public :
 
 //  ------------------------------------------
 
-   ~Entity() 
-    { 
+   ~Entity()
+    {
         set(nullptr);
     }
 
 //  ------------------------------------------
 
     void set(State * state)
-    { 
+    {
         delete std::exchange(m_state, state);
     }
 
@@ -99,7 +99,7 @@ void Slow::to_slow([[maybe_unused]] Entity * entity) const
 void Slow::to_fast([[maybe_unused]] Entity * entity) const
 {
     std::print("Slow::to_fast\n");
-    
+
     entity->set(new Fast);
 }
 
@@ -108,7 +108,7 @@ void Slow::to_fast([[maybe_unused]] Entity * entity) const
 void Fast::to_slow([[maybe_unused]] Entity * entity) const
 {
     std::print("Fast::to_slow\n");
-    
+
     entity->set(new Slow);
 }
 
@@ -128,7 +128,7 @@ int main()
 //  -----------------
 
     entity.to_slow();
-    
+
     entity.to_fast();
 
     entity.to_fast();

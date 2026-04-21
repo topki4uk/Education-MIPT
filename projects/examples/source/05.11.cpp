@@ -21,7 +21,7 @@ class Client
 public :
 
     void test_v1() const { std::print("Client::test_v1\n"); }
-    
+
     void test_v2() const { std::print("Client::test_v2\n"); }
 };
 
@@ -61,7 +61,7 @@ public :
 
 /////////////////////////////////////////////////////////////
 
-int main() 
+int main()
 {
     Facade facade;
 

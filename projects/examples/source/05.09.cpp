@@ -31,26 +31,26 @@ public :
 
 ///////////////////////////////////////////////////////////////////////
 
-class Client : public Entity 
-{ 
-public : 
+class Client : public Entity
+{
+public :
 
-    int test() const override 
-    { 
-        return 1; 
-    } 
+    int test() const override
+    {
+        return 1;
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////
 
-class Server : public Entity 
-{ 
-public : 
+class Server : public Entity
+{
+public :
 
-    int test() const override 
-    { 
-        return 2; 
-    } 
+    int test() const override
+    {
+        return 2;
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -69,8 +69,8 @@ public :
 
 //  ------------------------------------
 
-    void add(Entity * entity) 
-    { 
+    void add(Entity * entity)
+    {
         m_entities.push_back(entity);
     }
 
@@ -82,7 +82,7 @@ public :
 
         for (auto entity : m_entities)
         {
-            if (entity) 
+            if (entity)
             {
                 x += entity->test();
             }
@@ -92,7 +92,7 @@ public :
     }
 
 private :
-    
+
     std::vector < Entity * > m_entities;
 };
 
@@ -103,7 +103,7 @@ auto make_composite(std::size_t size_1, std::size_t size_2) -> Entity *
     auto composite = new Composite;
 
     for (auto i = 0uz; i < size_1; ++i) { composite->add(new Client); }
-    
+
     for (auto i = 0uz; i < size_2; ++i) { composite->add(new Server); }
 
     return composite;
@@ -127,7 +127,7 @@ int main()
     Entity * entity = composite;
 
 //  -----------------------------------------
-        
+
     assert(entity->test() == 15);
 
 //  -----------------------------------------

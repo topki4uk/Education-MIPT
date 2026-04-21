@@ -35,7 +35,7 @@ public :
 protected :
 
 	void test_implementation() const
-	{ 
+	{
 		std::print("Entity::test_implementation\n");
 	}
 };
@@ -58,7 +58,7 @@ class Server : public Entity < Server > {};
 
 ////////////////////////////////////////////////////////////////
 
-template < typename D > void test(Entity < D > const & entity) 
+template < typename D > void test(Entity < D > const & entity)
 {
 	entity.test();
 }
@@ -68,7 +68,7 @@ template < typename D > void test(Entity < D > const & entity)
 int main()
 {
 	test(Client());
-	
+
 	test(Server());
 
 //  -------------------------------------------

@@ -22,10 +22,10 @@
 
 /////////////////////////////////////////////////////////////////
 
-class Entity 
-: 
+class Entity
+:
     private boost::less_than_comparable < Entity > ,
-     
+
     private boost::          equivalent < Entity >
 {
 public :
@@ -46,11 +46,10 @@ private :
 
 /////////////////////////////////////////////////////////////////
 
-int main() 
-{    
-
+int main()
+{
     Entity entity_1(1);
-    
+
     Entity entity_2(2);
 
 //  ------------------------------------
@@ -64,7 +63,7 @@ int main()
     assert((entity_1 >= entity_2) == 0);
 
     assert((entity_1 == entity_2) == 0);
-    
+
     assert((entity_1 != entity_2) == 1);
 }
 

@@ -40,26 +40,26 @@ public :
 
 /////////////////////////////////////////////
 
-class Factory_Client : public Factory 
-{ 
-public : 
-    
-    Entity * make_entity() const override 
-    { 
+class Factory_Client : public Factory
+{
+public :
+
+    Entity * make_entity() const override
+    {
         return new Client;
-    } 
+    }
 };
 
 /////////////////////////////////////////////
 
-class Factory_Server : public Factory 
-{ 
-public : 
-    
-    Entity * make_entity() const override 
-    { 
+class Factory_Server : public Factory
+{
+public :
+
+    Entity * make_entity() const override
+    {
         return new Server;
-    } 
+    }
 };
 
 /////////////////////////////////////////////
@@ -71,7 +71,7 @@ int main()
 //  ---------------------------------------
 
     delete factory->make_entity();
-        
+
     delete factory;
 }
 

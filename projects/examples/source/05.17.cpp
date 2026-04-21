@@ -29,26 +29,26 @@ public :
 
 ////////////////////////////////////////
 
-class Client_v1 : public Entity 
-{ 
+class Client_v1 : public Entity
+{
 public :
 
-	void test() const override 
-	{ 
+	void test() const override
+	{
 		std::print("Client_v1::test\n");
-	} 
+	}
 };
 
 ////////////////////////////////////////
 
-class Server_v1 : public Entity 
-{ 
+class Server_v1 : public Entity
+{
 public :
 
-	void test() const override 
-	{ 
+	void test() const override
+	{
 		std::print("Server_v1::test\n");
-	} 
+	}
 };
 
 ////////////////////////////////////////
@@ -60,26 +60,26 @@ void test_v1(Entity const & entity)
 
 ////////////////////////////////////////
 
-class Client_v2 
-{ 
+class Client_v2
+{
 public :
 
-	void test() const 
-	{ 
+	void test() const
+	{
 		std::print("Client_v2::test\n");
-	} 
+	}
 };
 
 ////////////////////////////////////////
 
-class Server_v2 
-{ 
+class Server_v2
+{
 public :
 
-	void test() const 
-	{ 
+	void test() const
+	{
 		std::print("Server_v2::test\n");
-	} 
+	}
 };
 
 ////////////////////////////////////////

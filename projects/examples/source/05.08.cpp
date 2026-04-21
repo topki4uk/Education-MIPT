@@ -29,26 +29,26 @@ public :
 
 //////////////////////////////////////////////////////////////
 
-class Client_v1 : public Entity_v1 
-{ 
+class Client_v1 : public Entity_v1
+{
 public :
 
-    void test() const override 
-    { 
+    void test() const override
+    {
         std::print("Client_v1::test\n");
-    } 
+    }
 };
 
 //////////////////////////////////////////////////////////////
 
-class Client_v2 : public Entity_v1 
-{ 
-public : 
+class Client_v2 : public Entity_v1
+{
+public :
 
-    void test() const override 
-    { 
+    void test() const override
+    {
         std::print("Client_v2::test\n");
-    } 
+    }
 };
 
 //////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ protected :
 
 //////////////////////////////////////////////////////////////
 
-class Server_v1 : public Entity_v2 
+class Server_v1 : public Entity_v2
 {
 public :
 
@@ -82,7 +82,7 @@ public :
 
 //  ----------------------------------------------------------
 
-    void test() const override 
+    void test() const override
     {
         std::print("Server_v1::test\n");
 
@@ -92,7 +92,7 @@ public :
 
 //////////////////////////////////////////////////////////////
 
-class Server_v2 : public Entity_v2 
+class Server_v2 : public Entity_v2
 {
 public :
 
@@ -100,8 +100,8 @@ public :
 
 //  ----------------------------------------------------------
 
-    void test() const override 
-    { 
+    void test() const override
+    {
         std::print("Server_v2::test\n");
 
         m_bridge.test();
@@ -110,10 +110,10 @@ public :
 
 //////////////////////////////////////////////////////////////
 
-int main() 
+int main()
 {
     Entity_v1 * entity_v1 = new Client_v1;
-    
+
     Entity_v2 * entity_v2 = new Server_v1(*entity_v1);
 
 //  --------------------------------------------------
@@ -123,7 +123,7 @@ int main()
 //  --------------------------------------------------
 
     delete entity_v2;
-    
+
     delete entity_v1;
 }
 
