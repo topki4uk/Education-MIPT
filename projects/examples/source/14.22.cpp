@@ -12,9 +12,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 
-#include <cassert>
 #include <functional>
-#include <memory>
 #include <mutex>
 #include <thread>
 #include <utility>
@@ -91,26 +89,22 @@ public :
 
 //  -----------------------------------------------------------------------------
 
-    auto top_and_pop_v1()
+    auto top_and_pop(T & x)
     {
         std::scoped_lock < std::mutex > lock(m_mutex);
 
-        auto x = std::make_shared < T > (m_container.back());
+        if (!std::empty(m_container))
+        {
+            x = m_container.back();
 
-        m_container.pop_back();
+            m_container.pop_back();
 
-        return x;
-    }
-
-//  -----------------------------------------------------------------------------
-
-    void top_and_pop_v2(T & x)
-    {
-        std::scoped_lock < std::mutex > lock(m_mutex);
-
-        x = m_container.back();
-
-        m_container.pop_back();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 private :
@@ -124,23 +118,23 @@ private :
 
 /////////////////////////////////////////////////////////////////////////////////
 
-// void consume_v1(Stack < int > & stack) // error
-// {
-//     for (auto i = 1 << 10; i > 0; --i)
-//     {
-//         assert(stack.top() == i);
-//
-//         stack.pop();
-//     }
-// }
+void produce(Stack < int > & stack)
+{
+    for (auto i = 1; i < (1 << 10) + 1; ++i)
+    {
+        stack.push(i);
+    }
+}
 
 /////////////////////////////////////////////////////////////////////////////////
 
-void consume_v2(Stack < int > & stack)
+void consume(Stack < int > & stack)
 {
-    for (auto i = 1 << 10; i > 0; --i)
+    auto x = 0;
+
+    for (auto i = 0uz; i < 1 << 10; ++i)
     {
-        assert(*stack.top_and_pop_v1() == i);
+        stack.top_and_pop(x);
     }
 }
 
@@ -154,22 +148,17 @@ int main()
 
 	Stack < int > stack_3 = std::move(stack_2);
 
-//  ---------------------------------------------------
+//  --------------------------------------------------
 
 	stack_2 = stack_1;
 
 	stack_3 = std::move(stack_2);
 
-//  ---------------------------------------------------
+//  --------------------------------------------------
 
-    for (auto i = 1; i < (1 << 10) + 1; ++i)
-    {
-        stack_1.push(i);
-    }
+    std::jthread thread_1(produce, std::ref(stack_1));
 
-//  ---------------------------------------------------
-
-    std::jthread thread(consume_v2, std::ref(stack_1));
+    std::jthread thread_2(consume, std::ref(stack_1));
 }
 
 /////////////////////////////////////////////////////////////////////////////////

@@ -80,25 +80,7 @@ public :
 
 //  -----------------------------------------------------------------------------
 
-    auto top_and_pop_v1()
-    {
-        std::unique_lock < std::mutex > lock(m_mutex);
-
-        while (std::empty(m_container))
-        {
-            m_condition.wait(lock);
-        }
-
-        auto x = std::make_shared < T > (m_container.front());
-
-        m_container.pop_front();
-
-        return x;
-    }
-
-//  -----------------------------------------------------------------------------
-
-    void top_and_pop_v2(T & x)
+    void top_and_pop_v1(T & x)
     {
         std::unique_lock < std::mutex > lock(m_mutex);
 
@@ -114,25 +96,7 @@ public :
 
 //  -----------------------------------------------------------------------------
 
-    auto top_and_pop_v3() -> std::shared_ptr < T >
-    {
-        std::scoped_lock < std::mutex > lock(m_mutex);
-
-        if (!std::empty(m_container))
-        {
-            auto x = std::make_shared < T > (m_container.front());
-
-            m_container.pop_front();
-
-            return x;
-        }
-
-        return nullptr;
-    }
-
-//  -----------------------------------------------------------------------------
-
-    auto top_and_pop_v4(T & x)
+    auto top_and_pop_v2(T & x)
     {
         std::scoped_lock < std::mutex > lock(m_mutex);
 
@@ -163,8 +127,6 @@ private :
 
 void produce(Queue < int > & queue)
 {
-    std::this_thread::sleep_for(1s);
-
     for (auto i = 1; i < (1 << 10) + 1; ++i)
     {
         queue.push(i);
@@ -175,9 +137,13 @@ void produce(Queue < int > & queue)
 
 void consume(Queue < int > & queue)
 {
+    auto x = 0;
+
     for (auto i = 1; i < (1 << 10) + 1; ++i)
     {
-        assert(*queue.top_and_pop_v1() == i);
+        queue.top_and_pop_v1(x);
+
+        assert(x == i);
     }
 }
 
