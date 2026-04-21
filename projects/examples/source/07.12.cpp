@@ -75,7 +75,7 @@ public :
 private :
 
 	void uninitialize() const noexcept
-	{ 
+	{
 		try
 		{
 			std::print("Entity::uninitialize\n");
@@ -118,7 +118,7 @@ void test_v3() noexcept // support : compiler-explorer.com
 int main()
 {
 	Entity entity_1(1);
-	
+
 	Entity entity_2(2);
 
 //  ----------------------------------------------------------

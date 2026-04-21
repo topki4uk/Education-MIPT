@@ -45,7 +45,7 @@ auto equal(double x, double y, double epsilon = 1e-6)
 
 /////////////////////////////////////////////////////////////////
 
-int main() 
+int main()
 {
 	assert(equal(calculate(1 << 10), 1 << 10));
 }

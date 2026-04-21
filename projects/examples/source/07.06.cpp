@@ -16,7 +16,7 @@
 
 ///////////////////////////////////////////////////
 
-struct Expected 
+struct Expected
 {
 	union
 	{
@@ -24,7 +24,7 @@ struct Expected
 	};
 
 //  -----------------------
-	
+
 	bool has_error = false;
 };
 

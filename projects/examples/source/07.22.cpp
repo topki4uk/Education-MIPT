@@ -46,7 +46,7 @@ TEST(Assert, Test)
 
 //////////////////////////////////////////////////////////////////////////////
 
-TEST(Assert, Near) 
+TEST(Assert, Near)
 {
     ASSERT_NEAR(1e-9, 2e-9, 1e-6);
 }
@@ -60,7 +60,7 @@ TEST(Assert, That)
 
 //////////////////////////////////////////////////////////////////////////////
 
-class Fixture : public testing::Test 
+class Fixture : public testing::Test
 {
 public :
 
@@ -69,11 +69,11 @@ public :
 
 //////////////////////////////////////////////////////////////////////////////
 
-TEST_F(Fixture, Data) 
+TEST_F(Fixture, Data)
 {
-    vector.push_back(1); ASSERT_EQ(std::size(vector), 1); 
-    
-    vector.push_back(1); ASSERT_EQ(std::size(vector), 2); 
+    vector.push_back(1); ASSERT_EQ(std::size(vector), 1);
+
+    vector.push_back(1); ASSERT_EQ(std::size(vector), 2);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -82,12 +82,12 @@ class Adapter : public Fixture, public testing::WithParamInterface < int > {};
 
 //////////////////////////////////////////////////////////////////////////////
 
-TEST_P(Adapter, Data) 
-{ 
+TEST_P(Adapter, Data)
+{
     auto x = GetParam();
-    
+
     vector.resize(x, 0);
-    
+
     ASSERT_EQ(std::size(vector), x);
 }
 
@@ -102,7 +102,7 @@ int main(int argc, char ** argv)
     testing::InitGoogleTest(&argc, argv);
 
 //  -------------------------------------
-    
+
     return RUN_ALL_TESTS();
 }
 

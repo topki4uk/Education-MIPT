@@ -30,14 +30,14 @@ public :
 //  ----------------------------------------
 
 	auto top() const
-	{ 
+	{
 		return m_container.back();
 	}
 
 //  ----------------------------------------
 
 	void pop()
-	{ 
+	{
 		m_container.pop_back();
 	}
 
@@ -48,7 +48,7 @@ public :
 //		auto x = top();
 //
 //		pop();
-//		
+//
 //		return x;
 //	}
 
@@ -84,7 +84,7 @@ int main()
 	Stack < int > stack;
 
 //  -------------------------------------
-	
+
 	stack.push(1);
 
 	stack.push(2);
@@ -96,7 +96,7 @@ int main()
 	assert(stack.top() == 3);
 
 //  -------------------------------------
-	
+
 	stack.pop();
 
 //  -------------------------------------

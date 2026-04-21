@@ -55,7 +55,7 @@ public :
 	{
 		std::call_once(s_flag, initialize);
 
-		if (m_has_trace) 
+		if (m_has_trace)
 		{
 			put(Severity::trace, "execution ... ");
 		}
@@ -65,7 +65,7 @@ public :
 
    ~Logger()
 	{
-		if (m_has_trace) 
+		if (m_has_trace)
 		{
 			put(Severity::trace, "execution complete");
 		}

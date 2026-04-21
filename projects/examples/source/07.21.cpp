@@ -50,14 +50,14 @@ BOOST_AUTO_TEST_CASE(Test_v1)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-BOOST_AUTO_TEST_CASE(Test_v2) 
+BOOST_AUTO_TEST_CASE(Test_v2)
 {
     BOOST_TEST(1e-9 == 2e-9, boost::test_tools::tolerance(1e-6));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-BOOST_AUTO_TEST_CASE(Test_v3) 
+BOOST_AUTO_TEST_CASE(Test_v3)
 {
     BOOST_TEST("aaaaa" < "bbbbb", boost::test_tools::lexicographic());
 }
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(Test_v3)
 
 BOOST_DATA_TEST_CASE
 (
-    Test_v4, 
+    Test_v4,
 
     boost::unit_test::data::xrange(1, 3, 1) * boost::unit_test::data::xrange(1, 4, 1),
 
@@ -84,10 +84,10 @@ BOOST_DATA_TEST_CASE
 
 BOOST_DATA_TEST_CASE
 (
-    Test_v5, 
+    Test_v5,
 
     boost::unit_test::data::xrange(5) ^ boost::unit_test::data::random
-    ((   
+    ((
         boost::unit_test::data::distribution = std::uniform_real_distribution(0.0, 1.0),
 
         boost::unit_test::data::seed = 1,
@@ -105,7 +105,7 @@ BOOST_DATA_TEST_CASE
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-class Dataset 
+class Dataset
 {
 public :
 
@@ -121,7 +121,7 @@ public :
 
     //  ------------------------------------------------------------------
 
-        auto const operator++(int) 
+        auto const operator++(int)
         {
             auto x = *this;
 
@@ -132,7 +132,7 @@ public :
 
     //  ------------------------------------------------------------------
 
-        auto & operator++() 
+        auto & operator++()
         {
             step();
 
@@ -170,21 +170,21 @@ public :
 //  ----------------------------------------------------------------------
 
     auto begin() const
-    { 
+    {
         return iterator();
     }
 
 //  ----------------------------------------------------------------------
 
     auto size() const
-    { 
+    {
         return boost::unit_test::data::BOOST_TEST_DS_INFINITE_SIZE;
     }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-namespace boost::unit_test::data::monomorphic 
+namespace boost::unit_test::data::monomorphic
 {
     template <> class is_dataset < Dataset > : public std::true_type {};
 }
@@ -246,7 +246,7 @@ public :
 BOOST_FIXTURE_TEST_CASE(Test_v8, Fixture)
 {
     vector.push_back(1); BOOST_TEST(std::size(vector) == 1);
-    
+
     vector.push_back(1); BOOST_TEST(std::size(vector) == 2);
 }
 

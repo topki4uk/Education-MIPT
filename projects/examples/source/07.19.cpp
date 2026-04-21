@@ -62,7 +62,7 @@ public :
 	{
 		std::call_once(s_flag, initialize);
 
-		if (m_has_trace) 
+		if (m_has_trace)
 		{
 			put(Severity::trace, "execution ... ");
 		}
@@ -72,7 +72,7 @@ public :
 
    ~Logger()
 	{
-		if (m_has_trace) 
+		if (m_has_trace)
 		{
 			put(Severity::trace, "execution complete");
 		}
@@ -117,7 +117,7 @@ private :
 			boost::posix_time::hours(24)
 		);
 
-		auto sink = boost::make_shared < sink_t > 
+		auto sink = boost::make_shared < sink_t >
 		(
 			boost::log::keywords::file_name = "%y.%m.%d.%H.%M.%S.log",
 
