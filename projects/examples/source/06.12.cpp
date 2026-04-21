@@ -89,7 +89,7 @@ namespace library
 			std::print("library::v2::test\n");
 		}
 	}
-} 
+}
 
 /////////////////////////////////////////////////
 

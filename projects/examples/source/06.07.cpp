@@ -39,8 +39,8 @@ int g_x1 = 1;
 
 //////////////////////////////////////////
 
-namespace 
-{ 
+namespace
+{
 	[[maybe_unused]] int g_x2 = 2;
 }
 

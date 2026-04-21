@@ -22,8 +22,8 @@ import <print>;
 
 export namespace library
 {
-	void test_v4() 
-	{ 
+	void test_v4()
+	{
 		std::print("library::test_v4\n");
 	}
 }

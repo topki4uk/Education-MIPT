@@ -26,7 +26,7 @@ class Entity::Implementation
 public :
 
     void test() const
-    { 
+    {
         std::print("Entity::Implementation::test\n");
     }
 };
@@ -44,8 +44,8 @@ Entity::Entity(Entity && other) : m_pimpl(other.m_pimpl)
 
 ////////////////////////////////////////////////////////
 
-Entity::~Entity() 
-{ 
+Entity::~Entity()
+{
     delete m_pimpl;
 }
 
@@ -63,7 +63,7 @@ auto & Entity::operator=(Entity && other)
 ////////////////////////////////////////////////////////
 
 void Entity::test() const
-{ 
+{
     m_pimpl->test();
 }
 
