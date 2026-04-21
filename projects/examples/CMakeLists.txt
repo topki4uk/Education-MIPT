@@ -20,14 +20,14 @@ set(Boost_USE_STATIC_RUNTIME ON)
 
 #############################################################################################
 
-find_package(Boost 1.85 REQUIRED COMPONENTS 
+find_package(Boost 1.85 REQUIRED COMPONENTS
 
-    filesystem 
-    locale 
-    log 
-    python312 
-    system 
-    timer 
+    filesystem
+    locale
+    log
+    python312
+    system
+    timer
     unit_test_framework
 )
 
@@ -319,15 +319,15 @@ set(debug
     10.29
     10.30
     10.31
-    10.33
     10.34
-    10.37
-    10.39
+    10.35
+    10.38
     10.40
-    10.42
+    10.41
     10.43
     10.44
     10.45
+    10.46
 
     11.01
     11.02
@@ -404,6 +404,7 @@ set(debug
     13.17
     13.18
     13.19
+    13.20
 
     14.02
     14.03
@@ -431,14 +432,13 @@ set(debug
     14.26
     14.27
     14.28
-    14.31
-    14.32
-    14.34
-    14.35
-    14.37
+    14.29
     14.38
-    14.39
-    14.40
+    14.41
+    14.42
+    14.44
+    14.45
+    14.46
 )
 
 #############################################################################################
@@ -533,7 +533,7 @@ target_link_libraries      (08.18 PRIVATE Python::Python)
 
 add_executable             (09.14 source/09.14.cpp)
 
-target_compile_options     (09.14 PRIVATE -Wall -Wextra -Wpedantic -O0) 
+target_compile_options     (09.14 PRIVATE -Wall -Wextra -Wpedantic -O0)
 
 target_compile_definitions (09.14 PRIVATE _GLIBCXX_DEBUG)
 
@@ -549,19 +549,11 @@ target_link_libraries      (12.04 PRIVATE ICU::i18n ICU::uc)
 
 #############################################################################################
 
-add_executable             (13.20 source/13.20.cpp)
-
-target_compile_options     (13.20 PRIVATE -Wall -Wextra -Wpedantic -O0)
-
-target_link_libraries      (13.20 PRIVATE PDFHummus::PDFWriter)
-
-#############################################################################################
-
 add_executable             (13.21 source/13.21.cpp)
 
 target_compile_options     (13.21 PRIVATE -Wall -Wextra -Wpedantic -O0)
 
-target_link_libraries      (13.21 PRIVATE zipper::zipper)
+target_link_libraries      (13.21 PRIVATE PDFHummus::PDFWriter)
 
 #############################################################################################
 
@@ -569,17 +561,25 @@ add_executable             (13.22 source/13.22.cpp)
 
 target_compile_options     (13.22 PRIVATE -Wall -Wextra -Wpedantic -O0)
 
-target_link_libraries      (13.22 PRIVATE libpqxx::pqxx)
+target_link_libraries      (13.22 PRIVATE zipper::zipper)
 
 #############################################################################################
 
-add_executable             (14.29 source/14.29.cpp)
+add_executable             (13.23 source/13.23.cpp)
 
-target_compile_options     (14.29 PRIVATE -Wall -Wextra -Wpedantic -O0)
+target_compile_options     (13.23 PRIVATE -Wall -Wextra -Wpedantic -O0)
 
-target_link_libraries      (14.29 PRIVATE TBB::tbb)
+target_link_libraries      (13.23 PRIVATE libpqxx::pqxx)
 
-target_link_libraries      (14.29 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
+#############################################################################################
+
+add_executable             (14.39 source/14.39.cpp)
+
+target_compile_options     (14.39 PRIVATE -Wall -Wextra -Wpedantic -O0)
+
+target_link_libraries      (14.39 PRIVATE TBB::tbb)
+
+target_link_libraries      (14.39 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
 
 #############################################################################################
 
@@ -606,19 +606,19 @@ set(release
     10.11
     10.28
     10.32
-    10.35
+    10.33
     10.36
-    10.38
+    10.37
+    10.39
 
     11.09
 
     12.11
 
     14.14
-    14.33
-    14.36
-    14.41
-    14.42
+    14.43
+    14.47
+    14.48
 )
 
 #############################################################################################
@@ -639,36 +639,24 @@ endforeach()
 
 #############################################################################################
 
-add_executable             (10.41 source/10.41.cpp)
+add_executable             (10.42 source/10.42.cpp)
 
-target_compile_options     (10.41 PRIVATE -Wall -Wextra -Wpedantic -O3)
+target_compile_options     (10.42 PRIVATE -Wall -Wextra -Wpedantic -O3)
 
-target_link_libraries      (10.41 PRIVATE ${Boost_LIBRARIES})
+target_link_libraries      (10.42 PRIVATE ${Boost_LIBRARIES})
 
-target_link_libraries      (10.41 PRIVATE Python::Python)
-
-#############################################################################################
-
-add_executable             (14.30 source/14.30.cpp)
-
-target_compile_options     (14.30 PRIVATE -Wall -Wextra -Wpedantic -O0)
-
-target_link_libraries      (14.30 PRIVATE benchmark::benchmark)
-
-target_link_libraries      (14.30 PRIVATE TBB::tbb)
-
-target_link_libraries      (14.30 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
+target_link_libraries      (10.42 PRIVATE Python::Python)
 
 #############################################################################################
 
-add_executable             (14.43 source/14.43.cpp)
+add_executable             (14.40 source/14.40.cpp)
 
-target_compile_options     (14.43 PRIVATE -Wall -Wextra -Wpedantic -O3)
+target_compile_options     (14.40 PRIVATE -Wall -Wextra -Wpedantic -O3)
 
-target_link_libraries      (14.43 PRIVATE benchmark::benchmark)
+target_link_libraries      (14.40 PRIVATE benchmark::benchmark)
 
-target_link_libraries      (14.43 PRIVATE TBB::tbb)
+target_link_libraries      (14.40 PRIVATE TBB::tbb)
 
-target_link_libraries      (14.43 PRIVATE -ltcmalloc)
+target_link_libraries      (14.40 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
 
 #############################################################################################
