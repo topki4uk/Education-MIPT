@@ -49,22 +49,22 @@ void test_v3()
 {
     auto x = 1;
 
-    std::thread thread_2(test_v2, &x);
+    std::thread thread(test_v2, &x);
 
-//	thread_2.detach(); // error
+//	thread.detach(); // error
 
-    thread_2.join();
+    thread.join();
 }
 
 /////////////////////////////////////////////////
 
 int main()
 {
-    std::thread thread_1(test_v1);
+    std::thread thread(test_v1);
 
 //  --------------------------------
 
-    thread_1.detach();
+    thread.detach();
 
 //  --------------------------------
 

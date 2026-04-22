@@ -8,19 +8,23 @@
 
 ////////////////////////////////////////
 
+// content : Instruction Register
+//
+// content : Instruction Fetching
+//
+// content : Raw Instructions
+//
+// content : Instruction Decoding
+//
+// content : Microoperations
+//
+// content : Architectural Registers
+//
+// content : Renaming Registers
+//
 // content : Out-of-Order Execution
 //
-// content : Tomasulo Algorithm
-//
-// content : Branch Misprediction
-//
-// content : Memory Disambiguation
-//
-// content : Self-Modifying Code
-//
-// content : Memory Order Violation
-//
-// content : Pipeline Flushing
+// content : Bypass Network
 //
 // content : Load and Store Instructions
 //
@@ -28,10 +32,22 @@
 //
 // content : Load and Store Queues
 //
-// content : Speculative Loads
+// content : Deferred Stores
 //
 // content : Store-to-Load Forwarding
 //
-// content : Deferred Stores
+// content : Speculative Loads
+//
+// content : Draft and Main Registers
+//
+// content : Branch Mispredictions
+//
+// content : Data Dependencies
+//
+// content : Memory Order Violations
+//
+// content : Self-Modifying Code
+//
+// content : Pipeline Flushes and Stalls
 
 ////////////////////////////////////////

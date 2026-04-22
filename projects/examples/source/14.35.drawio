@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Страница-1" id="CYOXD-v81-TDEmlRH2l6">
-    <mxGraphModel dx="930" dy="547" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="770" dy="453" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -28,7 +28,7 @@
         <mxCell id="OvCwGMO9H4bMjdvQhrD2-88" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="" vertex="1">
           <mxGeometry height="14" width="51" x="549" y="252" as="geometry" />
         </mxCell>
-        <mxCell id="OvCwGMO9H4bMjdvQhrD2-89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 255, 255); font-size: 9px;&quot;&gt;Cache L1 BTB&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;/b&gt;" vertex="1">
+        <mxCell id="OvCwGMO9H4bMjdvQhrD2-89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 255, 255); font-size: 9px;&quot;&gt;Cache L2 BTB&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;/b&gt;" vertex="1">
           <mxGeometry height="24" width="160" x="440" y="228" as="geometry" />
         </mxCell>
         <mxCell id="OvCwGMO9H4bMjdvQhrD2-90" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="" vertex="1">
@@ -214,7 +214,7 @@
         <mxCell id="OvCwGMO9H4bMjdvQhrD2-20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#FF0000;" value="" vertex="1">
           <mxGeometry height="18" width="31" x="409" y="228" as="geometry" />
         </mxCell>
-        <mxCell id="OvCwGMO9H4bMjdvQhrD2-22" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#FF00FF;" value="" vertex="1">
+        <mxCell id="OvCwGMO9H4bMjdvQhrD2-22" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#FF0000;" value="" vertex="1">
           <mxGeometry height="44" width="49" x="360" y="145" as="geometry" />
         </mxCell>
         <mxCell id="OvCwGMO9H4bMjdvQhrD2-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=default;opacity=75;fillColor=#00FF00;" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Integer&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b style=&quot;&quot;&gt;Regfile&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
@@ -326,7 +326,7 @@
             <mxPoint x="274" y="12" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OvCwGMO9H4bMjdvQhrD2-45" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;&quot;&gt;Cache L2 BTB&lt;/b&gt;&lt;/font&gt;" vertex="1">
+        <mxCell id="OvCwGMO9H4bMjdvQhrD2-45" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;&quot;&gt;Cache L1 BTB&lt;/b&gt;&lt;/font&gt;" vertex="1">
           <mxGeometry height="47" width="171" x="451" y="305" as="geometry" />
         </mxCell>
         <mxCell id="OvCwGMO9H4bMjdvQhrD2-46" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;opacity=75;fillColor=#00FF00;direction=north;textDirection=ltr;horizontal=1;" value="" vertex="1">
@@ -537,7 +537,7 @@
             <mxPoint x="296" y="246" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="0NtlK7nBTaMp4IpBfpS_-7" edge="1" parent="1" source="OvCwGMO9H4bMjdvQhrD2-22" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=1;exitDx=0;exitDy=0;" target="OvCwGMO9H4bMjdvQhrD2-19" value="">
+        <mxCell id="0NtlK7nBTaMp4IpBfpS_-7" edge="1" parent="1" source="OvCwGMO9H4bMjdvQhrD2-22" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" target="OvCwGMO9H4bMjdvQhrD2-19" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
             <mxPoint x="387" y="190" as="sourcePoint" />
             <mxPoint x="418" y="190" as="targetPoint" />

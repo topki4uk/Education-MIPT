@@ -10,7 +10,7 @@
 
 // content : Cache Coherence Protocol MESI
 //
-// content : Modified, Exclusive, Shared and Cache Lines
+// content : Modified, Exclusive, Shared and Invalid Cache Lines
 //
 // content : False Sharing
 //
