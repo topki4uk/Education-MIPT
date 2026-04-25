@@ -22,8 +22,8 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-struct Manipulator 
-{ 
+struct Manipulator
+{
     std::size_t precision = 0;
 };
 
@@ -34,7 +34,7 @@ auto & operator<<(std::ostream & stream, Manipulator const & manipulator)
     stream.precision(manipulator.precision);
 
     stream.setf(std::ios_base::fixed);
-    
+
     return stream;
 }
 

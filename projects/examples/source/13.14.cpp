@@ -38,8 +38,8 @@ int main()
 	(
 		std::istream_iterator < int > (stream_1),
 
-		std::istream_iterator < int > (), 
-			
+		std::istream_iterator < int > (),
+
 		std::back_inserter(vector)
 	);
 

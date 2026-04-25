@@ -57,7 +57,7 @@ void add_image(int & line, int delta, PageContentContext & context)
     options.transformationMethod = AbstractContentContext::eMatrix;
 
     options.matrix[0] = options.matrix[3] = zoom;
-    
+
     context.DrawImage(delta, line, "image.jpg", options);
 }
 
@@ -72,7 +72,7 @@ void add_graphic(int & line, int delta, PageContentContext & context)
     AbstractContentContext::GraphicOptions options
     (
         AbstractContentContext::eStroke,
-        
+
         AbstractContentContext::eRGB,
 
         AbstractContentContext::ColorValueForName("Red"), 2
@@ -88,7 +88,7 @@ int main()
     PDFWriter writer;
 
 //  --------------------------------------------------------------
-    
+
     writer.StartPDF("output.pdf", EPDFVersion::ePDFVersionMax);
 
 //  --------------------------------------------------------------
@@ -116,7 +116,7 @@ int main()
     add_graphic(line, delta, *context);
 
 //  --------------------------------------------------------------
-    
+
     writer.EndPageContentContext(context);
 
     writer.WritePage(page.get());

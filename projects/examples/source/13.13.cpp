@@ -39,7 +39,7 @@ int main()
     std::istreambuf_iterator < char > iterator_1(stream_1);
 
 	std::ostreambuf_iterator < char > iterator_2(stream_2);
-    
+
 //  ----------------------------------------------------------
 
 	while (iterator_1 != std::istreambuf_iterator < char > ())

@@ -31,13 +31,13 @@ int main()
     std::string string;
 
 //  -----------------------------------------
-	
+
     stream_1 >> string;
 
     stream_2 << string;
-	
+
 //  -----------------------------------------
-	
+
 	assert(stream_2.str() == stream_1.str());
 }
 

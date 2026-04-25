@@ -38,15 +38,15 @@ public :
 
 //  -----------------------------------------------------------------
 
-   ~Adapter() 
-    { 
+   ~Adapter()
+    {
         std::cout.rdbuf(m_streambuf);
     }
 
 private :
 
     std::fstream m_stream;
-    
+
     std::streambuf * m_streambuf = nullptr;
 };
 

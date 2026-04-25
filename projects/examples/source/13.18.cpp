@@ -60,7 +60,7 @@ auto make_type(std::filesystem::file_status const & status)
 auto make_permissions(std::filesystem::perms permissions) -> std::string
 {
     auto lambda = [permissions](auto x, auto y)
-    { 
+    {
         return (permissions & x) == std::filesystem::perms::none ? '-' : y;
     };
 
@@ -70,7 +70,7 @@ auto make_permissions(std::filesystem::perms permissions) -> std::string
 
         lambda(std::filesystem::perms::owner_write, 'w'),
 
-        lambda(std::filesystem::perms::owner_exec,  'x') 
+        lambda(std::filesystem::perms::owner_exec,  'x')
     };
 }
 

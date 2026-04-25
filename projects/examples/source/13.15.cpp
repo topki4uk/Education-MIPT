@@ -33,7 +33,7 @@ void transform(std::string const & path_1, std::string const & path_2)
             do
             {
                 ++iterator;
-            } 
+            }
             while (!(*iterator == '\'' && *std::prev(iterator) != '\\'));
         }
 
@@ -42,11 +42,11 @@ void transform(std::string const & path_1, std::string const & path_2)
             do
             {
                 ++iterator;
-            } 
+            }
             while (!(*iterator == '\"' && *std::prev(iterator) != '\\'));
         }
-                
-        if (*iterator == '/') 
+
+        if (*iterator == '/')
         {
             if (*std::next(iterator) == '/')
             {
@@ -72,7 +72,7 @@ void transform(std::string const & path_1, std::string const & path_2)
             }
         }
 
-        if (iterator == std::end(string)) 
+        if (iterator == std::end(string))
         {
             break;
         }
