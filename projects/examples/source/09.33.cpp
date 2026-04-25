@@ -108,9 +108,9 @@ public :
 
 //  -----------------------------------------------------------------------------------
 
-    template < typename U > Allocator(Allocator < U > const & other) 
-	: 
-		m_storage(other.m_storage) 
+    template < typename U > Allocator(Allocator < U > const & other)
+	:
+		m_storage(other.m_storage)
 	{}
 
 //  -----------------------------------------------------------------------------------

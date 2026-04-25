@@ -26,12 +26,12 @@ template < typename T > class List
 private :
 
 	struct Node
-	{ 
+	{
 		T x = T();
 
 		std::shared_ptr < Node > next;
 	};
-	
+
 public :
 
 	class Iterator
@@ -98,7 +98,7 @@ public :
 		{
 			auto tail = m_head;
 
-			while (tail->next) 
+			while (tail->next)
 			{
 				tail = tail->next;
 			}

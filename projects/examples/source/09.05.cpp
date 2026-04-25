@@ -42,7 +42,7 @@ int main()
 	x.reset();
 
 //  -----------------------------------------------
-		
+
 	assert(x.use_count() == 0);
 
 	assert(y.use_count() == 0);

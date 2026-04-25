@@ -42,22 +42,22 @@
 class Allocator : private boost::noncopyable
 {
 public :
-	
+
     Allocator(std::size_t size) : m_size(size)
     {
         assert(m_size >= sizeof(Node) + 1);
-        
+
         m_begin = operator new(m_size, std::align_val_t(s_alignment));
 
 	    m_head = get_node(m_begin);
-            
+
         m_head->size = m_size - sizeof(Header);
-            
+
         m_head->next = nullptr;
     }
 
 //  -------------------------------------------------------------------------------------------
-	
+
    ~Allocator()
     {
         operator delete(m_begin, m_size, std::align_val_t(s_alignment));
@@ -84,9 +84,9 @@ public :
                     auto node = get_node(get_byte(current) + step);
 
                     node->size = current->size - step;
-                       
+
                     node->next = current->next;
-                    
+
                     current->next = node;
                 }
                 else
@@ -104,7 +104,7 @@ public :
                 }
 
                 auto header = get_header(current);
-                
+
                 header->size = size + padding;
 
                 return get_byte(current) + sizeof(Header);
@@ -121,13 +121,13 @@ public :
         auto node = get_node(get_byte(x) - sizeof(Header));
 
         Node * previous = nullptr, * current = m_head;
-        
+
         while (current)
         {
             if (node < current)
             {
                 node->next = current;
-                
+
                 if (!previous)
                 {
                     m_head = node;
@@ -141,7 +141,7 @@ public :
             }
 
             previous = current;
-            
+
             current  = current->next;
         }
 
@@ -171,17 +171,17 @@ public :
 
 private :
 
-    struct Node 
-    { 
+    struct Node
+    {
         std::size_t size = 0;
-        
+
         Node * next = nullptr;
     };
 
 //  -------------------------------------------------------------------------------------------
 
-	struct alignas(std::max_align_t) Header 
-    { 
+	struct alignas(std::max_align_t) Header
+    {
         std::size_t size = 0;
     };
 
@@ -246,7 +246,7 @@ private :
     std::size_t m_size = 0;
 
     void * m_begin = nullptr;
-    
+
     Node * m_head  = nullptr;
 
 //  -------------------------------------------------------------------------------------------
@@ -287,7 +287,7 @@ void test_v1(benchmark::State & state)
             vector[i].first  = operator new(vector[i].second);
         }
 
-		for (auto i = 0uz; i < kb; ++i) 
+		for (auto i = 0uz; i < kb; ++i)
         {
             operator delete(vector[i].first, vector[i].second);
         }

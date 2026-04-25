@@ -28,10 +28,10 @@ template < typename T > class List
 {
 private :
 
-	struct Node 
-	{ 
+	struct Node
+	{
 		T x = T();
-		
+
 		std::shared_ptr < Node > next;
 	};
 
@@ -49,22 +49,22 @@ public :
 
 	//  -------------------------------------------------------------------
 
-		void increment() 
-		{ 
+		void increment()
+		{
 			m_node = m_node->next;
 		}
 
 	//  -------------------------------------------------------------------
 
 		auto & dereference() const
-		{ 
+		{
 			return m_node->x;
 		}
 
 	//  -------------------------------------------------------------------
 
 		auto equal(Iterator const & other) const
-		{ 
+		{
 			return m_node == other.m_node;
 		}
 
@@ -78,9 +78,9 @@ public :
 	};
 
 //  --------------------------------------------------------------------------------------------
-	
+
 	auto begin() const { return Iterator(m_head); }
-	
+
 	auto end  () const { return Iterator(      ); }
 
 //  --------------------------------------------------------------------------------------------

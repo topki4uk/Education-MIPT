@@ -38,7 +38,7 @@ void test(benchmark::State & state)
 	std::vector < Entity_v1 > entities_v1(size);
 
 	std::vector < Entity_v2 > entities_v2(size);
-	
+
     for (auto element : state)
     {
 		for (auto i = 0uz; i < size; ++i)

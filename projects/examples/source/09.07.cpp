@@ -26,7 +26,7 @@ class Entity_v1
 public :
 
     auto make_shared()
-    { 
+    {
         return std::shared_ptr < Entity_v1 > (this);
     }
 };
@@ -38,7 +38,7 @@ class Entity_v2 : private std::enable_shared_from_this < Entity_v2 >
 public :
 
     auto make_shared()
-    { 
+    {
         return shared_from_this();
     }
 };
@@ -58,7 +58,7 @@ public :
 //  ------------------------------
 
     auto make_shared()
-    { 
+    {
         return shared_from_this();
     }
 

@@ -47,7 +47,7 @@ public :
 
    ~Allocator()
 	{
-		for (auto list : m_lists) 
+		for (auto list : m_lists)
 		{
 			operator delete(list, m_size, std::align_val_t(s_alignment));
 		}
@@ -78,7 +78,7 @@ public :
 			if (next != get_byte(m_lists[m_offset - 1]) + m_size)
 			{
 				m_head = get_node(next);
-				
+
 				m_head->next = nullptr;
 			}
 			else
@@ -99,16 +99,16 @@ public :
 	void deallocate(void * x)
 	{
 		auto node = get_node(x);
-		
+
 		node->next = m_head;
-		
+
 		m_head = node;
 	}
 
 //  -----------------------------------------------------------------------------------
 
 	void show() const
-	{ 
+	{
 		std::print("Allocator::show : ");
 
 		std::print
@@ -121,8 +121,8 @@ public :
 
 private :
 
-	struct Node 
-	{ 
+	struct Node
+	{
 		Node * next = nullptr;
 	};
 
@@ -136,7 +136,7 @@ private :
 //  -----------------------------------------------------------------------------------
 
 	auto get_node(void * x) const -> Node *
-	{ 
+	{
 		return static_cast < Node * > (x);
 	}
 
@@ -147,9 +147,9 @@ private :
 		m_head = get_node(operator new(m_size, std::align_val_t(s_alignment)));
 
 		m_head->next = nullptr;
-		
+
 		++m_offset;
-		
+
 		m_lists.push_back(m_head);
 	}
 
@@ -158,7 +158,7 @@ private :
 	std::size_t m_size = 0, m_step = 0, m_offset = 0;
 
 	void * m_begin = nullptr;
-	
+
 	Node * m_head  = nullptr;
 
 	std::vector < void * > m_lists;
@@ -194,7 +194,7 @@ void test_v1(benchmark::State & state)
 		}
 
 		for (auto i = 0uz; i < kb; ++i)
-		{ 
+		{
 			operator delete(vector[i], mb);
 		}
 

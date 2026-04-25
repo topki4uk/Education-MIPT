@@ -61,10 +61,10 @@ public :
 		if (begin = std::align(alignment, size, begin, free); begin)
 		{
 			m_offset = m_size - free + size;
-			
+
 			return begin;
 		}
-		else 
+		else
 		{
 			return nullptr;
 		}
@@ -92,7 +92,7 @@ private :
 //  ------------------------------------------------------------------------------
 
 	std::size_t m_size = 0, m_offset = 0;
-	
+
 	void * m_begin = nullptr;
 
 //  ------------------------------------------------------------------------------

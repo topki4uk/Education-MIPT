@@ -24,7 +24,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-class Entity 
+class Entity
 {
 public :
 
@@ -33,19 +33,19 @@ public :
 //  ---------------------------------
 
 	virtual void test() const
-	{ 
+	{
 		std::print("Entity::test\n");
 	}
 };
 
 ///////////////////////////////////////////////////////////////////////
 
-class Client : public Entity 
+class Client : public Entity
 {
 public :
 
-	void test() const override 
-	{ 
+	void test() const override
+	{
 		std::print("Client::test\n");
 	}
 };

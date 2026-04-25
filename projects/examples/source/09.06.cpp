@@ -21,8 +21,8 @@ class Client
 {
 public :
 
-   ~Client() 
-    { 
+   ~Client()
+    {
 		std::print("Client::~Client\n");
 	}
 
@@ -37,8 +37,8 @@ class Server
 {
 public :
 
-   ~Server() 
-    { 
+   ~Server()
+    {
 		std::print("Server::~Server\n");
 	}
 
@@ -56,7 +56,7 @@ int main()
 	auto server = std::make_shared < Server > ();
 
 //  ---------------------------------------------
-		
+
 	client->m_server = server;
 
 	server->m_client = client;

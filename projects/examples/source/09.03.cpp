@@ -20,14 +20,14 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-void test_v1(std::shared_ptr < int > , int) 
+void test_v1(std::shared_ptr < int > , int)
 {
 	std::print("test_v1\n");
 }
 
 ///////////////////////////////////////////////////////////////////////////
 
-[[noreturn]] int test_v2() 
+[[noreturn]] int test_v2()
 {
 	throw std::runtime_error("error");
 }

@@ -31,7 +31,7 @@ void test_v1(benchmark::State & state)
     {
         std::list < int > list;
 
-        for (auto i = 0uz; i < 1 << 10; ++i) 
+        for (auto i = 0uz; i < 1 << 10; ++i)
         {
             list.push_back(1);
         }
@@ -48,7 +48,7 @@ void test_v2(benchmark::State & state)
     {
         std::pmr::list < int > list;
 
-        for (auto i = 0uz; i < 1 << 10; ++i) 
+        for (auto i = 0uz; i < 1 << 10; ++i)
         {
             list.push_back(1);
         }

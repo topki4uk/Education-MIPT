@@ -46,10 +46,10 @@ public :
 		if (begin = std::align(alignment, size, begin, free); begin)
 		{
 			m_offset = S - free + size;
-			
+
 			return begin;
 		}
-		else 
+		else
 		{
 			return nullptr;
 		}

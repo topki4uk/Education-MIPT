@@ -28,7 +28,7 @@ union Entity
 //  ------------------------
 
 	std::string string_1;
-	
+
 	std::string string_2;
 };
 
