@@ -1,90 +1,68 @@
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 // section : Atomics
 
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-// content : Thread Launch Synchronization
+// content : Memory Ordering
 //
-// content : Context Switches
+// content : Enumeration std::memory_order
 //
-// content : Function std::this_thread::yield
+// content : Relaxed Memory Model
+//
+// content : Store-Store and Load-Load Reorderings
 
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 #include <atomic>
-#include <chrono>
-#include <format>
-#include <iostream>
-#include <syncstream>
+#include <cassert>
 #include <thread>
 
-////////////////////////////////////////////////////////////////////////////////////
-
-using namespace std::literals;
-
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 class Entity
 {
 public :
 
-    void test() const
+    void test_v1()
     {
-        trace();
+        m_x.store(true, std::memory_order::relaxed);
 
-        while (!m_x)
+        m_y.store(true, std::memory_order::relaxed);
+    }
+
+//  ---------------------------------------------------------------
+
+    void test_v2()
+    {
+        while (m_y.load(std::memory_order::relaxed) == 0)
         {
             std::this_thread::yield();
         }
 
-        trace();
-    }
-
-//  --------------------------------------------------------------------------------
-
-    void release() const
-    {
-        m_x = true;
+    //  assert(m_x.load(std::memory_order::relaxed) == 1); // error
     }
 
 private :
 
-    void trace() const
-    {
-        auto id = std::this_thread::get_id();
-
-        std::osyncstream(std::cout) << std::format("Entity::trace : id = {}\n", id);
-    }
-
-//  --------------------------------------------------------------------------------
-
-    mutable std::atomic < bool > m_x = false;
+    std::atomic < bool > m_x = false, m_y = false;
 };
 
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 int main()
 {
     Entity entity;
 
-//  -----------------------------------------------
+//  --------------------------------------------------
 
-    std::jthread jthread_1(&Entity::test, &entity);
+    std::jthread jthread_1(&Entity::test_v1, &entity);
 
-    std::jthread jthread_2(&Entity::test, &entity);
-
-//  -----------------------------------------------
-
-    std::this_thread::sleep_for(1s);
-
-//  -----------------------------------------------
-
-    entity.release();
+    std::jthread jthread_2(&Entity::test_v2, &entity);
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////

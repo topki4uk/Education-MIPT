@@ -431,15 +431,16 @@ set(debug
     14.25
     14.26
     14.27
-    14.28
-    14.29
-    14.38
-    14.41
+    14.36
+    14.39
+    14.40
     14.42
+    14.43
     14.44
-    14.45
-    14.46
+    14.47
     14.49
+    14.51
+    14.52
 )
 
 #############################################################################################
@@ -574,13 +575,13 @@ target_link_libraries      (13.23 PRIVATE libpqxx::pqxx)
 
 #############################################################################################
 
-add_executable             (14.39 source/14.39.cpp)
+add_executable             (14.37 source/14.37.cpp)
 
-target_compile_options     (14.39 PRIVATE -Wall -Wextra -Wpedantic -O0)
+target_compile_options     (14.37 PRIVATE -Wall -Wextra -Wpedantic -O0)
 
-target_link_libraries      (14.39 PRIVATE TBB::tbb)
+target_link_libraries      (14.37 PRIVATE TBB::tbb)
 
-target_link_libraries      (14.39 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
+target_link_libraries      (14.37 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
 
 #############################################################################################
 
@@ -617,8 +618,9 @@ set(release
     12.11
 
     14.14
-    14.43
-    14.47
+    14.41
+    14.45
+    14.46
     14.48
     14.50
 )
@@ -651,14 +653,14 @@ target_link_libraries      (10.42 PRIVATE Python::Python)
 
 #############################################################################################
 
-add_executable             (14.40 source/14.40.cpp)
+add_executable             (14.38 source/14.38.cpp)
 
-target_compile_options     (14.40 PRIVATE -Wall -Wextra -Wpedantic -O3)
+target_compile_options     (14.38 PRIVATE -Wall -Wextra -Wpedantic -O3)
 
-target_link_libraries      (14.40 PRIVATE benchmark::benchmark)
+target_link_libraries      (14.38 PRIVATE benchmark::benchmark)
 
-target_link_libraries      (14.40 PRIVATE TBB::tbb)
+target_link_libraries      (14.38 PRIVATE TBB::tbb)
 
-target_link_libraries      (14.40 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
+target_link_libraries      (14.38 PRIVATE /usr/lib/gcc/x86_64-linux-gnu/13/libatomic.a)
 
 #############################################################################################

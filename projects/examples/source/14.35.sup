@@ -1,49 +1,59 @@
-//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 // section : Processors
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-// content : Chip Pervasive Logic
+// content : Memory Management Unit
 //
-// content : Interconnections
+// content : Virtual Addresses
 //
-// content : Cache L2
+// content : Translation Lookaside Buffer
 //
-// content : Tags
+// content : Page Table
 //
-// content : Translation Lookaside Buffers
+// content : Physical Addresses
 //
-// content : Cache L1I
+// content : Memory Hierarchy
 //
-// content : Branch Predictor
+// content : Caches L1, L2 and L3
 //
-// content : Branch Target Buffers
+// content : N-Way Associative Caches
 //
-// content : Decoder
+// content : Tags and Offsets
 //
-// content : Microcode ROM and Cache
+// content : Cache Lines
 //
-// content : Re-Order Buffer
+// content : Random Access Memory
 //
-// content : Scheduler
+// content : External Memory
 //
-// content : Load and Store Unit
+// content : Cache Replacement Policies
 //
-// content : Cache L1D
+// content : Inclusive and Exclusive Caches
 //
-// content : Arithmetic Logic Unit
-//
-// content : Integer Regfile
-//
-// content : Floating Point Unit
-//
-// content : Vector Regfile
-//
-// content : Simultaneous Multithreading
+// content : Latency and Sizes
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+// support : lscpu
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+L1 Cache : Latency ~ 3 * 10 ^ 0 (cycles) : Latency ~ 1 * 10 ^ 0 (ns) : Size ~ 2 ^ 16 (B) per core
+
+L2 Cache : Latency ~ 1 * 10 ^ 1 (cycles) : Latency ~ 3 * 10 ^ 0 (ns) : Size ~ 2 ^ 20 (B) per core
+
+L3 Cache : Latency ~ 3 * 10 ^ 1 (cycles) : Latency ~ 1 * 10 ^ 1 (ns) : Size ~ 2 ^ 26 (B)
+
+RAM      : Latency ~ 3 * 10 ^ 2 (cycles) : Latency ~ 1 * 10 ^ 2 (ns) : Size ~ 2 ^ 36 (B)
+
+SSD      : Latency ~ 3 * 10 ^ 4 (cycles) : Latency ~ 1 * 10 ^ 4 (ns) : Size ~ 2 ^ 40 (B)
+
+HDD      : Latency ~ 1 * 10 ^ 7 (cycles) : Latency ~ 1 * 10 ^ 7 (ns) : Size ~ 2 ^ 44 (B)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////

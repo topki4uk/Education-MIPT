@@ -1,23 +1,49 @@
-///////////////////////////////////////
+//////////////////////////////////////////
 
 // chapter : Parallelism
 
-///////////////////////////////////////
+//////////////////////////////////////////
 
 // section : Processors
 
-///////////////////////////////////////
+//////////////////////////////////////////
 
-// content : Physical Cores
-//
-// content : Cache L3
-//
-// content : System Management Unit
-//
-// content : Physical Layer
-//
-// content : Infinity Fabric On-Package
-//
 // content : Chip Pervasive Logic
+//
+// content : Interconnections
+//
+// content : Cache L2
+//
+// content : Tags
+//
+// content : Translation Lookaside Buffers
+//
+// content : Cache L1I
+//
+// content : Branch Predictor
+//
+// content : Branch Target Buffers
+//
+// content : Decoder
+//
+// content : Microcode ROM and Cache
+//
+// content : Re-Order Buffer
+//
+// content : Scheduler
+//
+// content : Load and Store Unit
+//
+// content : Cache L1D
+//
+// content : Arithmetic Logic Unit
+//
+// content : Integer Regfile
+//
+// content : Floating Point Unit
+//
+// content : Vector Regfile
+//
+// content : Simultaneous Multithreading
 
-///////////////////////////////////////
+//////////////////////////////////////////

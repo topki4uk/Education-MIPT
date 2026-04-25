@@ -1,74 +1,142 @@
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
-// chapter : Parallelism
-
-///////////////////////////////////////////////////////////
-
-// section : Atomics
-
-///////////////////////////////////////////////////////////
-
-// content : Acquire-Release Semantics
-//
-// content : Store-Release and Load-Acquire Fences
-//
-// content : Happens-Before and Synchronizes-With Relations
-//
-// content : Architecture x86
-//
-// content : Total Strong Ordering
-//
-// content : Allowed Store-Load Reordering
-//
-// content : Preventing Optimizations
-
-///////////////////////////////////////////////////////////
-
+#include <algorithm>
 #include <atomic>
-#include <cassert>
+#include <barrier>
+#include <functional>
+#include <future>
+#include <memory>
+#include <ranges>
 #include <thread>
+#include <vector>
 
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
-class Entity
+#include <benchmark/benchmark.h>
+
+//////////////////////////////////////////////////////////////////////////////
+
+#include "08.35.hpp"
+
+//////////////////////////////////////////////////////////////////////////////
+
+class Task
 {
 public :
 
-    void test_v1()
-    {
-        m_x.store(true, std::memory_order::relaxed);
+    virtual ~Task() = default;
 
-        m_y.store(true, std::memory_order::release);
+//  ------------------------------------------
+
+    auto operator()(std::barrier <> & barrier)
+    {
+        barrier.arrive_and_wait();
+
+        Timer timer;
+
+        test();
+
+        return timer.elapsed().count();
     }
 
-//  ------------------------------------------------------
+//  ------------------------------------------
 
-    void test_v2()
+    virtual void test() = 0;
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
+class Task_v1 : public Task
+{
+public :
+
+    void test() override
     {
-        while (m_y.load(std::memory_order::acquire) == 0)
+        for (auto i = 0uz; i < 1 << 20; ++i)
         {
-            std::this_thread::yield();
+            m_x.store(1, std::memory_order::seq_cst);
         }
-
-        assert(m_x.load(std::memory_order::relaxed) == 1);
     }
 
 private :
 
-    std::atomic < bool > m_x = false, m_y = false;
+    std::atomic < int > m_x = 0;
 };
 
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+class Task_v2 : public Task
+{
+public :
+
+    void test() override
+    {
+        for (auto i = 0uz; i < 1 << 20; ++i)
+        {
+            m_x.store(1, std::memory_order::relaxed);
+        }
+    }
+
+private :
+
+    std::atomic < int > m_x = 0;
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
+void test(benchmark::State & state)
+{
+    auto argument = state.range(0);
+
+    auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
+
+    std::vector < std::future < double > > futures(concurrency);
+
+    std::shared_ptr < Task > task;
+
+    switch (argument)
+    {
+        case 1 : { task = std::make_shared < Task_v1 > (); break; }
+
+        case 2 : { task = std::make_shared < Task_v2 > (); break; }
+    }
+
+    std::barrier <> barrier(concurrency + 1);
+
+    auto lambda = [](auto & future){ return future.get(); };
+
+    for (auto element : state)
+    {
+        for (auto & future : futures)
+        {
+            future = std::async
+            (
+                std::launch::async, &Task::operator(), task, std::ref(barrier)
+            );
+        }
+
+        barrier.arrive_and_wait();
+
+        auto time = *std::ranges::fold_left_first
+        (
+            std::views::transform(futures, lambda), std::plus()
+        );
+
+        state.SetIterationTime(time / concurrency);
+
+		benchmark::DoNotOptimize(*task);
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+BENCHMARK(test)->Arg(1)->Arg(2);
+
+//////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-    Entity entity;
-
-//  --------------------------------------------------
-
-    std::jthread jthread_1(&Entity::test_v1, &entity);
-
-    std::jthread jthread_2(&Entity::test_v2, &entity);
+    benchmark::RunSpecifiedBenchmarks();
 }
 
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////

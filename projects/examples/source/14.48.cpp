@@ -1,168 +1,408 @@
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 // section : Atomics
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
-// content : Spinlocks
+// content : Lock-Free Stacks
 //
-// content : Memory Ordering
-//
-// content : Read-Modify-Write Instructions
-//
-// content : Cache Thrashing
-//
-// content : Cache Coherency Traffic
-//
-// content : Reducing Load-Store Unit Utilization
-//
-// content : Function __builtin_ia32_pause
+// content : Library Boost.Lockfree
 //
 // content : Microbenchmarking
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 #include <algorithm>
+#include <array>
 #include <atomic>
 #include <barrier>
+#include <cmath>
+#include <cstddef>
 #include <functional>
 #include <future>
 #include <memory>
-#include <ranges>
 #include <mutex>
+#include <ranges>
 #include <thread>
 #include <vector>
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+#include <boost/lockfree/stack.hpp>
+#include <boost/noncopyable.hpp>
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 #include <benchmark/benchmark.h>
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 #include "08.35.hpp"
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
-class Spinlock_v1
+template < typename T > class Stack_v1 : private boost::noncopyable
 {
 public :
 
-    void lock()
+    Stack_v1(std::size_t capacity)
     {
-        while (m_x.exchange(true));
+        m_vector.reserve(capacity);
     }
 
-//  ---------------------------------
+//  --------------------------------------------------
 
-    void unlock()
+    void push(T x)
     {
-        m_x.store(false);
+        std::scoped_lock < std::mutex > lock(m_mutex);
+
+        m_vector.push_back(x);
     }
 
-private :
+//  --------------------------------------------------
 
-    std::atomic < bool > m_x = false;
-};
-
-///////////////////////////////////////////////////////////////////////////////////
-
-class Spinlock_v2
-{
-public :
-
-    void lock()
+    auto top_and_pop(T & x)
     {
-        while (m_x.exchange(true, std::memory_order::acquire));
-    }
+        std::scoped_lock < std::mutex > lock(m_mutex);
 
-//  -----------------------------------------------------------
-
-    void unlock()
-    {
-        m_x.store(false, std::memory_order::release);
-    }
-
-private :
-
-    std::atomic < bool > m_x = false;
-};
-
-///////////////////////////////////////////////////////////////////////////////////
-
-class Spinlock_v3
-{
-public :
-
-    void lock()
-    {
-        while (true)
+        if (!std::empty(m_vector))
         {
-            if (!m_x.exchange(true, std::memory_order::acquire))
-            {
-                break;
-            }
+            x = m_vector.back();
 
-            while (m_x.load(std::memory_order::relaxed));
+            m_vector.pop_back();
+
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-//  ------------------------------------------------------------
-
-    void unlock()
-    {
-        m_x.store(false, std::memory_order::release);
-    }
-
 private :
 
-    std::atomic < bool > m_x = false;
+    std::vector < T > m_vector;
+
+//  --------------------------------------------------
+
+    mutable std::mutex m_mutex;
 };
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
-class Spinlock_v4
+template < typename T > class Stack_v2 : private boost::noncopyable
 {
-public :
+private :
 
-    void lock() // support : compiler-explorer.com
+    struct Node
     {
-        while (true)
-        {
-            if (!m_x.exchange(true, std::memory_order::acquire))
-            {
-                break;
-            }
+        T x = T();
 
-            while (m_x.load(std::memory_order::relaxed))
+        Node * next = nullptr;
+    };
+
+//  ---------------------------------------------------------------------------------
+
+    struct Pointer
+    {
+        std::atomic < std::thread::id > id = std::thread::id();
+
+        std::atomic < Node * > node = nullptr;
+    };
+
+//  ---------------------------------------------------------------------------------
+
+    class Handler
+    {
+    public :
+
+        Handler() : m_pointer(nullptr)
+        {
+            for (auto & pointer : s_pointers)
             {
-                __builtin_ia32_pause();
+                std::thread::id id;
+
+                if
+                (
+                    pointer.id.compare_exchange_strong
+                    (
+                        id, std::this_thread::get_id(),
+
+                        std::memory_order::acquire,
+
+                        std::memory_order::relaxed
+                    )
+                )
+                {
+                    m_pointer = &pointer;
+
+                    break;
+                }
             }
         }
+
+    //  -----------------------------------------------------------------------
+
+       ~Handler()
+        {
+            m_pointer->node.store(nullptr, std::memory_order::relaxed);
+
+            m_pointer->id.store(std::thread::id(), std::memory_order::release);
+        }
+
+    //  -----------------------------------------------------------------------
+
+        auto & get() const
+        {
+            return m_pointer->node;
+        }
+
+    private :
+
+        Pointer * m_pointer = nullptr;
+    };
+
+//  ---------------------------------------------------------------------------------
+
+    class Storage
+    {
+    private :
+
+        class Retired_Node
+        {
+        public :
+
+           ~Retired_Node()
+            {
+                delete node;
+            }
+
+        //  ------------------------------
+
+            Node * node = nullptr;
+
+            Retired_Node * next = nullptr;
+        };
+
+    public :
+
+        void push_back(Node * node)
+        {
+            push_back(new Retired_Node(node, nullptr));
+
+            m_size.fetch_add(1, std::memory_order::relaxed);
+        }
+
+    //  -----------------------------------------------------------------------------
+
+        void try_clear()
+        {
+            if (m_size.load(std::memory_order::relaxed) >= std::size(s_pointers) * 2)
+            {
+                clear();
+            }
+        }
+
+    private :
+
+        void push_back(Retired_Node * node)
+        {
+            node->next = m_head.load(std::memory_order::relaxed);
+
+            while
+            (
+                !m_head.compare_exchange_weak
+                (
+                    node->next, node,
+
+                    std::memory_order::release,
+
+                    std::memory_order::relaxed
+                )
+            );
+        }
+
+    //  -----------------------------------------------------------------------------
+
+        void clear()
+        {
+            auto node = m_head.exchange(nullptr, std::memory_order::acquire);
+
+            m_size.store(0, std::memory_order::relaxed);
+
+            auto size = 0uz;
+
+            while (node)
+            {
+                auto next = node->next;
+
+                if (!has_pointers(node->node))
+                {
+                    delete node;
+                }
+                else
+                {
+                    push_back(node);
+
+                    ++size;
+                }
+
+                node = next;
+            }
+
+            if (size > 0)
+            {
+                m_size.fetch_add(size, std::memory_order::relaxed);
+            }
+        }
+
+    //  -----------------------------------------------------------------------------
+
+        std::atomic < Retired_Node * > m_head = nullptr;
+
+        std::atomic < std::size_t > m_size = 0;
+    };
+
+public :
+
+   ~Stack_v2()
+    {
+        T x = T();
+
+        while (top_and_pop(x));
     }
 
-//  ------------------------------------------------------------
+//  ---------------------------------------------------------------------------------
 
-    void unlock()
+    void push(T x)
     {
-        m_x.store(false, std::memory_order::release);
+        auto node = new Node(x, nullptr);
+
+        node->next = m_head.load(std::memory_order::relaxed);
+
+        while
+        (
+            !m_head.compare_exchange_weak
+            (
+                node->next, node,
+
+                std::memory_order::release,
+
+                std::memory_order::relaxed
+            )
+        );
+    }
+
+//  ---------------------------------------------------------------------------------
+
+    auto top_and_pop(T & x)
+    {
+        auto & pointer = get_pointer();
+
+        auto head = m_head.load(std::memory_order::acquire);
+
+        do
+        {
+            Node * node = nullptr;
+
+            do
+            {
+                node = head;
+
+                pointer.store(head);
+
+                head = m_head.load(std::memory_order::acquire);
+            }
+            while (head != node);
+        }
+        while
+        (
+            head && !m_head.compare_exchange_strong
+            (
+                head, head->next,
+
+                std::memory_order::acquire,
+
+                std::memory_order::relaxed
+            )
+        );
+
+        pointer.store(nullptr, std::memory_order::release);
+
+        if (head)
+        {
+            x = head->x;
+
+            if (has_pointers(head))
+            {
+                m_storage.push_back(head);
+            }
+            else
+            {
+                delete head;
+            }
+
+            m_storage.try_clear();
+
+            return true;
+        }
+
+        return false;
     }
 
 private :
 
-    std::atomic < bool > m_x = false;
+    auto & get_pointer()
+    {
+        thread_local static Handler handler;
+
+        return handler.get();
+    }
+
+//  ---------------------------------------------------------------------------------
+
+    static auto has_pointers(Node * node)
+    {
+        for (auto & pointer : s_pointers)
+        {
+            if (pointer.id.load(std::memory_order::acquire) != std::thread::id())
+            {
+                if (pointer.node.load(std::memory_order::relaxed) == node)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+//  ---------------------------------------------------------------------------------
+
+    std::atomic < Node * > m_head = nullptr;
+
+    Storage m_storage;
+
+//  ---------------------------------------------------------------------------------
+
+    static inline std::array < Pointer, 64 > s_pointers = {};
 };
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
-class Task_Base
+template < typename T > using Stack_v3 = boost::lockfree::stack < T > ;
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+class Task
 {
 public :
 
-    virtual ~Task_Base() = default;
+    virtual ~Task() = default;
 
 //  ------------------------------------------
 
@@ -182,32 +422,94 @@ public :
     virtual void test() = 0;
 };
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
-template < typename S > class Task : public Task_Base
+template < typename S > class Task_v1 : public Task
 {
 public :
 
+    Task_v1(S & stack) : m_stack(stack) {}
+
+//  ---------------------------------------------------------------------
+
     void test() override
     {
-        for (auto i = 0uz; i < 1 << 10; ++i)
+        for (auto i = 1; i < (1 << 10) + 1; ++i)
         {
-            std::scoped_lock < S > lock(m_spinlock);
-
-            ++m_x;
+            m_stack.push(i);
         }
     }
 
 private :
 
-    int m_x = 0;
-
-//  ------------------------------------------------
-
-    mutable S m_spinlock;
+    S & m_stack;
 };
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+template < typename S > class Task_v2 : public Task
+{
+public :
+
+    Task_v2(S & stack) : m_stack(stack) {}
+
+//  ---------------------------------------------------------------------
+
+    void test() override
+    {
+        auto x = 0;
+
+        for (auto i = 0uz; i < 1 << 10; ++i)
+        {
+            m_stack.top_and_pop(x);
+
+            for (auto j = 0uz; j < 1 << 10; ++j)
+            {
+                x += std::pow(std::sin(x), 2) + std::pow(std::cos(x), 2);
+            }
+        }
+
+        benchmark::DoNotOptimize(x);
+    }
+
+private :
+
+    S & m_stack;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+template < typename S > class Task_v3 : public Task
+{
+public :
+
+    Task_v3(S & stack) : m_stack(stack) {}
+
+//  ---------------------------------------------------------------------
+
+    void test() override
+    {
+        auto x = 0;
+
+        for (auto i = 0uz; i < 1 << 10; ++i)
+        {
+            m_stack.pop(x);
+
+            for (auto j = 0uz; j < 1 << 10; ++j)
+            {
+                x += std::pow(std::sin(x), 2) + std::pow(std::cos(x), 2);
+            }
+        }
+
+        benchmark::DoNotOptimize(x);
+    }
+
+private :
+
+    S & m_stack;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 void test(benchmark::State & state)
 {
@@ -217,17 +519,55 @@ void test(benchmark::State & state)
 
     std::vector < std::future < double > > futures(concurrency);
 
-    std::shared_ptr < Task_Base > task;
+    auto size = concurrency * (1 << 10);
+
+    Stack_v1 < int > stack_v1(2 * size);
+
+    Stack_v2 < int > stack_v2;
+
+    Stack_v3 < int > stack_v3(2 * size);
+
+    for (auto i = 1uz; i < size + 1; ++i)
+    {
+        stack_v1.push(i);
+
+        stack_v2.push(i);
+
+        stack_v3.push(i);
+    }
+
+    std::shared_ptr < Task > task_1;
+
+    std::shared_ptr < Task > task_2;
 
     switch (argument)
     {
-        case 1 : { task = std::make_shared < Task < Spinlock_v1 > > (); break; }
+        case 1 :
+        {
+            task_1 = std::make_shared < Task_v1 < Stack_v1 < int > > > (stack_v1);
 
-        case 2 : { task = std::make_shared < Task < Spinlock_v2 > > (); break; }
+            task_2 = std::make_shared < Task_v2 < Stack_v1 < int > > > (stack_v1);
 
-        case 3 : { task = std::make_shared < Task < Spinlock_v3 > > (); break; }
+            break;
+        }
 
-        case 4 : { task = std::make_shared < Task < Spinlock_v4 > > (); break; }
+        case 2 :
+        {
+            task_1 = std::make_shared < Task_v1 < Stack_v2 < int > > > (stack_v2);
+
+            task_2 = std::make_shared < Task_v2 < Stack_v2 < int > > > (stack_v2);
+
+            break;
+        }
+
+        case 3 :
+        {
+            task_1 = std::make_shared < Task_v1 < Stack_v3 < int > > > (stack_v3);
+
+            task_2 = std::make_shared < Task_v3 < Stack_v3 < int > > > (stack_v3);
+
+            break;
+        }
     }
 
     std::barrier <> barrier(concurrency + 1);
@@ -236,11 +576,19 @@ void test(benchmark::State & state)
 
     for (auto element : state)
     {
-        for (auto & future : futures)
+        for (auto i = 0uz; i < concurrency / 2; ++i)
         {
-            future = std::async
+            futures[i] = std::async
             (
-                std::launch::async, &Task_Base::operator(), task, std::ref(barrier)
+                std::launch::async, &Task::operator(), task_1, std::ref(barrier)
+            );
+        }
+
+        for (auto i = concurrency / 2; i < concurrency; ++i)
+        {
+            futures[i] = std::async
+            (
+                std::launch::async, &Task::operator(), task_2, std::ref(barrier)
             );
         }
 
@@ -253,19 +601,21 @@ void test(benchmark::State & state)
 
         state.SetIterationTime(time / concurrency);
 
-		benchmark::DoNotOptimize(*task);
+		benchmark::DoNotOptimize(*task_1);
+
+        benchmark::DoNotOptimize(*task_2);
     }
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
-BENCHMARK(test)->Arg(1)->Arg(2)->Arg(3)->Arg(4);
+BENCHMARK(test)->Arg(1)->Arg(2)->Arg(3);
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
     benchmark::RunSpecifiedBenchmarks();
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////

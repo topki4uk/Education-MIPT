@@ -1,122 +1,89 @@
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
 // section : Atomics
 
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
-// content : Atomics
+// content : Microbenchmarking
 //
-// content : Wrapper std::atomic
+// content : Pointer std::shared_ptr
+//
+// content : Reference Counting
 
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
 #include <atomic>
-#include <cassert>
-#include <type_traits>
+#include <vector>
 
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+#include <benchmark/benchmark.h>
+
+//////////////////////////////////////////////////////////////////
+
+struct alignas(1 * 8) Entity_v1 { int x = 0; };
+
+struct alignas(2 * 8) Entity_v2 { int x = 0; };
+
+//////////////////////////////////////////////////////////////////
+
+void test(benchmark::State & state)
+{
+    auto argument = state.range(0);
+
+    auto size = 1uz << 10;
+
+    std::vector <               Entity_v1   > entities_v1_1(size);
+
+    std::vector < std::atomic < Entity_v1 > > entities_v1_2(size);
+
+    std::vector <               Entity_v2   > entities_v2_1(size);
+
+    std::vector < std::atomic < Entity_v2 > > entities_v2_2(size);
+
+    Entity_v1 entity_v1(1);
+
+    Entity_v2 entity_v2(1);
+
+    for (auto element : state)
+    {
+        for (auto i = 0uz; i < size; ++i)
+        {
+            switch (argument)
+            {
+                case 1 : { entities_v1_1[i] = entity_v1; break; }
+
+                case 2 : { entities_v1_2[i] = entity_v1; break; }
+
+                case 3 : { entities_v2_1[i] = entity_v2; break; }
+
+                case 4 : { entities_v2_2[i] = entity_v2; break; }
+            }
+        }
+
+        benchmark::DoNotOptimize(entities_v1_1);
+
+        benchmark::DoNotOptimize(entities_v1_2);
+
+        benchmark::DoNotOptimize(entities_v2_1);
+
+        benchmark::DoNotOptimize(entities_v2_2);
+    }
+}
+
+//////////////////////////////////////////////////////////////////
+
+BENCHMARK(test)->Arg(1)->Arg(2)->Arg(3)->Arg(4);
+
+//////////////////////////////////////////////////////////////////
 
 int main()
 {
-    std::atomic < int > x = 1, y = 2;
-
-//  ----------------------------------------------------------
-
-	auto z = 3;
-
-//  ----------------------------------------------------------
-
-    static_assert(decltype(x)::is_always_lock_free);
-
-//  ----------------------------------------------------------
-
-    assert(x.is_lock_free());
-
-//  ----------------------------------------------------------
-
-//  x = y; // error
-
-//  ----------------------------------------------------------
-
-	static_assert(std::is_same_v < decltype(z = 1), int & > );
-
-	static_assert(std::is_same_v < decltype(x = 1), int   > );
-
-//  ----------------------------------------------------------
-
-    assert(x.load() == 1);
-
-//  ----------------------------------------------------------
-
-	x.store(2);
-
-//  ----------------------------------------------------------
-
-	assert(x.exchange(3) == 2);
-
-//  ----------------------------------------------------------
-
-	assert(x.compare_exchange_strong(z, 1) == 1 && x == 1);
-
-    assert(x.compare_exchange_strong(z, 2) == 0 && z == 1);
-
-//  ----------------------------------------------------------
-
-    assert((x +  y) == +3);
-
-	assert((x -  y) == -1);
-
-	assert((x *  y) == +2);
-
-	assert((x /  y) == +0);
-
-	assert((x %  y) == +1);
-
-//  ----------------------------------------------------------
-
-	assert((x += y) == +3);
-
-	assert((x -= y) == +1);
-
-//	assert((x *= y) == +2); // error
-
-//	assert((x /= y) == +1); // error
-
-//	assert((x %= y) == +1); // error
-
-//  ----------------------------------------------------------
-
-	assert(x.fetch_add(1) == 1);
-
-	assert(x.fetch_sub(1) == 2);
-
-//  ----------------------------------------------------------
-
-	assert((x ++  ) == +1);
-
-	assert((x --  ) == +2);
-
-	assert((  ++ y) == +3);
-
-	assert((  -- y) == +2);
-
-//  ----------------------------------------------------------
-
-	assert((x <  y) ==  1);
-
-	assert((x >  y) ==  0);
-
-	assert((x <= y) ==  1);
-
-	assert((x >= y) ==  0);
-
-	assert((x == y) ==  0);
-
-	assert((x != y) ==  1);
+    benchmark::RunSpecifiedBenchmarks();
 }
 
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////

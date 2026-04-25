@@ -1,163 +1,74 @@
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 // section : Atomics
 
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
-// content : Cache Coherence Protocol MESI
+// content : Acquire-Release Semantics
 //
-// content : Modified, Exclusive, Shared and Invalid Cache Lines
+// content : Store-Release and Load-Acquire Fences
 //
-// content : False Sharing
+// content : Happens-Before and Synchronizes-With Relations
 //
-// content : Object std::hardware_constructive_interference_size
+// content : Architecture x86
 //
-// content : Microbenchmarking
+// content : Total Strong Ordering
+//
+// content : Allowed Store-Load Reordering
+//
+// content : Preventing Optimizations
 
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
-#include <algorithm>
 #include <atomic>
-#include <barrier>
-#include <cstddef>
-#include <functional>
-#include <future>
-#include <memory>
-#include <new>
-#include <ranges>
+#include <cassert>
 #include <thread>
-#include <vector>
 
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
-#include <benchmark/benchmark.h>
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-#include "08.35.hpp"
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-struct Entity_v1
-{
-    std::atomic < int > x = 0;
-};
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-struct alignas(std::hardware_constructive_interference_size) Entity_v2
-{
-    std::atomic < int > x = 0;
-};
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-class Task_Base
+class Entity
 {
 public :
 
-    virtual ~Task_Base() = default;
-
-//  -------------------------------------------------------------
-
-    auto operator()(std::barrier <> & barrier, std::size_t index)
+    void test_v1()
     {
-        barrier.arrive_and_wait();
+        m_x.store(true, std::memory_order::relaxed);
 
-        Timer timer;
-
-        test(index);
-
-        return timer.elapsed().count();
+        m_y.store(true, std::memory_order::release);
     }
 
-//  -------------------------------------------------------------
+//  ------------------------------------------------------
 
-    virtual void test(std::size_t index) = 0;
-};
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-template < typename E > class Task : public Task_Base
-{
-public :
-
-    Task(std::size_t size) : m_entities(size) {}
-
-//  --------------------------------------------
-
-    void test(std::size_t index) override
+    void test_v2()
     {
-        for (auto i = 0uz; i < 1 << 20; ++i)
+        while (m_y.load(std::memory_order::acquire) == 0)
         {
-            m_entities.at(index).x = 1;
+            std::this_thread::yield();
         }
+
+        assert(m_x.load(std::memory_order::relaxed) == 1);
     }
 
 private :
 
-    std::vector < E > m_entities;
+    std::atomic < bool > m_x = false, m_y = false;
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////
-
-void test(benchmark::State & state)
-{
-    auto argument = state.range(0);
-
-    auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
-
-    std::vector < std::future < double > > futures(concurrency);
-
-    std::shared_ptr < Task_Base > task;
-
-    switch (argument)
-    {
-        case 1 : { task = std::make_shared < Task < Entity_v1 > > (concurrency); break; }
-
-        case 2 : { task = std::make_shared < Task < Entity_v2 > > (concurrency); break; }
-    }
-
-    std::barrier <> barrier(concurrency + 1);
-
-    auto lambda = [](auto & future){ return future.get(); };
-
-    for (auto element : state)
-    {
-        for (auto i = 0uz; i < concurrency; ++i)
-        {
-            futures[i] = std::async
-            (
-                std::launch::async, &Task_Base::operator(), task, std::ref(barrier), i
-            );
-        }
-
-        barrier.arrive_and_wait();
-
-        auto time = *std::ranges::fold_left_first
-        (
-            std::views::transform(futures, lambda), std::plus()
-        );
-
-        state.SetIterationTime(time / concurrency);
-
-		benchmark::DoNotOptimize(*task);
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-BENCHMARK(test)->Arg(1)->Arg(2);
-
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 int main()
 {
-    benchmark::RunSpecifiedBenchmarks();
+    Entity entity;
+
+//  --------------------------------------------------
+
+    std::jthread jthread_1(&Entity::test_v1, &entity);
+
+    std::jthread jthread_2(&Entity::test_v2, &entity);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////

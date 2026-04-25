@@ -1,83 +1,163 @@
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
 // section : Atomics
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
-// content : Thread Launch Synchronization
+// content : Cache Coherence Protocol MESI
+//
+// content : Modified, Exclusive, Shared and Invalid Cache Lines
+//
+// content : False Sharing
+//
+// content : Object std::hardware_constructive_interference_size
+//
+// content : Microbenchmarking
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
+#include <algorithm>
 #include <atomic>
-#include <chrono>
-#include <format>
-#include <iostream>
-#include <syncstream>
+#include <barrier>
+#include <cstddef>
+#include <functional>
+#include <future>
+#include <memory>
+#include <new>
+#include <ranges>
 #include <thread>
+#include <vector>
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
-using namespace std::literals;
+#include <benchmark/benchmark.h>
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
-class Entity
+#include "08.35.hpp"
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct Entity_v1
+{
+    std::atomic < int > x = 0;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct alignas(std::hardware_constructive_interference_size) Entity_v2
+{
+    std::atomic < int > x = 0;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+class Task_Base
 {
 public :
 
-    void test() const
-    {
-        trace(); m_x.wait(false);
+    virtual ~Task_Base() = default;
 
-        trace();
+//  -------------------------------------------------------------
+
+    auto operator()(std::barrier <> & barrier, std::size_t index)
+    {
+        barrier.arrive_and_wait();
+
+        Timer timer;
+
+        test(index);
+
+        return timer.elapsed().count();
     }
 
-//  --------------------------------------------------------------------------------
+//  -------------------------------------------------------------
 
-    void release() const
+    virtual void test(std::size_t index) = 0;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+template < typename E > class Task : public Task_Base
+{
+public :
+
+    Task(std::size_t size) : m_entities(size) {}
+
+//  --------------------------------------------
+
+    void test(std::size_t index) override
     {
-        m_x = true;
-
-        m_x.notify_all();
+        for (auto i = 0uz; i < 1 << 20; ++i)
+        {
+            m_entities.at(index).x = 1;
+        }
     }
 
 private :
 
-    void trace() const
-    {
-        auto id = std::this_thread::get_id();
-
-        std::osyncstream(std::cout) << std::format("Entity::trace : id = {}\n", id);
-    }
-
-//  --------------------------------------------------------------------------------
-
-    mutable std::atomic < bool > m_x = false;
+    std::vector < E > m_entities;
 };
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+void test(benchmark::State & state)
+{
+    auto argument = state.range(0);
+
+    auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
+
+    std::vector < std::future < double > > futures(concurrency);
+
+    std::shared_ptr < Task_Base > task;
+
+    switch (argument)
+    {
+        case 1 : { task = std::make_shared < Task < Entity_v1 > > (concurrency); break; }
+
+        case 2 : { task = std::make_shared < Task < Entity_v2 > > (concurrency); break; }
+    }
+
+    std::barrier <> barrier(concurrency + 1);
+
+    auto lambda = [](auto & future){ return future.get(); };
+
+    for (auto element : state)
+    {
+        for (auto i = 0uz; i < concurrency; ++i)
+        {
+            futures[i] = std::async
+            (
+                std::launch::async, &Task_Base::operator(), task, std::ref(barrier), i
+            );
+        }
+
+        barrier.arrive_and_wait();
+
+        auto time = *std::ranges::fold_left_first
+        (
+            std::views::transform(futures, lambda), std::plus()
+        );
+
+        state.SetIterationTime(time / concurrency);
+
+		benchmark::DoNotOptimize(*task);
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+BENCHMARK(test)->Arg(1)->Arg(2);
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-    Entity entity;
-
-//  -----------------------------------------------
-
-    std::jthread jthread_1(&Entity::test, &entity);
-
-    std::jthread jthread_2(&Entity::test, &entity);
-
-//  -----------------------------------------------
-
-    std::this_thread::sleep_for(1s);
-
-//  -----------------------------------------------
-
-    entity.release();
+    benchmark::RunSpecifiedBenchmarks();
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
