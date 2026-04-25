@@ -11,9 +11,9 @@ int main(/* it is comment */)
 	std::print("{}{}{}\n", "\"", "\'", "'");
 
 //  ----------------------------------------
-	
+
 	std::print("// it is not comment   \n");
-	
+
 	std::print("/* it is not comment */\n");
 }
 

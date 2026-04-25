@@ -23,7 +23,7 @@
 namespace library
 {
 	void test()
-	{ 
+	{
 		std::print("library::test\n");
 	}
 }
