@@ -52,14 +52,14 @@ class Spinlock_v1
 public :
 
     void lock()
-    { 
+    {
         while (m_x.exchange(true));
     }
 
 //  ---------------------------------
 
     void unlock()
-    { 
+    {
         m_x.store(false);
     }
 
@@ -75,14 +75,14 @@ class Spinlock_v2
 public :
 
     void lock()
-    { 
+    {
         while (m_x.exchange(true, std::memory_order::acquire));
     }
 
 //  -----------------------------------------------------------
 
     void unlock()
-    { 
+    {
         m_x.store(false, std::memory_order::release);
     }
 
@@ -113,7 +113,7 @@ public :
 //  ------------------------------------------------------------
 
     void unlock()
-    { 
+    {
         m_x.store(false, std::memory_order::release);
     }
 
@@ -147,7 +147,7 @@ public :
 //  ------------------------------------------------------------
 
     void unlock()
-    { 
+    {
         m_x.store(false, std::memory_order::release);
     }
 

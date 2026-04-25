@@ -54,7 +54,7 @@ public :
                 m_condition.wait(lock);
             }
         }
-        
+
         trace();
     }
 

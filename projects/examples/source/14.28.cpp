@@ -59,7 +59,7 @@ private :
         };
 
     //  ----------------------------------------------------------------------------
-        
+
         template < typename F > class Callable : public Callable_Base
         {
         public :
@@ -69,7 +69,7 @@ private :
         //  -------------------------------------------------
 
             void call() override
-            { 
+            {
                 m_f();
             }
 

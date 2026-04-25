@@ -35,14 +35,14 @@ public :
 
     void test() const
     {
-        trace(); 
-        
+        trace();
+
         while (!m_x)
         {
             std::this_thread::yield();
         }
 
-        trace(); 
+        trace();
     }
 
 //  --------------------------------------------------------------------------------

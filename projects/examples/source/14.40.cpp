@@ -31,7 +31,7 @@ struct alignas(2 * 8) Entity_v2 { int x = 0; };
 
 //////////////////////////////////////////////////////////////////
 
-void test(benchmark::State & state) 
+void test(benchmark::State & state)
 {
     auto argument = state.range(0);
 

@@ -53,7 +53,7 @@ public :
 
 ///////////////////////////////////////////////////////////////////
 
-class Entity_v5 
+class Entity_v5
 {
 public :
 
@@ -101,7 +101,7 @@ int main()
 #if defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_16)
 
     static_assert(std::atomic < Entity_v2 > ::is_always_lock_free);
-    
+
 #endif
 }
 

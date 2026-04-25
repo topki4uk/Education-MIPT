@@ -33,8 +33,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-auto test_v1(int x) 
-{ 
+auto test_v1(int x)
+{
 	return x;
 }
 
@@ -77,7 +77,7 @@ int main()
 	assert(std::async(std::launch::async,    test_v1, 1).get() == 1);
 
 	assert(std::async(std::launch::deferred, test_v1, 1).get() == 1);
-	
+
 //  -----------------------------------------------------------------
 
 	assert(invoke(test_v1, 1).get() == 1);

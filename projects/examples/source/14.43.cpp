@@ -125,7 +125,7 @@ void test(benchmark::State & state)
     std::barrier <> barrier(concurrency + 1);
 
     auto lambda = [](auto & future){ return future.get(); };
-	
+
     for (auto element : state)
     {
         for (auto i = 0uz; i < concurrency; ++i)
@@ -135,7 +135,7 @@ void test(benchmark::State & state)
                 std::launch::async, &Task_Base::operator(), task, std::ref(barrier), i
             );
         }
-        
+
         barrier.arrive_and_wait();
 
         auto time = *std::ranges::fold_left_first

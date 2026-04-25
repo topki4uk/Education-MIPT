@@ -45,7 +45,7 @@ template < typename T > auto fold(std::ranges::view auto view, T sum)
 {
 	auto begin = std::begin(view), end = std::end(view);
 
-	if (auto size = std::distance(begin, end); size > 0) 
+	if (auto size = std::distance(begin, end); size > 0)
 	{
 		auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
 
@@ -70,7 +70,7 @@ template < typename T > auto fold(std::ranges::view auto view, T sum)
 
 		sum += Task < decltype(range) > ()(range);
 
-		for (auto & [future, thread] : futures) 
+		for (auto & [future, thread] : futures)
 		{
 			sum += future.get();
 		}

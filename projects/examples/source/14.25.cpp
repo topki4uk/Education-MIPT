@@ -47,7 +47,7 @@ public :
 //  --------------------------------------------------------------------------------
 
     void release() const
-    {   
+    {
         m_semaphore.release(m_semaphore.max());
     }
 
