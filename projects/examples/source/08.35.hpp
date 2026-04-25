@@ -34,7 +34,7 @@ private :
     using clock_t = std::chrono::steady_clock;
 
 //  -----------------------------------------------------------------------
-	
+
 	clock_t::time_point m_begin;
 };
 

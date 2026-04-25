@@ -35,7 +35,7 @@
 template < typename T2, typename T1 > T2 bit_cast(T1 const & source)
 {
     static_assert(sizeof(T1) == sizeof(T2));
- 
+
     T2 destination;
 
     std::memcpy(&destination, &source, sizeof(T2));

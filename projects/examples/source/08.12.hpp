@@ -62,15 +62,15 @@ public :
 
 //  ------------------------------------------------------------------------------------------
 
-	Integer(digit_t digit) : Integer() 
-	{ 
+	Integer(digit_t digit) : Integer()
+	{
 		parse(std::to_string(digit));
 	}
 
 //  ------------------------------------------------------------------------------------------
 
-	Integer(std::string const & string) : Integer() 
-	{ 
+	Integer(std::string const & string) : Integer()
+	{
 		parse(string);
 	}
 
@@ -81,7 +81,7 @@ public :
 		std::swap(m_is_negative, other.m_is_negative);
 
 		std::swap(m_digits,      other.m_digits     );
-		
+
 		std::swap(m_size,        other.m_size       );
 	}
 
@@ -98,10 +98,10 @@ public :
 			if (this->less(other))
 			{
 				*this = std::move(other.subtract(*this));
-				
+
 				m_is_negative = true;
 			}
-			else 
+			else
 			{
 				this->subtract(other);
 			}
@@ -112,10 +112,10 @@ public :
 			{
 				*this = std::move(other.subtract(*this));
 			}
-			else 
-			{ 
+			else
+			{
 				this->subtract(other);
-				
+
 				m_is_negative = true;
 			}
 		}
@@ -137,7 +137,7 @@ public :
 	auto & operator*=(Integer other)
 	{
 		Integer x;
-		
+
 		x.m_is_negative = m_is_negative ^ other.m_is_negative;
 
 		for (auto i = 0uz; i < m_size; ++i)
@@ -157,9 +157,9 @@ public :
 		x.m_size = m_size + other.m_size;
 
 		swap(x);
-		
+
 		reduce();
-		
+
 		return *this;
 	}
 
@@ -168,11 +168,11 @@ public :
 	auto & operator/=(Integer other)
 	{
 		Integer x;
-		
+
 		x.m_size = m_size;
 
 		x.m_is_negative = m_is_negative ^ other.m_is_negative;
-		
+
 		other.m_is_negative = false;
 
 		Integer current;
@@ -180,7 +180,7 @@ public :
 		for (auto i = static_cast < int > (m_size) - 1; i >= 0; --i)
 		{
 			current *= s_base;
-			
+
 			current.m_digits.front() = m_digits[i];
 
 			digit_t left = 0, right = s_base, digit = 0;
@@ -190,7 +190,7 @@ public :
 				if (auto middle = std::midpoint(left, right); other * middle <= current)
 				{
 					left  = middle + 1;
-					
+
 					digit = middle;
 				}
 				else
@@ -200,14 +200,14 @@ public :
 			}
 
 			x.m_digits[i] = digit;
-			
+
 			current -= other * digit;
 		}
 
 		swap(x);
-		
+
 		reduce();
-		
+
 		return *this;
 	}
 
@@ -238,8 +238,8 @@ public :
 	friend auto operator< (Integer const & lhs, Integer const & rhs)
 	{
 		if (lhs.m_is_negative != rhs.m_is_negative)
-		{ 
-			return lhs.m_is_negative; 
+		{
+			return lhs.m_is_negative;
 		}
 
 		if (lhs.m_is_negative && rhs.m_is_negative)
@@ -298,11 +298,11 @@ public :
 	friend auto & operator>>(std::istream & stream, Integer & integer)
 	{
 		std::string string;
-		
+
 		stream >> string;
-		
+
 		integer = Integer(string);
-		
+
 		return stream;
 	}
 
@@ -310,7 +310,7 @@ public :
 
 	friend auto & operator<<(std::ostream & stream, Integer const & integer)
 	{
-		if (integer.m_is_negative) 
+		if (integer.m_is_negative)
 		{
 			stream << '-';
 		}
@@ -330,9 +330,9 @@ public :
 	friend auto sqrt(Integer const & x)
 	{
 		Integer y;
-		
+
 		y.m_size = (x.m_size + 1) / 2;
-		
+
 		for (auto i = static_cast < int > (y.m_size) - 1; i >= 0; --i)
 		{
 			digit_t left = 0, right = Integer::s_base, digit = 0;
@@ -423,7 +423,7 @@ private :
 	void parse(std::string const & string)
 	{
 		m_is_negative = string.front() == '-';
-			
+
 		m_size = 0;
 
 		for (auto i = std::ssize(string) - 1; i >= 0; i -= s_step)
@@ -450,7 +450,7 @@ private :
 
 	void reduce()
 	{
-		while (m_size > 1 && !m_digits[m_size - 1]) 
+		while (m_size > 1 && !m_digits[m_size - 1])
 		{
 			--m_size;
 		}
@@ -496,7 +496,7 @@ private :
 		}
 
 		reduce();
-		
+
 		return *this;
 	}
 
@@ -504,14 +504,14 @@ private :
 
 	auto less(Integer const & other) const -> bool
 	{
-		if (m_size != other.m_size) 
+		if (m_size != other.m_size)
 		{
 			return m_size < other.m_size;
 		}
 
 		for (auto i = static_cast < int > (m_size) - 1; i >= 0; --i)
 		{
-			if (m_digits[i] != other.m_digits[i]) 
+			if (m_digits[i] != other.m_digits[i])
 			{
 				return m_digits[i] < other.m_digits[i];
 			}

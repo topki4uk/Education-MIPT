@@ -46,12 +46,12 @@ public :
 
 		m_local = boost::python::import("__main__").attr("__dict__");
 
-		boost::python::exec("import sys\nsys.path.append(\".\")", m_local, m_local); 
+		boost::python::exec("import sys\nsys.path.append(\".\")", m_local, m_local);
 	}
 
 //  ----------------------------------------------------------------------------------------
 
-   ~Python() 
+   ~Python()
     {
 		PyGILState_Release(s_state);
 

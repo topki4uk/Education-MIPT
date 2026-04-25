@@ -25,7 +25,7 @@
 
 ///////////////////////////////////////////////////////////
 
-void test(benchmark::State & state) 
+void test(benchmark::State & state)
 {
     auto argument = state.range(0);
 

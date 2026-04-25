@@ -40,7 +40,7 @@ auto decode(unsigned int x)
 int main()
 {
     assert(0 == 0b000 && encode(0) == 0b000 && decode(0b000) == 0);
-    
+
     assert(1 == 0b001 && encode(1) == 0b001 && decode(0b001) == 1);
 
     assert(2 == 0b010 && encode(2) == 0b011 && decode(0b011) == 2);

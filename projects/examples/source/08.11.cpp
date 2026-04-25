@@ -26,7 +26,7 @@ int main()
     auto x = 1;
 
 //  ----------------------------------------------------
-		
+
 	for (auto i = 1; i <= 100; ++i)
 	{
         if (x < std::numeric_limits < int > ::max() / i)

@@ -22,7 +22,7 @@ auto pow(int x, int y)
 {
     auto z = 1;
 
-    if (x == 0) 
+    if (x == 0)
     {
         return y == 0 ? z : 0;
     }

@@ -44,9 +44,9 @@ auto transform_v1(signal_t const & X)
 
     signal_t Y(size, signal_t::value_type(0));
 
-    for (auto i = 0uz; i < size; ++i) 
+    for (auto i = 0uz; i < size; ++i)
     {
-        for (auto j = 0uz; j < size; ++j) 
+        for (auto j = 0uz; j < size; ++j)
         {
             Y[i] += X[j] * std::exp(-2i * (std::numbers::pi * i * j / size));
         }

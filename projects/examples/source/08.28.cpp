@@ -25,8 +25,8 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-struct Vector 
-{ 
+struct Vector
+{
 	double x = 0, y = 0, z = 0;
 };
 
@@ -35,12 +35,12 @@ struct Vector
 auto operator*(Vector const & a, Vector const & b)
 {
 	return Vector
-	( 
+	(
 		a.y * b.z - a.z * b.y,
 
 	   -a.x * b.z + a.z * b.x,
 
-		a.x * b.y - a.y * b.x 
+		a.x * b.y - a.y * b.x
 	);
 }
 
@@ -78,7 +78,7 @@ int main()
 	for (auto i = 0uz; i < size; ++i)
 	{
 		auto w_B = distribution(engine);
-		
+
 		auto w_C = distribution(engine);
 
 	//  -----------------------------------------------------
@@ -90,9 +90,9 @@ int main()
 	//  -----------------------------------------------------
 
 		auto alpha_1 = (PA * PB).z;
-		
+
 		auto alpha_2 = (PB * PC).z;
-		
+
 		auto alpha_3 = (PC * PA).z;
 
 	//  -----------------------------------------------------
@@ -100,7 +100,7 @@ int main()
 		counter +=
 		(
 			(alpha_1 >= 0 && alpha_2 >= 0 && alpha_3 >= 0) ||
-			
+
 			(alpha_1 <= 0 && alpha_2 <= 0 && alpha_3 <= 0)
 		);
 	}
