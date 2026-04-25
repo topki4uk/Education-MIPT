@@ -35,8 +35,8 @@ int main()
 		<
 			decltype(list)::iterator::iterator_category,
 
-			std::bidirectional_iterator_tag 
-		> 
+			std::bidirectional_iterator_tag
+		>
 	);
 
 //  -----------------------------------------------------------

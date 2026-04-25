@@ -30,11 +30,11 @@ class Entity
 {
 public :
 
-    Entity(int x, std::string const & string) 
-    : 
-        m_flyweight_1(x), 
-        
-        m_flyweight_2(string) 
+    Entity(int x, std::string const & string)
+    :
+        m_flyweight_1(x),
+
+        m_flyweight_2(string)
     {}
 
 //  ----------------------------------------------------------------------
@@ -68,7 +68,7 @@ private :
 
 ////////////////////////////////////////////////////////////////////////////////
 
-int main() 
+int main()
 {
     std::vector < Entity > entities;
 

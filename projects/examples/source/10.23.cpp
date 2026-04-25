@@ -20,7 +20,7 @@ template < typename T, std::size_t S1, std::size_t S2 > class Array
 {
 public :
 
-	class View 
+	class View
 	{
 	public :
 
@@ -29,7 +29,7 @@ public :
 	//  ----------------------------------------
 
 		auto & operator[](std::size_t index)
-		{ 
+		{
 			return m_array[index];
 		}
 
@@ -41,7 +41,7 @@ public :
 //  --------------------------------------------
 
 	auto operator[](std::size_t index)
-	{ 
+	{
 		return View(m_array[index]);
 	}
 

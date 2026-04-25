@@ -40,19 +40,19 @@ int main()
 	std::set < int > set = { 5, 4, 3, 2, 1 };
 
 //  ----------------------------------------------------------
-	
+
     static_assert
     (
-        std::is_same_v 
-        < 
-            decltype(set)::iterator::iterator_category, 
-                
-            std::bidirectional_iterator_tag 
-        > 
+        std::is_same_v
+        <
+            decltype(set)::iterator::iterator_category,
+
+            std::bidirectional_iterator_tag
+        >
     );
 
 //  ----------------------------------------------------------
-		
+
 	assert(std::ranges::is_sorted(set));
 
 //  ----------------------------------------------------------
@@ -70,7 +70,7 @@ int main()
 //  ----------------------------------------------------------
 
 	assert(set.lower_bound(1) == std::next(begin, 0));
-		
+
 	assert(set.upper_bound(1) == std::next(begin, 1));
 
 //  ----------------------------------------------------------

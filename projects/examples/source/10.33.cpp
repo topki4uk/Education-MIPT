@@ -37,7 +37,7 @@ auto determinant_v1(boost::numeric::ublas::matrix < double > const & matrix) -> 
     if (auto size = matrix.size1(); size > 1)
     {
         auto determinant = 0.0;
-    
+
         for (auto i = 0uz; i < size; ++i)
         {
             boost::numeric::ublas::matrix < double > minor(size - 1, size - 1);
@@ -46,7 +46,7 @@ auto determinant_v1(boost::numeric::ublas::matrix < double > const & matrix) -> 
             {
                 for (auto k = 0uz, l = 0uz; k < size; ++k)
                 {
-                    if (k != i) 
+                    if (k != i)
                     {
                         minor(j - 1, l++) = matrix(j, k);
                     }
@@ -69,7 +69,7 @@ auto determinant_v1(boost::numeric::ublas::matrix < double > const & matrix) -> 
 auto determinant_v2(boost::numeric::ublas::matrix < double > matrix)
 {
     if (auto size = matrix.size1(); size > 1)
-    {    
+    {
         boost::numeric::ublas::permutation_matrix <> permutation(size);
 
         if (!boost::numeric::ublas::lu_factorize(matrix, permutation))
@@ -78,7 +78,7 @@ auto determinant_v2(boost::numeric::ublas::matrix < double > matrix)
 
             for (auto i = 0uz; i < size; ++i)
             {
-                if (permutation(i) != i) 
+                if (permutation(i) != i)
                 {
                     determinant *= -1;
                 }
@@ -88,7 +88,7 @@ auto determinant_v2(boost::numeric::ublas::matrix < double > matrix)
 
             return determinant;
         }
-        else 
+        else
         {
             return 0.0;
         }
@@ -143,7 +143,7 @@ void test_v2(benchmark::State & state)
     auto argument = state.range(0);
 
     auto matrix = make_matrix(argument);
-    
+
     for (auto element : state)
     {
         auto determinant = determinant_v2(matrix);

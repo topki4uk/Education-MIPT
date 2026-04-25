@@ -44,8 +44,8 @@ template < typename T > auto hash(T x, auto ... xs)
 
 //////////////////////////////////////////////////////////////////////////
 
-struct Entity 
-{ 
+struct Entity
+{
 	int x = 0, y = 0;
 };
 

@@ -29,12 +29,12 @@ int main()
 
     static_assert
 	(
-		std::is_same_v 
-		< 
+		std::is_same_v
+		<
 			decltype(deque)::iterator::iterator_category,
-			
-			std::random_access_iterator_tag 
-		> 
+
+			std::random_access_iterator_tag
+		>
 	);
 
 //  --------------------------------------------------------------

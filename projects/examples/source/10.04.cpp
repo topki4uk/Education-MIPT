@@ -22,7 +22,7 @@ int main()
 	std::vector < int > vector;
 
 //  ----------------------------------------------------------------------------------
-		
+
 	vector.reserve      (5); assert(std::size(vector) == 0 && vector.capacity() == 5);
 
 	vector.resize       (5); assert(std::size(vector) == 5 && vector.capacity() == 5);

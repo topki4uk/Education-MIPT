@@ -27,8 +27,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct Entity 
-{ 
+struct Entity
+{
 	int x = 0, y = 0;
 };
 
@@ -44,21 +44,21 @@ template < typename T > using tag_t = boost::multi_index::tag < T > ;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-template 
-< 
-	typename C, typename T, T C::*P 
-> 
+template
+<
+	typename C, typename T, T C::*P
+>
 using member_t = boost::multi_index::member < C, T, P > ;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-using container_t = boost::multi_index::multi_index_container 
-< 
-	Entity, boost::multi_index::indexed_by 
+using container_t = boost::multi_index::multi_index_container
+<
+	Entity, boost::multi_index::indexed_by
 	<
 		ONU_t < tag_t < struct ONU_x_tag > , member_t < Entity, int, &Entity::x > > ,
 
-		HNU_t < tag_t < struct HNU_y_tag > , member_t < Entity, int, &Entity::y > > 
+		HNU_t < tag_t < struct HNU_y_tag > , member_t < Entity, int, &Entity::y > >
 	>
 > ;
 

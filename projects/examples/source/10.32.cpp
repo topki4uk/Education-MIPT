@@ -39,7 +39,7 @@ auto multiply(matrix_t const & A, matrix_t const & B) -> matrix_t
     if (auto size = A.size1(), half = size / 2; size > 64)
     {
         boost::numeric::ublas::range range_1(   0, half);
-        
+
         boost::numeric::ublas::range range_2(half, size);
 
         auto A11 = boost::numeric::ublas::project(A, range_1, range_1);

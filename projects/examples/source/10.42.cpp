@@ -36,10 +36,10 @@ auto make_strings(std::size_t size_1, std::size_t size_2)
 	std::uniform_int_distribution distribution(97, 122);
 
 	std::default_random_engine engine;
-    
+
 	while (std::size(strings) < size_1)
     {
-        for (auto & element : string) 
+        for (auto & element : string)
 		{
 			element = distribution(engine);
 		}
@@ -67,7 +67,7 @@ auto hash(std::string const & string) -> std::size_t
 //////////////////////////////////////////////////////////////////////////
 
 int main()
-{	
+{
 	std::set < std::size_t > hashes;
 
 //  ----------------------------------------------------------------------

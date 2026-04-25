@@ -33,7 +33,7 @@ int main()
 	std::vector < int > vector_3
 	(
 		std::make_move_iterator(std::begin(vector_2)),
-		
+
 		std::make_move_iterator(std::end  (vector_2))
 	);
 

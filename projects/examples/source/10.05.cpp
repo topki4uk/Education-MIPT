@@ -28,7 +28,7 @@ int main()
 //  -------------------------------------------------------
 
 	for (auto i = 0uz; i < std::size(vector); ++i)
-	{		
+	{
 		assert(vector[i] == static_cast < int > (i) + 1);
 	}
 
@@ -42,7 +42,7 @@ int main()
 	{
 		assert(vector.at(5) == 0);
 	}
-	catch (std::out_of_range const & exception) 
+	catch (std::out_of_range const & exception)
 	{
 		std::cerr << "main : " << exception.what() << '\n';
 	}

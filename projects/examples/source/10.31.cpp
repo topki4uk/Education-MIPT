@@ -40,14 +40,14 @@ template < std::size_t D > void fill_v2(auto const & container, auto iterator)
 {
 	if constexpr (D > 1)
 	{
-		for (auto const & element : container) 
+		for (auto const & element : container)
 		{
 			fill_v2 < D - 1 > (element, (iterator++)->begin());
 		}
 	}
 	else
 	{
-		for (auto const & element : container) 
+		for (auto const & element : container)
 		{
 			*iterator++ = element;
 		}
@@ -79,9 +79,9 @@ int main()
 
 	std::vector < std::vector < std::vector < int > > > vector
 	(
-		size, std::vector < std::vector < int > > 
+		size, std::vector < std::vector < int > >
 		(
-			size, std::vector < int > 
+			size, std::vector < int >
 			(
 				size, 0
 			)

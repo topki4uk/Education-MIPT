@@ -27,7 +27,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-auto find(std::vector < int > const & vector_1, std::vector < int > const & vector_2) 
+auto find(std::vector < int > const & vector_1, std::vector < int > const & vector_2)
 {
 	auto size_1 = std::size(vector_1);
 
@@ -35,7 +35,7 @@ auto find(std::vector < int > const & vector_1, std::vector < int > const & vect
 
 	std::vector < std::vector < std::size_t > > vector_3
 	(
-		size_1 + 1, std::vector < std::size_t > 
+		size_1 + 1, std::vector < std::size_t >
 		(
 			size_2 + 1, 0
 		)
@@ -65,19 +65,19 @@ auto find(std::vector < int > const & vector_1, std::vector < int > const & vect
 		if (vector_1[i] == vector_2[j])
 		{
 			vector_4.push_back(vector_1[i]);
-			
+
 			--i;
-			
+
 			--j;
 		}
-		else 
+		else
 		{
 			vector_3[i][j + 1] > vector_3[i + 1][j] ? --i : --j;
 		}
 	}
 
 	std::ranges::reverse(vector_4);
-	
+
 	return vector_4;
 }
 

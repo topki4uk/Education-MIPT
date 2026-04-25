@@ -29,7 +29,7 @@
 
 ////////////////////////////////////////////////////////
 
-void test_v1(benchmark::State & state) 
+void test_v1(benchmark::State & state)
 {
     auto const size = 1uz << 20;
 
@@ -54,7 +54,7 @@ void test_v1(benchmark::State & state)
 
 ////////////////////////////////////////////////////////
 
-void test_v2(benchmark::State & state) 
+void test_v2(benchmark::State & state)
 {
     auto size = 1uz << 20;
 
@@ -79,7 +79,7 @@ void test_v2(benchmark::State & state)
 
 ////////////////////////////////////////////////////////
 
-void test_v3(benchmark::State & state) 
+void test_v3(benchmark::State & state)
 {
     auto size = 1uz << 20;
 
@@ -104,7 +104,7 @@ void test_v3(benchmark::State & state)
 
 ////////////////////////////////////////////////////////
 
-void test_v4(benchmark::State & state) 
+void test_v4(benchmark::State & state)
 {
     auto size = 1uz << 20;
 
@@ -129,7 +129,7 @@ void test_v4(benchmark::State & state)
 
 ////////////////////////////////////////////////////////
 
-void test_v5(benchmark::State & state) 
+void test_v5(benchmark::State & state)
 {
     auto size = 1uz << 20;
 
@@ -147,7 +147,7 @@ void test_v5(benchmark::State & state)
         list.sort();
 
         state.SetIterationTime(timer.elapsed().count());
-        
+
         benchmark::DoNotOptimize(list);
     }
 }

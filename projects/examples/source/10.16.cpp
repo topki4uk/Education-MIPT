@@ -26,19 +26,19 @@ public :
 
     void push(T x)
     {
-        if (std::empty(m_stack)) 
+        if (std::empty(m_stack))
         {
             m_stack.push(x);
-            
+
             m_max = m_stack.top();
         }
-        else if (x > m_max) 
+        else if (x > m_max)
         {
             m_stack.push(2 * x - m_max);
-            
+
             m_max = x;
         }
-        else 
+        else
         {
             m_stack.push(x);
         }
@@ -64,16 +64,16 @@ public :
     }
 
 //  ---------------------------------------------------------
- 
+
     auto max() const
-    { 
+    {
         return m_max;
     }
- 
+
 private :
 
     std::stack < T > m_stack;
-    
+
     T m_max = T();
 };
 

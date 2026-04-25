@@ -36,7 +36,7 @@ int main()
 
 //  ----------------------------------------------------
 
-	for (auto const & relation : bimap) 
+	for (auto const & relation : bimap)
 	{
 		assert(relation.left == relation.right);
 	}

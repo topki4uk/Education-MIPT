@@ -26,7 +26,7 @@ auto hash(std::string const & string)
 {
 	auto seed = 0uz;
 
-	for (auto element : string) 
+	for (auto element : string)
 	{
 		(seed *= 31) += element;
 	}
