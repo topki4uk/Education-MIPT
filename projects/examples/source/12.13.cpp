@@ -32,11 +32,11 @@
 
 /////////////////////////////////////////////////////////////////////
 
-auto match(std::string const & string) 
+auto match(std::string const & string)
 {
     std::regex regex(R"([_[:alpha:]]\w*)"); // support : regex101.com
 
-	return std::regex_match(string, regex); 
+	return std::regex_match(string, regex);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ auto match(std::string const & string)
 int main()
 {
     assert(match("aaaaa") == 1);
-        
+
 	assert(match("12345") == 0);
 
 	assert(match("_aaaa") == 1);

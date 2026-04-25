@@ -56,14 +56,14 @@ public :
 
 	auto get()
 	{
-		if (m_has_token) 
-		{ 
+		if (m_has_token)
+		{
 			m_has_token = false;
 
 			return m_token;
 		}
 
-		auto x = '\0'; 
+		auto x = '\0';
 
 		m_stream >> x;
 
@@ -82,7 +82,7 @@ public :
 			{
 				m_stream.unget();
 
-				auto y = 0.0; 
+				auto y = 0.0;
 
 				m_stream >> y;
 
@@ -98,7 +98,7 @@ public :
 					string += x;
 				}
 
-				if (!std::isspace(x)) 
+				if (!std::isspace(x))
 				{
 					m_stream.unget();
 				}

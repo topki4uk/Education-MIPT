@@ -27,8 +27,8 @@
 
 /////////////////////////////////////////////////////////////////////
 
-struct Entity 
-{ 
+struct Entity
+{
     int x = 0, y = 0;
 };
 
@@ -44,12 +44,12 @@ namespace parser
 
 //  ---------------------------------------------------------
 
-    auto rule_def = 
+    auto rule_def =
     (
-        '{' 
+        '{'
             >> boost::spirit::x3::int_ >> ','
-                
-            >> boost::spirit::x3::int_ >> 
+
+            >> boost::spirit::x3::int_ >>
         '}'
     );
 
@@ -84,7 +84,7 @@ int main()
 //  --------------------------------
 
     assert(entity.x == 1);
-    
+
     assert(entity.y == 1);
 }
 

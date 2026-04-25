@@ -21,7 +21,7 @@
 
 auto distance(auto * x, auto * y)
 {
-    return 
+    return
     (
         std::bit_cast < std::byte * > (x) -
 

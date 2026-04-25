@@ -49,10 +49,10 @@ int main()
 
     std::ranges::for_each
     (
-        std::sregex_iterator(begin, std::cend(string), pattern), 
+        std::sregex_iterator(begin, std::cend(string), pattern),
 
-        std::sregex_iterator(), 
-        
+        std::sregex_iterator(),
+
         lambda
     );
 

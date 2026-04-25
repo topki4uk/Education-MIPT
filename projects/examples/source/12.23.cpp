@@ -42,19 +42,19 @@ auto parse(std::string_view view)
 
     using boost::spirit::x3::double_;
 
-    auto rule = 
+    auto rule =
     (
         '(' >> double_[lambda_1] >> ',' >> double_[lambda_2] >> ')' |
 
         '(' >> double_[lambda_1]                             >> ')' |
-        
+
                double_[lambda_1]
     );
 
     using boost::spirit::x3::ascii::space;
 
     boost::spirit::x3::phrase_parse(begin, end, rule, space);
-    
+
     return std::complex < double > (x, y);
 }
 
@@ -62,10 +62,10 @@ auto parse(std::string_view view)
 
 auto equal(std::complex < double > x, std::complex < double > y, double epsilon = 1e-6)
 {
-    return 
+    return
     (
         std::abs(std::real(x) - std::real(y)) < epsilon &&
-        
+
         std::abs(std::imag(y) - std::imag(y)) < epsilon
     );
 }

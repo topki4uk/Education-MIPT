@@ -50,9 +50,9 @@ int main()
     std::ranges::for_each
     (
         std::sregex_token_iterator(begin, std::cend(string), pattern, { 0, 1 }),
-            
-        std::sregex_token_iterator(), 
-        
+
+        std::sregex_token_iterator(),
+
         lambda
     );
 

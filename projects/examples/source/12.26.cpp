@@ -30,30 +30,30 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-class Operand : public boost::spirit::x3::variant 
-< 
+class Operand : public boost::spirit::x3::variant
+<
     double, boost::spirit::x3::forward_ast < struct Sign > ,
 
-            boost::spirit::x3::forward_ast < struct List > 
+            boost::spirit::x3::forward_ast < struct List >
 >
 {
 public :
-    
+
     using base_type::base_type, base_type::operator=;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 struct Sign { char operation = '\0'; Operand operand; };
-    
+
 struct Step { char operation = '\0'; Operand operand; };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct List 
-{ 
+struct List
+{
     Operand head;
-        
+
     std::vector < Step > steps;
 };
 
@@ -80,8 +80,8 @@ namespace parser
 //  -----------------------------------------------------------------------------------------------
 
     auto rule_1_def = rule_2 >> *
-    (        
-        boost::spirit::x3::char_('+') >> rule_2 | 
+    (
+        boost::spirit::x3::char_('+') >> rule_2 |
 
         boost::spirit::x3::char_('-') >> rule_2
     );
@@ -90,16 +90,16 @@ namespace parser
 
     auto rule_2_def = rule_3 >> *
     (
-        boost::spirit::x3::char_('*') >> rule_3 | 
+        boost::spirit::x3::char_('*') >> rule_3 |
 
         boost::spirit::x3::char_('/') >> rule_3
     );
 
 //  -----------------------------------------------------------------------------------------------
 
-    auto rule_3_def = 
+    auto rule_3_def =
     (
-        boost::spirit::x3::char_('+') >> rule_3 | 
+        boost::spirit::x3::char_('+') >> rule_3 |
 
         boost::spirit::x3::char_('-') >> rule_3 | boost::spirit::x3::double_ | '(' >> rule_1 >> ')'
     );
@@ -116,7 +116,7 @@ class Calculator
 public :
 
     auto operator()(double x) const -> double
-    { 
+    {
         return x;
     }
 
@@ -161,7 +161,7 @@ public :
     auto operator()(List const & list) const -> double
     {
         auto x = boost::apply_visitor(*this, list.head);
-        
+
         for (auto const & step : list.steps)
         {
             x = (*this)(step, x);
@@ -201,7 +201,7 @@ int main()
     std::print("main : enter std::string string(s) : \n");
 
 //  --------------------------------------------------------------
-		
+
 	while (std::getline(std::cin >> std::ws, string))
 	{
         if (string.front() != ';')

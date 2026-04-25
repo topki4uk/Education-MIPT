@@ -41,7 +41,7 @@
 
 int main()
 {
-	std::locale locale_1("en_US.utf8"); 
+	std::locale locale_1("en_US.utf8");
 
     std::locale locale_2("ru_RU.utf8");
 

@@ -38,7 +38,7 @@ void test_v1(std::string const & string)
 
 //////////////////////////////////////////////////////////////////////////
 
-void test_v2(std::string_view view) 
+void test_v2(std::string_view view)
 {
     std::print("test_v2 : view = {}\n", view);
 }

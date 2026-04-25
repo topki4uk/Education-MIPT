@@ -25,7 +25,7 @@ auto search(std::string const & string)
     std::smatch matches;
 
     std::regex regex(R"([a-z]{5}-\d{5}(-\d{5})?)"); // support : regex101.com
-    
+
     std::regex_search(string, matches, regex);
 
     return matches;

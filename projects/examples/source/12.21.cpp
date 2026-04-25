@@ -38,12 +38,12 @@ int main()
 
 //  ---------------------------------------------------------------
 
-    auto rule = 
+    auto rule =
     (
-        '{' 
+        '{'
             >> boost::spirit::x3::int_ >> ','
-                
-            >> boost::spirit::x3::int_ >> 
+
+            >> boost::spirit::x3::int_ >>
         '}'
     );
 

@@ -61,7 +61,7 @@ namespace parser
             add("XC",   90);
         }
     };
-    
+
 //  -----------------------------------------------------------------------------------
 
     class Handler_v3 : public boost::spirit::x3::symbols < int >
@@ -103,21 +103,21 @@ namespace parser
 //  -----------------------------------------------------------------------------------
 
     Handler_v1 handler_v1;
-    
+
     Handler_v2 handler_v2;
-    
+
     Handler_v3 handler_v3;
 
 //  -----------------------------------------------------------------------------------
 
-    auto rule_def = 
+    auto rule_def =
     (
         boost::spirit::x3::eps[lambda_1] >> *boost::spirit::x3::char_('M')[lambda_2] >>
         (
-            -handler_v1[lambda_3] >> 
-            
-            -handler_v2[lambda_3] >> 
-            
+            -handler_v1[lambda_3] >>
+
+            -handler_v2[lambda_3] >>
+
             -handler_v3[lambda_3]
         )
     );
@@ -138,7 +138,7 @@ auto parse(std::string_view view)
     auto x = 0;
 
     boost::spirit::x3::parse(begin, end, rule, x);
-    
+
     return x;
 }
 

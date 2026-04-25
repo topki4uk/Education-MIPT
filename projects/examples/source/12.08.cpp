@@ -26,7 +26,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-class Traits : public std::char_traits < char > 
+class Traits : public std::char_traits < char >
 {
 public :
 
@@ -40,7 +40,7 @@ public :
     {
         for (auto i = 0uz; i < size; ++i)
         {
-            if (!eq(string_1[i], string_2[i])) 
+            if (!eq(string_1[i], string_2[i]))
             {
                 return lt(string_1[i], string_2[i]) ? -1 : +1;
             }
@@ -55,7 +55,7 @@ public :
     {
         for (auto i = 0uz; i < size; ++i)
         {
-            if (eq(string[i], x)) 
+            if (eq(string[i], x))
             {
                 return &string[i];
             }
