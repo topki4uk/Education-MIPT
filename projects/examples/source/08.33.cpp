@@ -60,7 +60,7 @@ auto calculate(std::size_t size)
 
 	for (auto i = 0uz; i < size; ++i)
 	{
-		x += std::pow(std::sin(i), 2) + std::pow(std::cos(i), 2);
+		x += std::pow(std::sin(x), 2) + std::pow(std::cos(x), 2);
 	}
 
 	return x;

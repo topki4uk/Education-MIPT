@@ -59,7 +59,7 @@ void test_v1(benchmark::State & state)
 
 		for (auto i = 0uz; i < 1 << 10; ++i)
 		{
-			x += std::pow(std::sin(i), 2) + std::pow(std::cos(i), 2);
+			x += std::pow(std::sin(x), 2) + std::pow(std::cos(x), 2);
 		}
 
         benchmark::DoNotOptimize(x);
@@ -78,7 +78,7 @@ void test_v2(benchmark::State & state)
         {
             for (auto i = 0uz; true; ++i)
             {
-                x += std::pow(std::sin(i), 2) + std::pow(std::cos(i), 2);
+                x += std::pow(std::sin(x), 2) + std::pow(std::cos(x), 2);
 
                 if (i >= 1 << 10)
                 {
