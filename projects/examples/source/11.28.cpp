@@ -64,9 +64,9 @@ template < typename ... Is > auto cartesian(std::pair < Is, Is > ... pairs)
 
 	std::vector < std::size_t > steps(sizeof...(pairs), 0);
 
-	std::vector < std::size_t > sizes = 
-	{ 
-		static_cast < std::size_t > (std::distance(pairs.first, pairs.second))... 
+	std::vector < std::size_t > sizes =
+	{
+		static_cast < std::size_t > (std::distance(pairs.first, pairs.second))...
 	};
 
 	auto lambda = [&tuples](auto ... xs){ tuples.emplace_back(xs...); };
@@ -77,7 +77,7 @@ template < typename ... Is > auto cartesian(std::pair < Is, Is > ... pairs)
 		(
 			lambda, std::tie(pairs...), steps, std::make_index_sequence < sizeof...(pairs) > ()
 		);
-	} 
+	}
 	while (next(steps, sizes));
 
 	return tuples;
@@ -94,7 +94,7 @@ int main()
 //  -------------------------------------------------------------
 
 	auto tuples = cartesian
-	(	
+	(
 		std::make_pair(std::begin(vector_1), std::end(vector_1)),
 
 		std::make_pair(std::begin(vector_2), std::end(vector_2))

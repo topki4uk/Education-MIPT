@@ -23,12 +23,12 @@
 
 auto merge(auto && f1, auto && f2, auto && f3)
 {
-	return [=] < typename T > (T && x) 
-	{ 
+	return [=] < typename T > (T && x)
+	{
 		return f3
 		(
-			f1(std::forward < T > (x)), 
-			
+			f1(std::forward < T > (x)),
+
 			f2(std::forward < T > (x))
 		);
 	};

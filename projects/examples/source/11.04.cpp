@@ -24,10 +24,10 @@
 
 //////////////////////////////////////////////////////////////
 
-auto make_integer() 
-{ 
+auto make_integer()
+{
 	static auto x = 0;
-	
+
 	return ++x;
 }
 
@@ -37,8 +37,8 @@ class Functor
 {
 public :
 
-	auto operator()() 
-	{ 
+	auto operator()()
+	{
 		return ++m_x;
 	}
 
@@ -62,7 +62,7 @@ int main()
 	assert(vector == std::vector < int > ({ 1, 2, 3, 4, 5 }));
 
 //  ----------------------------------------------------------
-    
+
     vector.clear();
 
 //  ----------------------------------------------------------

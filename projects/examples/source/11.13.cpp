@@ -53,7 +53,7 @@ public :
 
     void operator()(Client const & client) const
     {
-        client.test(); 
+        client.test();
     }
 };
 
@@ -71,7 +71,7 @@ public :
 
 //////////////////////////////////////////////////////////////////////////
 
-template < typename ... Bs > class Visitor : private Bs ... 
+template < typename ... Bs > class Visitor : private Bs ...
 {
 public :
 

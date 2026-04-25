@@ -53,7 +53,7 @@ public :
 
 ///////////////////////////////////////////////////////////////////////
 
-class Client : public Entity 
+class Client : public Entity
 {
 public :
 
@@ -76,7 +76,7 @@ class Server : public Entity
 {
 public :
 
-    void test() const override 
+    void test() const override
     {
         std::print("Server::test\n");
     }

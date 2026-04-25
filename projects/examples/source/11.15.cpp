@@ -53,8 +53,8 @@ template < typename D > struct Front {};
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename T, typename ... Ts > struct Front < Deque < T, Ts ... > > 
-{ 
+template < typename T, typename ... Ts > struct Front < Deque < T, Ts ... > >
+{
     using type = T;
 };
 
@@ -98,10 +98,10 @@ public :
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename D > class Max_Type < D, true > 
-{ 
-public : 
-        
+template < typename D > class Max_Type < D, true >
+{
+public :
+
     using type = std::byte;
 };
 
@@ -115,7 +115,7 @@ template < typename D, typename T, std::size_t I = 0, bool C = is_empty_v < D > 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-template < typename D, typename T, std::size_t I > class Index < D, T, I, false > 
+template < typename D, typename T, std::size_t I > class Index < D, T, I, false >
 :
     public std::conditional_t
     <
@@ -163,10 +163,10 @@ template < typename D, typename T, typename ... Ts > class Handler
 {
 public :
 
-    Handler(T x) 
+    Handler(T x)
     {
         new (derived().template get_type < T > ()) T(std::move(x));
-            
+
         derived().m_index = s_index;
     }
 
@@ -174,16 +174,16 @@ public :
 
     auto & operator=(T x)
     {
-        if (derived().m_index == s_index) 
+        if (derived().m_index == s_index)
         {
             *derived().template get_type < T > () = std::move(x);
         }
-        else 
+        else
         {
             derived().destroy();
-                
+
             new (derived().template get_type < T > ()) T(std::move(x));
-                
+
             derived().m_index = s_index;
         }
 
@@ -198,7 +198,7 @@ protected :
 
     void destroy()
     {
-        if (derived().m_index == s_index) 
+        if (derived().m_index == s_index)
         {
             std::destroy_at(derived().template get_type < T > ());
         }
@@ -308,23 +308,23 @@ private :
     void destroy()
     {
         (Handler < Variant < Ts ... > , Ts, Ts ... > ::destroy(), ...);
-        
+
         this->m_index = 0;
     }
 
 //  -------------------------------------------------------------------------------------------
 
-    template 
-    < 
-        typename V, typename U, typename ... Us 
-    > 
+    template
+    <
+        typename V, typename U, typename ... Us
+    >
     auto visit_implementation(V && visitor, Deque < U, Us ... > ) const
     {
-        if (this->template holds_alternative < U > ()) 
+        if (this->template holds_alternative < U > ())
         {
             return visitor(this->template get < U > ());
         }
-        
+
         if constexpr (sizeof...(Us) > 0)
         {
             return visit_implementation(std::forward < V > (visitor), Deque < Us ... > ());

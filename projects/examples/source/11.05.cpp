@@ -23,24 +23,24 @@ template < typename T > class Mean
 {
 public :
 
-	void operator()(T x) 
-	{ 
+	void operator()(T x)
+	{
 		m_sum += x;
-		
+
 		++m_counter;
 	}
 
 //  -----------------------------
 
-	auto get() const 
-	{ 
+	auto get() const
+	{
 		return m_sum / m_counter;
 	}
 
 private :
 
 	T m_sum = T();
-	
+
 	std::size_t m_counter = 0;
 };
 

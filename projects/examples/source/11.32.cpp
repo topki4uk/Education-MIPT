@@ -34,10 +34,10 @@
 
 int main()
 {
-    using graph_t = boost::adjacency_list 
-    < 
-        boost::vecS, boost::vecS, boost::directedS, 
-        
+    using graph_t = boost::adjacency_list
+    <
+        boost::vecS, boost::vecS, boost::directedS,
+
         boost::no_property, boost::property < boost::edge_weight_t, int >
     > ;
 

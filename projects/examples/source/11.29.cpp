@@ -39,7 +39,7 @@ int main()
 //  ---------------------------------------------------------------------------
 
 	auto vertex_1 = boost::add_vertex(graph);
-		
+
 	auto vertex_2 = boost::add_vertex(graph);
 
 	auto vertex_3 = boost::add_vertex(graph);

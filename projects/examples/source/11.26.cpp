@@ -54,7 +54,7 @@ public :
 //  -----------------------------------------------------------
 
     View(std::vector < T > const & vector)
-    : 
+    :
         m_begin(std::cbegin(vector)), m_end(std::cend(vector))
     {}
 
@@ -71,7 +71,7 @@ private :
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-template < std::ranges::view V > auto make_vector(V view) 
+template < std::ranges::view V > auto make_vector(V view)
 {
     std::vector < std::ranges::range_value_t < V > > vector;
 

@@ -31,7 +31,7 @@ class Entity
 public :
 
 	void test()
-	{ 
+	{
 		[[maybe_unused]] auto lambda = [this](){ ++m_x; };
 	}
 

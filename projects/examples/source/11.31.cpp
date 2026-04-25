@@ -40,7 +40,7 @@ public :
     }
 
 //  ----------------------------------------------------------------------------
-    
+
     void start_vertex(auto vertex, auto const & graph)
     {
         std::cout << "Visitor::start_vertex : vertex = " << vertex << '\n';
@@ -65,7 +65,7 @@ public :
 
         boost::default_dfs_visitor::finish_vertex(vertex, graph);
     }
-    
+
 //  ----------------------------------------------------------------------------
 
     void examine_edge(auto edge, auto const & graph)

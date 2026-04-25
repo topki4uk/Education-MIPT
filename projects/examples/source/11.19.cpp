@@ -28,7 +28,7 @@ void show(std::vector < int > const & vector)
 		std::print("{} ", element);
 	}
 
-	std::print("}}\n"); 
+	std::print("}}\n");
 }
 
 /////////////////////////////////////////////////////////////////////////////

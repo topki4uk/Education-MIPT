@@ -59,13 +59,13 @@ int main()
         std::make_pair(std::type_index(typeid(alias_1)), Visitor < alias_1 > ()),
 
         std::make_pair(std::type_index(typeid(alias_2)), Visitor < alias_2 > ()),
-        
+
         std::make_pair(std::type_index(typeid(alias_3)), Visitor < alias_3 > ())
     };
 
 //  -------------------------------------------------------------------------------------------
 
-    for (auto const & any : std::vector < std::any > ({ 1, 2.0, "aaaaa"s })) 
+    for (auto const & any : std::vector < std::any > ({ 1, 2.0, "aaaaa"s }))
     {
         std::type_index type_index(any.type());
 

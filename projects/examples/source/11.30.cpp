@@ -92,7 +92,7 @@ public :
 
         return boost::default_bfs_visitor::non_tree_edge(edge, graph);
     }
-    
+
 //  ----------------------------------------------------------------------------
 
     auto gray_target(auto edge, auto const & graph)
