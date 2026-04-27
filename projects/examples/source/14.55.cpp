@@ -29,16 +29,16 @@ using namespace std::literals;
 
 int main()
 {
-    auto id = fork();
-
-//  ------------------------------------------------------
-
-    if (id == 0)
+    if (auto id = fork(); id != 0)
     {
         std::print("main : id = {}\n", id); id = getpid();
 
         std::print("main : id = {}\n", id);
-    } 
+
+    //  --------------------------------------------------
+
+        wait(nullptr);
+    }
     else
     {
         std::this_thread::sleep_for(1s);
@@ -48,10 +48,6 @@ int main()
         std::print("main : id = {}\n", id); id = getpid();
 
         std::print("main : id = {}\n", id);
-
-    //  --------------------------------------------------
-
-        wait(nullptr);
     }
 }
 
