@@ -147,7 +147,7 @@ protected :
 
     template < typename T > auto get_type() const
     {
-        return std::launder(std::bit_cast < T * > (std::begin(m_array)));
+        return std::bit_cast < T * > (std::begin(m_array));
     }
 
 //  ---------------------------------------------------------------------------------------------
@@ -165,12 +165,12 @@ public :
 
     Handler(T x)
     {
-        new (derived().template get_type < T > ()) T(std::move(x));
+        std::construct_at(derived().template get_type < T > (), std::move(x));
 
         derived().m_index = s_index;
     }
 
-//  ---------------------------------------------------------------------
+//  ------------------------------------------------------------------------------
 
     auto & operator=(T x)
     {
@@ -182,7 +182,7 @@ public :
         {
             derived().destroy();
 
-            new (derived().template get_type < T > ()) T(std::move(x));
+            std::construct_at(derived().template get_type < T > (), std::move(x));
 
             derived().m_index = s_index;
         }
@@ -194,7 +194,7 @@ protected :
 
     Handler() = default;
 
-//  ---------------------------------------------------------------------
+//  ------------------------------------------------------------------------------
 
     void destroy()
     {
@@ -204,7 +204,7 @@ protected :
         }
     }
 
-//  ---------------------------------------------------------------------
+//  ------------------------------------------------------------------------------
 
     constexpr static auto s_index = index_v < Deque < Ts ... > , T > + 1;
 

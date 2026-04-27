@@ -20,9 +20,7 @@
 //
 // content : Function std::launder
 //
-// content : Explicit Destructors
-//
-// content : Function std::destroy_at
+// content : Functions std::construct_at and std::destroy_at
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -73,9 +71,15 @@ int main()
 
 //  ----------------------------------------------------------------------------
 
-	[[maybe_unused]] auto entity_1 = new (storage) Entity(1);
+	auto entity_1 = new (storage) Entity(1);
 
-	[[maybe_unused]] auto entity_2 = new (storage) Entity(2);
+//  ----------------------------------------------------------------------------
+
+	entity_1->~Entity();
+
+//  ----------------------------------------------------------------------------
+
+	auto entity_2 = std::construct_at(std::bit_cast < Entity * > (storage), 2);
 
 //  ----------------------------------------------------------------------------
 

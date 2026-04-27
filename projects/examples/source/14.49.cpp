@@ -51,7 +51,7 @@ public :
 
         for (auto i = 0uz; i < m_size; ++i)
         {
-            new (&m_array[i]) T();
+            std::construct_at(&m_array[i], T());
         }
     }
 
