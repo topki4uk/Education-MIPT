@@ -42,14 +42,14 @@ int main()
 
 //  -------------------------------------------------------------------------
 
-	using vector_t = boost::interprocess::vector 
-    < 
-        int, 
-        
-        boost::interprocess::allocator 
-        < 
-            int, boost::interprocess::managed_shared_memory::segment_manager 
-        > 
+	using vector_t = boost::interprocess::vector
+    <
+        int,
+
+        boost::interprocess::allocator
+        <
+            int, boost::interprocess::managed_shared_memory::segment_manager
+        >
     > ;
 
 //  -------------------------------------------------------------------------

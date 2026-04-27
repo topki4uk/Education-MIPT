@@ -14,8 +14,6 @@
 //
 // content : Happens-Before and Synchronizes-With Relations
 //
-// content : Architecture x86
-//
 // content : Total Strong Ordering
 //
 // content : Allowed Store-Load Reordering
