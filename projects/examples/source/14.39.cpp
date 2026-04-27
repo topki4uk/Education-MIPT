@@ -31,18 +31,18 @@ public :
 
     void test() const
     {
-        trace(); m_x.wait(false);
+        trace(); m_flag.wait(false);
 
         trace();
     }
 
 //  --------------------------------------------------------------------------------
 
-    void release() const
+    void release()
     {
-        m_x = true;
+        m_flag = true;
 
-        m_x.notify_all();
+        m_flag.notify_all();
     }
 
 private :
@@ -56,7 +56,7 @@ private :
 
 //  --------------------------------------------------------------------------------
 
-    mutable std::atomic < bool > m_x = false;
+    std::atomic < bool > m_flag = false;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////

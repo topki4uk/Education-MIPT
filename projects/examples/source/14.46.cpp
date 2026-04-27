@@ -53,19 +53,19 @@ public :
 
     void lock()
     {
-        while (m_x.exchange(true));
+        while (m_flag.exchange(true));
     }
 
-//  ---------------------------------
+//  ------------------------------------
 
     void unlock()
     {
-        m_x.store(false);
+        m_flag.store(false);
     }
 
 private :
 
-    std::atomic < bool > m_x = false;
+    std::atomic < bool > m_flag = false;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -76,19 +76,19 @@ public :
 
     void lock()
     {
-        while (m_x.exchange(true, std::memory_order::acquire));
+        while (m_flag.exchange(true, std::memory_order::acquire));
     }
 
-//  -----------------------------------------------------------
+//  --------------------------------------------------------------
 
     void unlock()
     {
-        m_x.store(false, std::memory_order::release);
+        m_flag.store(false, std::memory_order::release);
     }
 
 private :
 
-    std::atomic < bool > m_x = false;
+    std::atomic < bool > m_flag = false;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -101,25 +101,25 @@ public :
     {
         while (true)
         {
-            if (!m_x.exchange(true, std::memory_order::acquire))
+            if (!m_flag.exchange(true, std::memory_order::acquire))
             {
                 break;
             }
 
-            while (m_x.load(std::memory_order::relaxed));
+            while (m_flag.load(std::memory_order::relaxed));
         }
     }
 
-//  ------------------------------------------------------------
+//  ---------------------------------------------------------------
 
     void unlock()
     {
-        m_x.store(false, std::memory_order::release);
+        m_flag.store(false, std::memory_order::release);
     }
 
 private :
 
-    std::atomic < bool > m_x = false;
+    std::atomic < bool > m_flag = false;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -132,28 +132,28 @@ public :
     {
         while (true)
         {
-            if (!m_x.exchange(true, std::memory_order::acquire))
+            if (!m_flag.exchange(true, std::memory_order::acquire))
             {
                 break;
             }
 
-            while (m_x.load(std::memory_order::relaxed))
+            while (m_flag.load(std::memory_order::relaxed))
             {
                 __builtin_ia32_pause();
             }
         }
     }
 
-//  ------------------------------------------------------------
+//  ---------------------------------------------------------------
 
     void unlock()
     {
-        m_x.store(false, std::memory_order::release);
+        m_flag.store(false, std::memory_order::release);
     }
 
 private :
 
-    std::atomic < bool > m_x = false;
+    std::atomic < bool > m_flag = false;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////

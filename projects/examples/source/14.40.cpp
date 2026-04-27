@@ -37,7 +37,7 @@ public :
     {
         trace();
 
-        while (!m_x)
+        while (!m_flag)
         {
             std::this_thread::yield();
         }
@@ -47,9 +47,9 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-    void release() const
+    void release()
     {
-        m_x = true;
+        m_flag = true;
     }
 
 private :
@@ -63,7 +63,7 @@ private :
 
 //  --------------------------------------------------------------------------------
 
-    mutable std::atomic < bool > m_x = false;
+    std::atomic < bool > m_flag = false;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////

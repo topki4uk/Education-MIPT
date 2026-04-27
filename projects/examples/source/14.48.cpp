@@ -39,7 +39,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > class Stack_v1
+template < typename T, typename C = std::vector < T > > class Stack_v1
 {
 public :
 
@@ -47,7 +47,7 @@ public :
     {
         std::scoped_lock < std::mutex > lock(m_mutex);
 
-        m_vector.push_back(x);
+        m_container.push_back(x);
     }
 
 //  --------------------------------------------------
@@ -56,11 +56,11 @@ public :
     {
         std::scoped_lock < std::mutex > lock(m_mutex);
 
-        if (!std::empty(m_vector))
+        if (!std::empty(m_container))
         {
-            x = m_vector.back();
+            x = m_container.back();
 
-            m_vector.pop_back();
+            m_container.pop_back();
 
             return true;
         }
@@ -72,7 +72,7 @@ public :
 
 private :
 
-    std::vector < T > m_vector;
+    C m_container;
 
 //  --------------------------------------------------
 

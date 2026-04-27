@@ -1,87 +1,82 @@
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 // section : Synchronization
 
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
-// content : Pattern Double-Checked Locking
-//
 // content : Thread-Safe Initialization
+//
+// content : Pattern Double-Checked Locking
 //
 // content : Function std::call_once
 //
 // content : Flag std::once_flag
 
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 #include <memory>
 #include <mutex>
 #include <thread>
 
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 class Entity
 {
 public :
 
-    Entity()
-    {
-    //  initialize_v1(); // error
-
-        std::call_once(m_flag, &Entity::initialize_v2, this);
-    }
-
-private :
-
 //  void initialize_v1() // error
 //  {
-//      if (!s_x)
+//      if (!m_x)
 //      {
 //          std::scoped_lock < std::mutex > lock(m_mutex);
 //
-//          if (!s_x)
+//          if (!m_x)
 //          {
-//              s_x = std::make_shared < int > (1);
+//              m_x = std::make_shared < int > (1);
 //          }
 //      }
 //  }
 
-//  ---------------------------------------------------------
+//  ---------------------------------------------------------------------
 
     void initialize_v2()
     {
-        s_x = std::make_shared < int > (1);
+        std::call_once(m_flag, &Entity::initialize_implementation, this);
     }
 
-//  ---------------------------------------------------------
+private :
 
-    static inline std::shared_ptr < int > s_x;
+    void initialize_implementation()
+    {
+        m_x = std::make_shared < int > (1);
+    }
 
-//  ---------------------------------------------------------
+//  ---------------------------------------------------------------------
+
+    std::shared_ptr < int > m_x;
+
+    std::once_flag m_flag;
+
+//  ---------------------------------------------------------------------
 
     mutable std::mutex m_mutex;
-
-    mutable std::once_flag m_flag;
 };
 
-/////////////////////////////////////////////////////////////
-
-void test()
-{
-    Entity entity;
-}
-
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-    std::jthread thread_1(test);
+    Entity entity;
 
-    std::jthread thread_2(test);
+//  -------------------------------------------------------
+
+    std::jthread thread_1(&Entity::initialize_v2, &entity);
+
+    std::jthread thread_2(&Entity::initialize_v2, &entity);
 }
 
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////

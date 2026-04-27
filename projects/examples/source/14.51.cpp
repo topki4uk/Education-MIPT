@@ -37,7 +37,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-class Pool : private boost::noncopyable
+class Pool
 {
 private :
 
@@ -114,28 +114,28 @@ private :
 
 //  ----------------------------------------------------------------------------------
 
-    class Queue : private boost::noncopyable
+    template < typename T, typename C = std::deque < T > > class Queue
     {
     public :
 
-        void push(Task && task)
+        void push(T && x)
         {
             std::scoped_lock < std::mutex > lock(m_mutex);
 
-            m_tasks.push_back(std::move(task));
+            m_container.push_back(std::move(x));
         }
 
     //  --------------------------------------------------
 
-        auto top_and_pop(Task & task)
+        auto top_and_pop(T & x)
         {
             std::scoped_lock < std::mutex > lock(m_mutex);
 
-            if (!std::empty(m_tasks))
+            if (!std::empty(m_container))
             {
-                task = std::move(m_tasks.front());
+                x = std::move(m_container.front());
 
-                m_tasks.pop_front();
+                m_container.pop_front();
 
                 return true;
             }
@@ -145,7 +145,7 @@ private :
 
     private :
 
-        std::deque < Task > m_tasks;
+        C m_container;
 
     //  --------------------------------------------------
 
@@ -171,13 +171,13 @@ public :
 
 //  ----------------------------------------------------------------------------------
 
-    template < typename F > auto submit(F && f)
+    template < typename F > auto post(F && f)
     {
         std::packaged_task < std::result_of_t < F() > () > task(std::move(f));
 
         auto future = task.get_future();
 
-        m_queue.push(std::move(task));
+        m_tasks.push(std::move(task));
 
         return future;
     }
@@ -190,7 +190,7 @@ private :
 
         while (!m_flag)
         {
-            if (m_queue.top_and_pop(task))
+            if (m_tasks.top_and_pop(task))
             {
                 task();
             }
@@ -205,7 +205,7 @@ private :
 
     std::vector < std::jthread > m_threads;
 
-    Queue m_queue;
+    Queue < Task > m_tasks;
 
     std::atomic < bool > m_flag = false;
 };
@@ -253,7 +253,7 @@ int main()
 
     //  -------------------------------------------------
 
-        future = pool.submit(std::move(lambda));
+        future = pool.post(std::move(lambda));
     }
 
 //  --------------------------------------------------------

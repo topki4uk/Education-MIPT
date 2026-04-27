@@ -40,7 +40,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > class Queue_v1
+template < typename T, typename C = std::deque < T > > class Queue_v1
 {
 public :
 
@@ -48,7 +48,7 @@ public :
     {
         std::scoped_lock < std::mutex > lock(m_mutex);
 
-        m_deque.push_back(x);
+        m_container.push_back(x);
     }
 
 //  --------------------------------------------------
@@ -57,11 +57,11 @@ public :
     {
         std::scoped_lock < std::mutex > lock(m_mutex);
 
-        if (!std::empty(m_deque))
+        if (!std::empty(m_container))
         {
-            x = m_deque.front();
+            x = m_container.front();
 
-            m_deque.pop_front();
+            m_container.pop_front();
 
             return true;
         }
@@ -71,9 +71,11 @@ public :
 
 private :
 
-    std::deque < T > m_deque;
+    C m_container;
 
-    std::mutex m_mutex;
+//  --------------------------------------------------
+
+    mutable std::mutex m_mutex;
 };
 
 //////////////////////////////////////////////////////////////////////////////////

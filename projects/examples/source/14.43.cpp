@@ -36,9 +36,9 @@ public :
 
     void test_v1()
     {
-        m_x.store(true, std::memory_order::relaxed);
+        m_x.store(1, std::memory_order::relaxed);
 
-        m_y.store(true, std::memory_order::release);
+        m_y.store(1, std::memory_order::release);
     }
 
 //  ------------------------------------------------------
@@ -55,7 +55,7 @@ public :
 
 private :
 
-    std::atomic < bool > m_x = false, m_y = false;
+    std::atomic < int > m_x = 0, m_y = 0;
 };
 
 ///////////////////////////////////////////////////////////
