@@ -10,9 +10,9 @@
 
 // content : Process Communication
 //
-// content : Library Boost.Interpocess
-//
 // content : Shared Memory
+//
+// content : Library Boost.Interpocess
 //
 // content : Memory Mapped Files
 
@@ -43,19 +43,19 @@ using namespace std::literals;
 
 int main()
 {
-	auto path = "shared_memory";
-
-//  -----------------------------------------------------------------------------------------
-
-	boost::interprocess::shared_memory_object::remove(path);
+	auto path = "output";
 
 //  -----------------------------------------------------------------------------------------
 
     if (auto id = fork(); id != 0)
     {
+        boost::interprocess::shared_memory_object::remove(path);
+
+    //  -------------------------------------------------------------------------------------
+
         boost::interprocess::shared_memory_object storage
         (
-		    boost::interprocess::create_only, path, boost::interprocess::read_write
+            boost::interprocess::create_only, path, boost::interprocess::read_write
         );
 
     //  -------------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ int main()
 
         boost::interprocess::shared_memory_object storage
         (
-		    boost::interprocess::open_only, path, boost::interprocess::read_only
+		    boost::interprocess::open_only, path, boost::interprocess::read_write
         );
 
     //  ------------------------------------------------------------------------------------
