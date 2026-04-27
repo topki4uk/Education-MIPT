@@ -17,23 +17,17 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 #include <algorithm>
-#include <array>
-#include <atomic>
 #include <barrier>
-#include <cmath>
-#include <cstddef>
 #include <functional>
 #include <future>
 #include <memory>
 #include <mutex>
 #include <ranges>
-#include <thread>
 #include <vector>
 
 //////////////////////////////////////////////////////////////////////////////////
 
 #include <boost/lockfree/stack.hpp>
-#include <boost/noncopyable.hpp>
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -45,16 +39,9 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > class Stack_v1 : private boost::noncopyable
+template < typename T > class Stack_v1
 {
 public :
-
-    Stack_v1(std::size_t capacity)
-    {
-        m_vector.reserve(capacity);
-    }
-
-//  --------------------------------------------------
 
     void push(T x)
     {
@@ -130,7 +117,7 @@ public :
 
     Task_v1(S & stack) : m_stack(stack) {}
 
-//  ---------------------------------------------------------------------
+//  --------------------------------------------
 
     void test() override
     {
@@ -201,17 +188,17 @@ void test(benchmark::State & state)
 {
     auto argument = state.range(0);
 
-    auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
+    auto concurrency = 2uz;
 
     std::vector < std::future < double > > futures(concurrency);
 
     auto size = concurrency * (1 << 10);
 
-    Stack_v1 < int > stack_v1(2 * size);
+    Stack_v1 < int > stack_v1;
 
     Stack_v2 < int > stack_v2(2 * size);
 
-    for (auto i = 1uz; i < size + 1; ++i)
+    for (auto i = 1; i < static_cast < int > (size) + 1; ++i)
     {
         stack_v1.push(i);
 
