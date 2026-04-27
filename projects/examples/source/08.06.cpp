@@ -23,9 +23,9 @@
 
 int main()
 {
-    assert((std::bitset < 8 > (0b01) & std::bitset < 8 > (0b10)) == 0b00);
+    assert((std::bitset < 8 > (0b0011) & std::bitset < 8 > (0b0101)) == 0b0001);
 
-    assert((std::bitset < 8 > (0b01) | std::bitset < 8 > (0b10)) == 0b11);
+    assert((std::bitset < 8 > (0b0011) | std::bitset < 8 > (0b0101)) == 0b0111);
 
 //  -------------------------------------------------------------------------------------
 
