@@ -1,12 +1,12 @@
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 // section : Atomics
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 // content : Lock-Free Programming
 //
@@ -16,7 +16,7 @@
 //
 // content : Garbage Collectors
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 #include <array>
 #include <atomic>
@@ -24,11 +24,197 @@
 #include <functional>
 #include <thread>
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 #include <boost/noncopyable.hpp>
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+template < typename T > class Pointer
+{
+public :
+
+    std::atomic < std::thread::id > id = std::thread::id();
+
+    std::atomic < T * > x = nullptr;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+
+template < typename T > class Handler
+{
+public :
+
+    Handler() : m_pointer(nullptr)
+    {
+        for (auto & pointer : s_pointers)
+        {
+            std::thread::id id;
+
+            if
+            (
+                pointer.id.compare_exchange_strong
+                (
+                    id, std::this_thread::get_id(),
+
+                    std::memory_order::acquire,
+
+                    std::memory_order::relaxed
+                )
+            )
+            {
+                m_pointer = &pointer;
+
+                break;
+            }
+        }
+    }
+
+//  -----------------------------------------------------------------------------
+
+   ~Handler()
+    {
+        m_pointer->x.store(nullptr, std::memory_order::relaxed);
+
+        m_pointer->id.store(std::thread::id(), std::memory_order::release);
+    }
+
+//  -----------------------------------------------------------------------------
+
+    auto & get() const
+    {
+        return m_pointer->x;
+    }
+
+//  -----------------------------------------------------------------------------
+
+    static auto has_pointers(T * x)
+    {
+        for (auto & pointer : s_pointers)
+        {
+            if (pointer.id.load(std::memory_order::acquire) != std::thread::id())
+            {
+                if (pointer.x.load(std::memory_order::relaxed) == x)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+private :
+
+    Pointer < T > * m_pointer = nullptr;
+
+//  -----------------------------------------------------------------------------
+
+    static inline std::array < Pointer < T > , 64 > s_pointers = {};
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+
+template < typename T > class Storage
+{
+private :
+
+    class Node
+    {
+    public :
+
+       ~Node()
+        {
+            delete x;
+        }
+
+    //  ----------------------
+
+        T * x = nullptr;
+
+        Node * next = nullptr;
+    };
+
+public :
+
+    void push_back(T * x)
+    {
+        push_back(new Node(x, nullptr));
+
+        m_size.fetch_add(1, std::memory_order::relaxed);
+    }
+
+//  ---------------------------------------------------------------------
+
+    void try_clear()
+    {
+        if (m_size.load(std::memory_order::relaxed) >= 64)
+        {
+            clear();
+        }
+    }
+
+private :
+
+    void push_back(Node * node)
+    {
+        node->next = m_head.load(std::memory_order::relaxed);
+
+        while
+        (
+            !m_head.compare_exchange_weak
+            (
+                node->next, node,
+
+                std::memory_order::release,
+
+                std::memory_order::relaxed
+            )
+        );
+    }
+
+//  ---------------------------------------------------------------------
+
+    void clear()
+    {
+        auto node = m_head.exchange(nullptr, std::memory_order::acquire);
+
+        m_size.store(0, std::memory_order::relaxed);
+
+        auto size = 0uz;
+
+        while (node)
+        {
+            auto next = node->next;
+
+            if (!Handler < T > ::has_pointers(node->x))
+            {
+                delete node;
+            }
+            else
+            {
+                push_back(node);
+
+                ++size;
+            }
+
+            node = next;
+        }
+
+        if (size > 0)
+        {
+            m_size.fetch_add(size, std::memory_order::relaxed);
+        }
+    }
+
+//  ---------------------------------------------------------------------
+
+    std::atomic < Node * > m_head = nullptr;
+
+    std::atomic < std::size_t > m_size = 0;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 
 template < typename T > class Stack : private boost::noncopyable
 {
@@ -41,168 +227,6 @@ private :
         Node * next = nullptr;
     };
 
-//  ---------------------------------------------------------------------------------
-
-    struct Pointer
-    {
-        std::atomic < std::thread::id > id = std::thread::id();
-
-        std::atomic < Node * > node = nullptr;
-    };
-
-//  ---------------------------------------------------------------------------------
-
-    class Handler
-    {
-    public :
-
-        Handler() : m_pointer(nullptr)
-        {
-            for (auto & pointer : s_pointers)
-            {
-                std::thread::id id;
-
-                if
-                (
-                    pointer.id.compare_exchange_strong
-                    (
-                        id, std::this_thread::get_id(),
-
-                        std::memory_order::acquire,
-
-                        std::memory_order::relaxed
-                    )
-                )
-                {
-                    m_pointer = &pointer;
-
-                    break;
-                }
-            }
-        }
-
-    //  -----------------------------------------------------------------------
-
-       ~Handler()
-        {
-            m_pointer->node.store(nullptr, std::memory_order::relaxed);
-
-            m_pointer->id.store(std::thread::id(), std::memory_order::release);
-        }
-
-    //  -----------------------------------------------------------------------
-
-        auto & get() const
-        {
-            return m_pointer->node;
-        }
-
-    private :
-
-        Pointer * m_pointer = nullptr;
-    };
-
-//  ---------------------------------------------------------------------------------
-
-    class Storage
-    {
-    private :
-
-        class Retired_Node
-        {
-        public :
-
-           ~Retired_Node()
-            {
-                delete node;
-            }
-
-        //  ------------------------------
-
-            Node * node = nullptr;
-
-            Retired_Node * next = nullptr;
-        };
-
-    public :
-
-        void push_back(Node * node)
-        {
-            push_back(new Retired_Node(node, nullptr));
-
-            m_size.fetch_add(1, std::memory_order::relaxed);
-        }
-
-    //  -----------------------------------------------------------------------------
-
-        void try_clear()
-        {
-            if (m_size.load(std::memory_order::relaxed) >= std::size(s_pointers) * 2)
-            {
-                clear();
-            }
-        }
-
-    private :
-
-        void push_back(Retired_Node * node)
-        {
-            node->next = m_head.load(std::memory_order::relaxed);
-
-            while
-            (
-                !m_head.compare_exchange_weak
-                (
-                    node->next, node,
-
-                    std::memory_order::release,
-
-                    std::memory_order::relaxed
-                )
-            );
-        }
-
-    //  -----------------------------------------------------------------------------
-
-        void clear()
-        {
-            auto node = m_head.exchange(nullptr, std::memory_order::acquire);
-
-            m_size.store(0, std::memory_order::relaxed);
-
-            auto size = 0uz;
-
-            while (node)
-            {
-                auto next = node->next;
-
-                if (!has_pointers(node->node))
-                {
-                    delete node;
-                }
-                else
-                {
-                    push_back(node);
-
-                    ++size;
-                }
-
-                node = next;
-            }
-
-            if (size > 0)
-            {
-                m_size.fetch_add(size, std::memory_order::relaxed);
-            }
-        }
-
-    //  -----------------------------------------------------------------------------
-
-        std::atomic < Retired_Node * > m_head = nullptr;
-
-        std::atomic < std::size_t > m_size = 0;
-    };
-
 public :
 
    ~Stack()
@@ -212,7 +236,7 @@ public :
         while (top_and_pop(x));
     }
 
-//  ---------------------------------------------------------------------------------
+//  -------------------------------------------------------------------
 
     void push(T x)
     {
@@ -233,7 +257,7 @@ public :
         );
     }
 
-//  ---------------------------------------------------------------------------------
+//  -------------------------------------------------------------------
 
     auto top_and_pop(T & x)
     {
@@ -273,7 +297,7 @@ public :
         {
             x = head->x;
 
-            if (has_pointers(head))
+            if (Handler < Node > ::has_pointers(head))
             {
                 m_storage.push_back(head);
             }
@@ -294,41 +318,23 @@ private :
 
     auto & get_pointer()
     {
-        thread_local static Handler handler;
+        thread_local static Handler < Node > handler;
 
         return handler.get();
     }
 
-//  ---------------------------------------------------------------------------------
-
-    static auto has_pointers(Node * node)
-    {
-        for (auto & pointer : s_pointers)
-        {
-            if (pointer.id.load(std::memory_order::acquire) != std::thread::id())
-            {
-                if (pointer.node.load(std::memory_order::relaxed) == node)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-//  ---------------------------------------------------------------------------------
+//  -------------------------------------------------------------------
 
     std::atomic < Node * > m_head = nullptr;
 
-    Storage m_storage;
+    Storage < Node > m_storage;
 
-//  ---------------------------------------------------------------------------------
+//  -------------------------------------------------------------------
 
-    static inline std::array < Pointer, 64 > s_pointers = {};
+    static inline std::array < Pointer < Node > , 64 > s_pointers = {};
 };
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 void produce(Stack < int > & stack)
 {
@@ -338,7 +344,7 @@ void produce(Stack < int > & stack)
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 void consume(Stack < int > & stack)
 {
@@ -350,7 +356,7 @@ void consume(Stack < int > & stack)
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
@@ -363,4 +369,4 @@ int main()
     std::jthread thread_2(consume, std::ref(stack));
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////

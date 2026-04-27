@@ -223,9 +223,9 @@ int main()
 
 //  ------------------------------------------------------------------------------------------
 
-    static_assert(std::is_same_v < nth < Deque < int, int >, 0 > , int > );
+    static_assert(std::is_same_v < nth < Deque < int, int > , 0 > , int > );
 
-    static_assert(std::is_same_v < nth < Deque < int, int >, 1 > , int > );
+    static_assert(std::is_same_v < nth < Deque < int, int > , 1 > , int > );
 
 //  ------------------------------------------------------------------------------------------
 

@@ -10,11 +10,11 @@
 
 // content : Cache Coherence Protocol MESI
 //
-// content : Modified, Exclusive, Shared and Invalid Cache Lines
+// content : Modified, Exclusive, Shared and Invalid Cache Line States
 //
 // content : False Sharing
 //
-// content : Object std::hardware_constructive_interference_size
+// content : Object std::hardware_destructive_interference_size
 //
 // content : Microbenchmarking
 
@@ -49,7 +49,7 @@ struct Entity_v1
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-struct alignas(std::hardware_constructive_interference_size) Entity_v2
+struct alignas(std::hardware_destructive_interference_size) Entity_v2
 {
     std::atomic < int > x = 0;
 };
