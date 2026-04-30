@@ -1,104 +1,54 @@
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // section : Processes
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
-// content : Interprocess Communications (IPC)
-//
-// content : Shared Memory
-//
-// content : Library Boost.Interpocess
-//
-// content : Memory Mapped Files
+// content : Functions fork, wait and getpid
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <iterator>
+#include <chrono>
+#include <print>
+#include <thread>
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
-#include <boost/interprocess/mapped_region.hpp>
-#include <boost/interprocess/shared_memory_object.hpp>
+using namespace std::literals;
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 #include <sys/wait.h>
 #include <unistd.h>
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 int main()
 {
-	auto path = "output";
-
-//  ----------------------------------------------------------------------------------------
-
-    boost::interprocess::shared_memory_object::remove(path);
-
-//  ----------------------------------------------------------------------------------------
-
-    boost::interprocess::shared_memory_object storage
-    (
-        boost::interprocess::create_only, path, boost::interprocess::read_write
-    );
-
-//  ----------------------------------------------------------------------------------------
-
-    storage.truncate(1 << 10);
-
-//  ----------------------------------------------------------------------------------------
-
-    boost::interprocess::mapped_region mapping(storage, boost::interprocess::read_write);
-
-//  ----------------------------------------------------------------------------------------
-
-    auto begin = static_cast < std::byte * > (mapping.get_address());
-
-//  ----------------------------------------------------------------------------------------
-
-    std::ranges::fill(begin, std::next(begin, mapping.get_size()), std::byte(1));
-
-//  ----------------------------------------------------------------------------------------
-
     if (auto id = fork(); id != 0)
     {
+        std::print("main : id = {}\n", id); id = getpid();
+
+        std::print("main : id = {}\n", id);
+
+    //  --------------------------------------------------
+
         wait(nullptr);
-
-    //  --------------------------------------------------------
-
-        boost::interprocess::shared_memory_object::remove(path);
     }
     else
     {
-        boost::interprocess::shared_memory_object storage
-        (
-		    boost::interprocess::open_only, path, boost::interprocess::read_write
-        );
+        std::this_thread::sleep_for(1s);
 
-    //  ------------------------------------------------------------------------------------
+    //  --------------------------------------------------
 
-        boost::interprocess::mapped_region mapping(storage, boost::interprocess::read_only);
+        std::print("main : id = {}\n", id); id = getpid();
 
-    //  ------------------------------------------------------------------------------------
-
-        auto begin = static_cast < std::byte * > (mapping.get_address());
-
-    //  ------------------------------------------------------------------------------------
-
-        auto lambda = [](auto x){ assert(x == std::byte(1)); };
-
-    //  ------------------------------------------------------------------------------------
-
-        std::ranges::for_each(begin, std::next(begin, mapping.get_size()), lambda);
+        std::print("main : id = {}\n", id);
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////

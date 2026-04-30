@@ -25,6 +25,7 @@ find_package(Boost 1.85 REQUIRED COMPONENTS
     filesystem
     locale
     log
+    program_options
     python312
     system
     timer
@@ -448,6 +449,7 @@ set(debug
     14.57
     14.58
     14.59
+    14.60
 )
 
 #############################################################################################

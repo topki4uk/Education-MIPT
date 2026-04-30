@@ -24,7 +24,7 @@ using namespace std::literals;
 
 ///////////////////////////////////////////////
 
-int main(int argc, char ** argv)
+int main(int argc, char * argv[])
 {
     assert(argc == 2);
 
