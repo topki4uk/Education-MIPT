@@ -45,7 +45,7 @@ class Vector
 {
 public :
 
-	Vector() : m_array(nullptr), m_size(0)
+	Vector()
 	{
 		std::print("Vector:: Vector (1)\n");
 	}

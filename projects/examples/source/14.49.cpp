@@ -91,10 +91,6 @@ class alignas(std::hardware_destructive_interference_size) Index
 {
 public :
 
-    Index(index_t index = -1) : m_index(index) {}
-
-//  ----------------------------------------------------------------------------------
-
     auto get(std::memory_order order) const
     {
         return m_index.load(order);

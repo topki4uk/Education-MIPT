@@ -41,7 +41,7 @@ template < typename T > class Handler
 {
 public :
 
-    Handler() : m_pointer(nullptr)
+    Handler()
     {
         for (auto & pointer : s_pointers)
         {

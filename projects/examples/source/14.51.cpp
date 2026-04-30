@@ -154,7 +154,7 @@ private :
 
 public :
 
-    Pool() : m_flag(false)
+    Pool()
     {
         for (auto i = 0uz; i < std::max(std::thread::hardware_concurrency(), 2u); ++i)
         {
