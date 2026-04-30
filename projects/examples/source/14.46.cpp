@@ -12,7 +12,7 @@
 //
 // content : Memory Ordering
 //
-// content : Read-Modify-Write Instructions
+// content : Read-Modify-Write (RMW) Instructions
 //
 // content : Cache Thrashing
 //

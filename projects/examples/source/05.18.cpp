@@ -8,9 +8,7 @@
 
 ////////////////////////////////////////////////////////////////
 
-// content : Curiously Recurring Template Pattern
-//
-// content : Virtual Functions Emulation
+// content : Curiously Recurring Template Pattern (CRTP)
 //
 // content : Pattern Mixin
 //

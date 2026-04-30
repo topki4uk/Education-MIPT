@@ -14,7 +14,7 @@
 //
 // content : Abstraction
 //
-// content : Abstract Base Classes
+// content : Abstract Base Classes (ABC)
 
 /////////////////////////////////////////////////
 

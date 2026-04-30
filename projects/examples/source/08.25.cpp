@@ -8,13 +8,13 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-// content : Direct Fourier Transform Algorithm
+// content : Direct Fourier Transform (DFT) Algorithm
 //
 // content : Time Complexity O(N^2)
 //
 // content : Function std::exp
 //
-// content : Fast Fourier Transform Algorithm
+// content : Fast Fourier Transform (FFT) Algorithm
 //
 // content : Cooley-Tukey Algorithm
 //

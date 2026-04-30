@@ -8,7 +8,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-// content : Longest Common Subsequence Algorithm
+// content : Longest Common Subsequence (LCS) Algorithm
 //
 // content : Time Complexity O(N*M)
 //

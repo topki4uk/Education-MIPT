@@ -10,9 +10,9 @@
 
 // content : Copy Elision
 //
-// content : Return Value Optimization
+// content : Return Value Optimization (RVO)
 //
-// content : Named Return Value Optimization
+// content : Named Return Value Optimization (NRVO)
 //
 // content : Preventing Optimizations
 

@@ -20,7 +20,7 @@
 //
 // content : Extensions and C/C++ Configurations
 //
-// content : GNU Compiler Collection
+// content : GNU Compiler Collection (GCC)
 //
 // content : Warnings, Errors and Optimizations
 //

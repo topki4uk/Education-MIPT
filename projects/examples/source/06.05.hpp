@@ -14,7 +14,7 @@
 //
 // content : Declarations and Definitions
 //
-// content : One Definition Rule
+// content : One Definition Rule (ODR)
 //
 // content : Definitions in Header Files
 //

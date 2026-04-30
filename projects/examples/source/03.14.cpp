@@ -12,7 +12,7 @@
 //
 // content : Attribute [[no_unique_address]]
 //
-// content : Empty Base Optimization
+// content : Empty Base Optimization (EBO)
 
 ///////////////////////////////////////////////////////////////////////////////////////
 

@@ -10,7 +10,7 @@
 
 // content : Arithmetic Grammar
 //
-// content : Extended Backus-Naur Form
+// content : Extended Backus-Naur Form (EBNF)
 //
 // content : Statements, Declarations, Expressions, Terms, Primaries and Tokens
 //

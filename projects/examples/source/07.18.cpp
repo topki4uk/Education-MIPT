@@ -8,6 +8,8 @@
 
 /////////////////////////////////////////////////////////////////
 
+// content : Debugging
+//
 // content : Tools callgrind and kcachegrind
 //
 // content : Functions std::pow, std::sin and std::cos

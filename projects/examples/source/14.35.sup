@@ -8,11 +8,11 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-// content : Memory Management Unit
+// content : Memory Management Unit (MMU)
 //
 // content : Virtual Addresses
 //
-// content : Translation Lookaside Buffer
+// content : Translation Lookaside Buffer (TLB)
 //
 // content : Page Table
 //
@@ -28,9 +28,11 @@
 //
 // content : Cache Lines
 //
-// content : Random Access Memory
+// content : Random Access Memory (RAM)
 //
 // content : External Memory
+//
+// content : Solid-State (SSD) and Hard Disk (HDD) Drives
 //
 // content : Cache Replacement Policies
 //

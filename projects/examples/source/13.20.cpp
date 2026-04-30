@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////
 
-// content : Format JSON
+// content : JavaScript Object Notation (JSON)
 //
 // content : Library Nlohmann.JSON
 

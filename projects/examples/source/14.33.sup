@@ -1,12 +1,12 @@
-//////////////////////////////////////////
+/////////////////////////////////////////////////////
 
 // chapter : Parallelism
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////
 
 // section : Architectures
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////
 
 // content : Chip Pervasive Logic
 //
@@ -16,34 +16,38 @@
 //
 // content : Tags
 //
-// content : Translation Lookaside Buffers
+// content : Translation Lookaside Buffers (TLB)
 //
 // content : Cache L1I
 //
 // content : Branch Predictor
 //
-// content : Branch Target Buffers
+// content : Branch Target Buffers (BTB)
 //
 // content : Decoder
+
+// content : Microcode Read-Only Memory (ROM)
 //
-// content : Microcode ROM and Cache
+// content : Microcode Cache
 //
-// content : Re-Order Buffer
+// content : Re-Order Buffer (ROB)
 //
 // content : Scheduler
 //
-// content : Load and Store Unit
+// content : Load-Store Unit (LSU)
 //
 // content : Cache L1D
 //
-// content : Arithmetic Logic Unit
+// content : Arithmetic Logic Unit (ALU)
 //
 // content : Integer Regfile
 //
-// content : Floating Point Unit
+// content : Floating Point Unit (FPU)
 //
 // content : Vector Regfile
 //
+// content : Single Instruction, Multiple Data (SIMD)
+//
 // content : Simultaneous Multithreading
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////

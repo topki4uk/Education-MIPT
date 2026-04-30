@@ -328,10 +328,6 @@ private :
     std::atomic < Node * > m_head = nullptr;
 
     Storage < Node > m_storage;
-
-//  -------------------------------------------------------------------
-
-    static inline std::array < Pointer < Node > , 64 > s_pointers = {};
 };
 
 /////////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-// content : DEK String Hashing Algorithm
+// content : Knuth String Hashing Algorithm
 //
 // content : Collisions
 

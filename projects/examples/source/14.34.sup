@@ -1,14 +1,14 @@
-////////////////////////////////////////
+//////////////////////////////////////////////
 
 // chapter : Parallelism
 
-////////////////////////////////////////
+//////////////////////////////////////////////
 
 // section : Architectures
 
-////////////////////////////////////////
+//////////////////////////////////////////////
 
-// content : Instruction Register
+// content : Instruction Register (RIP)
 //
 // content : Instruction Fetching
 //
@@ -24,13 +24,11 @@
 //
 // content : Out-of-Order Execution
 //
-// content : Bypass Network
+// content : Loads and Stores
 //
-// content : Load and Store Instructions
+// content : Address Generation Unit (AGU)
 //
-// content : Address Generation Unit
-//
-// content : Load and Store Queues
+// content : Load (LDQ) and Store (STQ) Queues
 //
 // content : Deferred Stores
 //
@@ -39,6 +37,8 @@
 // content : Speculative Loads
 //
 // content : Draft and Main Registers
+//
+// content : Bypass Network
 //
 // content : Branch Mispredictions
 //
@@ -50,4 +50,4 @@
 //
 // content : Pipeline Flushes and Stalls
 
-////////////////////////////////////////
+//////////////////////////////////////////////

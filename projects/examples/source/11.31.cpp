@@ -8,7 +8,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// content : Depth First Search Algorithm
+// content : Depth First Search (DFS) Algorithm
 //
 // content : Time Complexity O(V + E)
 

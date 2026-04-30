@@ -8,7 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 
-// content : Runtime Type Identification
+// content : Runtime Type Identification (RTI)
 //
 // content : Library Boost.TypeIndex
 

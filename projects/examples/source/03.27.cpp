@@ -24,7 +24,7 @@
 //
 // content : Self-Assignment Problem
 //
-// content : Pattern Copy and Swap
+// content : Pattern Copy-and-Swap (CaS)
 //
 // content : Generating Special Member Functions
 //

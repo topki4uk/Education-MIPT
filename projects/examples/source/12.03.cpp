@@ -26,11 +26,11 @@
 //
 // content : Standard Unicode
 //
-// content : Universal Character Set
+// content : Universal Character Set (UCS)
 //
 // content : Codespace and Planes
 //
-// content : Unicode Transformation Format
+// content : Unicode Transformation Format (UTF)
 //
 // content : Encodings UTF-8, UTF-16 and UTF-32
 //

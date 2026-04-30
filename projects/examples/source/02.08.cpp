@@ -10,7 +10,7 @@
 
 // content : Default, Value, Direct, Copy and List Initialization
 //
-// content : Undefined Behavior
+// content : Undefined Behavior (UB)
 //
 // content : Uniform Braced Initialization
 //

@@ -20,7 +20,7 @@
 //
 // content : Global Namespace
 //
-// content : Argument Dependent Lookup
+// content : Argument Dependent Lookup (ADL)
 //
 // content : Namespace Aliases
 //

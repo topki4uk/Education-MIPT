@@ -14,7 +14,7 @@
 //
 // content : Happens-Before and Synchronizes-With Relations
 //
-// content : Total Strong Ordering
+// content : Total Strong Ordering (TSO)
 //
 // content : Allowed Store-Load Reordering
 //

@@ -12,7 +12,7 @@
 //
 // content : Type Trait std::is_trivially_copyable
 //
-// content : Instruction Compare and Swap
+// content : Instruction Compare-and-Swap (CaS)
 //
 // content : Macro __GCC_HAVE_SYNC_COMPARE_AND_SWAP_X
 

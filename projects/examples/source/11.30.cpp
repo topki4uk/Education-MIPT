@@ -8,7 +8,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// content : Breadth First Search Algorithm
+// content : Breadth First Search (BFS) Algorithm
 //
 // content : Time Complexity O(V + E)
 

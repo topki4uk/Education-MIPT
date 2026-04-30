@@ -10,7 +10,7 @@
 
 // content : Pattern Template Method
 //
-// content : Pattern Non-Virtual Interface
+// content : Pattern Non-Virtual Interface (NVI)
 
 //////////////////////////////////////////////////////////////////////
 

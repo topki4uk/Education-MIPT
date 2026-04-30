@@ -14,7 +14,7 @@
 //
 // content : Container std::stack
 //
-// content : Last In First Out Algorithm
+// content : Last In First Out (LIFO) Algorithm
 
 ///////////////////////////////////////////////////////////////////
 

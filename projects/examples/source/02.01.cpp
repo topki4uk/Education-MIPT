@@ -10,6 +10,8 @@
 
 // content : Declarations and Definitions
 //
+// content : One Definition Rule (ODR)
+//
 // content : Objects and Variables
 //
 // content : Types

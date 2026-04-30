@@ -14,9 +14,9 @@
 //
 // content : Library Google.Benchmark
 //
-// content : Disabling Frequency Scalings
+// content : Disabling Frequency Scaling
 //
-// content : Disabling Address Space Layout Randomizations
+// content : Disabling Address Space Layout Randomization (ASLR)
 //
 // content : Setting Task Affinities
 //
@@ -24,7 +24,7 @@
 //
 // content : Preemptive and Cooperative Multitasking
 //
-// content : Round Robin and FIFO Algorithms
+// content : Round Robin Algorithm
 //
 // content : Tools cpupower, uname, setarch, taskset and chrt
 //

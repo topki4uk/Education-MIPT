@@ -10,7 +10,7 @@
 
 // content : Template Template Parameters
 //
-// content : Class Template Argument Deduction
+// content : Class Template Argument Deduction (CTAD)
 //
 // content : Container std::deque
 //

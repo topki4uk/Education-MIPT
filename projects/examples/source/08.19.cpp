@@ -16,7 +16,7 @@
 //
 // content : Precision Problem
 //
-// content : Infinity
+// content : Infinity and Not-a-Number (NaN)
 //
 // content : Quiet and Signaling NaNs
 
