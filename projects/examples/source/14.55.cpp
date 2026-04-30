@@ -27,7 +27,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-int main(int argc, char * argv[]) 
+int main(int argc, char * argv[])
 {
     boost::program_options::options_description description("description");
 
@@ -52,14 +52,14 @@ int main(int argc, char * argv[])
     boost::program_options::variables_map map;
 
 //  ----------------------------------------------------------------------------
-    
+
     boost::program_options::store
     (
         boost::program_options::parse_command_line(argc, argv, description), map
     );
 
 //  ----------------------------------------------------------------------------
-    
+
     boost::program_options::notify(map);
 
 //  ----------------------------------------------------------------------------
