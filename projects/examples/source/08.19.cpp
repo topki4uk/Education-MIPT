@@ -16,9 +16,9 @@
 //
 // content : Precision Problem
 //
-// content : Infinity and Not-a-Number (NaN)
+// content : Infinity and Not-A-Number (NAN)
 //
-// content : Quiet and Signaling NaNs
+// content : Quiet and Signaling NANs
 
 /////////////////////////////////////////////////////////////////////////////////////////
 

@@ -4,11 +4,11 @@
 
 ////////////////////////////////////////////////////////
 
-// section : Standard Library
+// section : Standard Template Library
 
 ////////////////////////////////////////////////////////
 
-// content : Standard Library
+// content : Standard Template Library (STL)
 //
 // content : Using Libraries
 //
