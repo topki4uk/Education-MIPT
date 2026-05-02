@@ -109,7 +109,7 @@ void test(benchmark::State & state)
 {
     auto argument = state.range(0);
 
-    auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
+    auto concurrency = std::thread::hardware_concurrency();
 
     std::vector < std::future < double > > futures(concurrency);
 

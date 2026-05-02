@@ -47,7 +47,7 @@ template < typename T > auto fold(std::ranges::view auto view, T sum)
 
 	if (auto size = std::distance(begin, end); size > 0)
 	{
-		auto concurrency = std::max(std::thread::hardware_concurrency(), 2u);
+		auto concurrency = std::thread::hardware_concurrency();
 
 		std::vector < std::pair < std::future < T > , std::jthread > > futures(concurrency - 1);
 
