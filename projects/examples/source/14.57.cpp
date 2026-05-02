@@ -20,7 +20,6 @@
 
 #include <algorithm>
 #include <cassert>
-#include <cstddef>
 #include <iterator>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,11 +59,11 @@ int main()
 
 //  ----------------------------------------------------------------------------------------
 
-    auto begin = static_cast < std::byte * > (mapping.get_address());
+    auto begin = static_cast < char * > (mapping.get_address());
 
 //  ----------------------------------------------------------------------------------------
 
-    std::ranges::fill(begin, std::next(begin, mapping.get_size()), std::byte(1));
+    std::ranges::fill(begin, std::next(begin, mapping.get_size()), 'a');
 
 //  ----------------------------------------------------------------------------------------
 
@@ -89,11 +88,11 @@ int main()
 
     //  ------------------------------------------------------------------------------------
 
-        auto begin = static_cast < std::byte * > (mapping.get_address());
+        auto begin = static_cast < char * > (mapping.get_address());
 
     //  ------------------------------------------------------------------------------------
 
-        auto lambda = [](auto x){ assert(x == std::byte(1)); };
+        auto lambda = [](auto x){ assert(x == 'a'); };
 
     //  ------------------------------------------------------------------------------------
 

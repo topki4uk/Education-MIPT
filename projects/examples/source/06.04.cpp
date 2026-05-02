@@ -13,6 +13,7 @@
 ///////////////////////////////////////////////////////////////////
 
 #include <cassert>
+#include <iterator>
 #include <source_location>
 #include <string>
 

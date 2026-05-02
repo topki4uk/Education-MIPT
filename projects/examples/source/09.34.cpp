@@ -23,6 +23,7 @@
 #include <array>
 #include <cassert>
 #include <cstddef>
+#include <iterator>
 #include <memory_resource>
 #include <vector>
 

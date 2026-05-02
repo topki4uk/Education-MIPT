@@ -41,6 +41,7 @@
 #include <cstddef>
 #include <format>
 #include <istream>
+#include <iterator>
 #include <limits>
 #include <numeric>
 #include <ostream>

@@ -34,6 +34,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include <ranges>
 #include <sstream>
 #include <string>

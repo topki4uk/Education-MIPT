@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <iterator>
 #include <random>
 #include <set>
 #include <string>

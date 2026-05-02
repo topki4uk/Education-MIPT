@@ -18,6 +18,7 @@
 #include <cassert>
 #include <cstddef>
 #include <istream>
+#include <iterator>
 #include <ostream>
 #include <sstream>
 #include <string>

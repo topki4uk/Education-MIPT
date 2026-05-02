@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <cassert>
 #include <functional>
+#include <iterator>
 #include <vector>
 
 //////////////////////////////////////////////////////////////////////

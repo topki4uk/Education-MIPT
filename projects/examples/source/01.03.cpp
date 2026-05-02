@@ -35,6 +35,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <iterator>
 #include <numbers>
 #include <print>
 #include <string>
