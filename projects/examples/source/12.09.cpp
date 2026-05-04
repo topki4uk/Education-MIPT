@@ -11,10 +11,6 @@
 // content : String Literals
 //
 // content : Null-Terminated Strings
-//
-// content : Operator ""s
-//
-// content : Namespace std::literals
 
 //////////////////////////////////////////////////////////////////////
 
