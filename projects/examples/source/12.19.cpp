@@ -21,6 +21,10 @@
 // content : Arithmetic Parser
 //
 // content : Functions std::isalpha, std::isdigit and std::isspace
+//
+// content : Function std::getline
+//
+// content : Manipulator std::ws
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
