@@ -8,6 +8,8 @@
 
 ////////////////////////////////////////////////////////////////
 
+// content : Functions std::stod and std::to_string
+//
 // content : Functions std::to_chars and std::from_chars
 //
 // content : Enumeration std::chars_format
@@ -31,6 +33,10 @@ auto equal(double x, double y, double epsilon = 1e-6)
 
 int main()
 {
+    assert(equal(std::stod(std::to_string(1.0)), 1.0));
+
+//  ------------------------------------------------------------
+
     std::array < char, 1 << 10 > array = {};
 
 //  ------------------------------------------------------------
