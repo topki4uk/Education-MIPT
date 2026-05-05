@@ -32,6 +32,8 @@
 
 [:space:] - character class name : spaces
 
+[:punct:] - character class name : punctuations
+
 ///////////////////////////////////////////////////////////
 
 \. - escape sequence : 1 dot
