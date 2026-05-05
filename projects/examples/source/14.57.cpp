@@ -79,7 +79,7 @@ int main()
     {
         boost::interprocess::shared_memory_object storage
         (
-		    boost::interprocess::open_only, path, boost::interprocess::read_write
+		    boost::interprocess::open_only, path, boost::interprocess::read_only
         );
 
     //  ------------------------------------------------------------------------------------
