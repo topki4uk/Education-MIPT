@@ -37,7 +37,7 @@ template < typename T, typename ... Ts > void show_v1(T x, Ts ... xs)
 {
 	std::print("show_v1 : x = {} sizeof...(xs) = {}\n", x, sizeof...(xs));
 
-	show_v1(xs...); // support : cppinsights.io
+	show_v1(xs...); // support : https://cppinsights.io
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ void show_v2(auto x, auto ... xs)
 
 void transform(auto ... xs)
 {
-	show_v1(xs * xs...); // support : cppinsights.io
+	show_v1(xs * xs...); // support : https://cppinsights.io
 }
 
 //////////////////////////////////////////////////////////////////////////

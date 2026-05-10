@@ -25,7 +25,7 @@ int main()
 
 //  ---------------------------------------------------------------------------------
 
-	for (auto x = 0; auto & element : array) // support : cppinsights.io
+	for (auto x = 0; auto & element : array) // support : https://cppinsights.io
 	{
 		element = ++x;
 	}

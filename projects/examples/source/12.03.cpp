@@ -40,13 +40,13 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-// support : en.wikipedia.org/wiki/ASCII
+// support : https://en.wikipedia.org/wiki/ASCII
 //
-// support : en.wikipedia.org/wiki/Windows-1251
+// support : https://en.wikipedia.org/wiki/Windows-1251
 //
-// support : en.wikipedia.org/wiki/Windows-1252
+// support : https://en.wikipedia.org/wiki/Windows-1252
 //
-// support : en.wikipedia.org/wiki/Unicode
+// support : https://en.wikipedia.org/wiki/Unicode
 
 ///////////////////////////////////////////////////////////////////////
 

@@ -37,7 +37,7 @@ public :
 
 	auto get() const
 	{
-		return m_x; // support : compiler-explorer.com
+		return m_x; // support : https://compiler-explorer.com
 	}
 
 //  -------------------------------------------------------------

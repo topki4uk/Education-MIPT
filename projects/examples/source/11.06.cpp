@@ -30,7 +30,7 @@
 
 int main()
 {
-	auto lambda_1 = [](){}; // support : cppinsights.io
+	auto lambda_1 = [](){}; // support : https://cppinsights.io
 
 	auto lambda_2 = [](auto x) constexpr noexcept { return x; };
 

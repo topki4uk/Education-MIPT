@@ -20,7 +20,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 
-template < typename T > class Comparable // support : cppinsights.io
+template < typename T > class Comparable // support : https://cppinsights.io
 {
 public :
 

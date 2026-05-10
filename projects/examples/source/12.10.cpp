@@ -47,7 +47,7 @@ void test_v2(std::string_view view)
 
 int main()
 {
-    auto string = "aaaaa"s; // support : compiler-explorer.com
+    auto string = "aaaaa"s; // support : https://compiler-explorer.com
 
 //  ----------------------------------------------------------------------
 
