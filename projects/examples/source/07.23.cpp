@@ -14,17 +14,15 @@
 //
 // content : Library Google.Benchmark
 //
-// content : Disabling Frequency Scaling
+// content : Frequency Scaling
 //
-// content : Disabling Address Space Layout Randomization (ASLR)
+// content : Address Space Layout Randomization (ASLR)
 //
-// content : Setting Task Affinities
+// content : Task Affinities
 //
-// content : Setting Task Scheduling Algorithms
+// content : Task Scheduling Algorithms
 //
 // content : Preemptive and Cooperative Multitasking
-//
-// content : Round Robin Algorithm
 //
 // content : Tools cpupower, uname, setarch, taskset and chrt
 //

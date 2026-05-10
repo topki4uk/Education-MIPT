@@ -16,16 +16,16 @@
 //
 // content : Tags
 //
-// content : Translation Lookaside Buffers (TLB)
+// content : Translation Lookaside Buffer (TLB)
 //
 // content : Cache L1I
 //
 // content : Branch Predictor
 //
-// content : Branch Target Buffers (BTB)
+// content : Branch Target Buffer (BTB)
 //
 // content : Decoder
-
+//
 // content : Microcode Read-Only Memory (ROM)
 //
 // content : Microcode Cache

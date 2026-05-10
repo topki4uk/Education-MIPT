@@ -16,9 +16,9 @@
 //
 // content : Literal Prefixes L, u8, u and U
 //
-// content : Standard ASCII 7-bit
-//
 // content : Encodings
+//
+// content : Encodings ASCII 7-bit, CP1251 and CP1252
 //
 // content : Multibyte and Wide Encodings
 //
@@ -30,7 +30,7 @@
 //
 // content : Code Points and Planes
 //
-// content : Unicode Transformation Formats (UTF)
+// content : Unicode Transformation Format (UTF)
 //
 // content : Encodings UTF-8, UTF-16 and UTF-32
 //
