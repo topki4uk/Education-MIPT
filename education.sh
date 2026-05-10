@@ -12,23 +12,27 @@
 #
 # sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
 #
-# sudo apt install git cmake gdb valgrind kcachegrind nmap
+# sudo apt install git cmake 
+#
+# sudo apt install gdb valgrind kcachegrind
 #
 # sudo apt install linux-tools-common linux-tools-generic coreutils util-linux procps
 #
 # sudo apt install pciutils iproute2 curl iputils-ping traceroute
 #
+# sudo apt install lsof tcpdump telnet nmap
+#
 # sudo apt install python3 python3-dev python3-matplotlib libicu-dev libtbb-devs
 
 ##############################################################################################
 
-# url="https://sourceforge.net/projects/boost/files/boost/1.85.0/boost_1_85_0.tar.gz/download"
+# url="https://sourceforge.net/projects/boost/files/boost/1.90.0/boost_1_90_0.tar.gz/download"
 #
-# wget -O boost_1_85_0.tar.gz $url
+# wget -O boost_1_90_0.tar.gz $url
 #
-# tar xvf boost_1_85_0.tar.gz
+# tar xvf boost_1_90_0.tar.gz
 #
-# cd boost_1_85_0/
+# cd boost_1_90_0/
 #
 # sudo apt update
 #
@@ -40,11 +44,11 @@
 #
 # options="toolset=gcc variant=release link=static runtime-link=static threading=multi"
 #
-# sudo ./b2 $options -j8 install
+# sudo ./b2 $options install
 #
 # ./bootstrap.sh --with-python=python3
 #
-# sudo ./b2 --with-python $options -j8 install
+# sudo ./b2 --with-python $options install
 
 ##############################################################################################
 
