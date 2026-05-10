@@ -1,0 +1,87 @@
+//////////////////////////////////////////////////////////
+
+// chapter : Networks
+
+//////////////////////////////////////////////////////////
+
+// section : Networks
+
+//////////////////////////////////////////////////////////
+
+// content : Networks
+//
+// content : Network Interface Card (NIC)
+//
+// content : Wired and Wireless Network Connections
+//
+// content : Tool lspci
+//
+// content : Standards Ethernet and Wi-Fi
+//
+// content : Standard Registered Jack 45 (RJ-45)
+//
+// content : Twisted Pair (TP) Cables
+//
+// content : Simplex, Half-Duplex and Full-Duplex Modes
+//
+// content : Local Area Network (LAN)
+//
+// content : Switches and Routers
+//
+// content : Wireless Access Point (WAP)
+//
+// content : Media Access Control (MAC) Layer
+//
+// content : Internet Protocol (IP)
+//
+// content : Addresses, Ports and Endpoints
+//
+// content : Public, Private, Static and Dynamic Addresses
+//
+// content : Dynamic Host Configuration Protocol (DHCP)
+//
+// content : Address Resolution Protocol (ARP)
+//
+// content : Standards IPv4 and IPv6
+//
+// content : Port Address Translation (PAT)
+//
+// content : Open Shortest Path First (OSPF) Protocol
+//
+// content : Tools ip and curl
+//
+// content : Wide Area Network (WAN)
+//
+// content : Internet Service Provider (ISP)
+//
+// content : Access and Group Switches
+//
+// content : Small Form-factor Pluggable (SFP) Modules
+//
+// content : Fiber Optic Cables
+//
+// content : Standard Synchronous Optical NETwork (SONET)
+//
+// content : Core and Border Routers
+//
+// content : Border Gateway Protocol (BGP)
+//
+// content : Internet Exchange Point (IXP)
+//
+// content : Tools ping and traceroute
+//
+// content : Internet Control Message Protocol (ICMP)
+
+//////////////////////////////////////////////////////////
+
+// support : lspci | grep -i net
+//
+// support : ip address && ip neighbor
+//
+// support : curl ipinfo.io
+//
+// support : ping -c 4 google.com
+//
+// support : sudo traceroute -T binance.com
+
+//////////////////////////////////////////////////////////
