@@ -20,14 +20,14 @@ set(Boost_USE_STATIC_RUNTIME ON)
 
 #############################################################################################
 
-find_package(Boost 1.85 REQUIRED COMPONENTS
+find_package(Boost 1.90 REQUIRED COMPONENTS
 
+    cobalt
     filesystem
     locale
     log
     program_options
     python312
-    system
     timer
     unit_test_framework
 )
@@ -451,9 +451,12 @@ set(debug
     14.59
     14.60
 
-    15.02
-    15.03
-    15.04
+    15.06
+    15.07
+    15.08
+    15.10
+    15.13
+    15.14
 )
 
 #############################################################################################

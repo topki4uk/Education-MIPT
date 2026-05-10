@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 ####################################################################
 
-find_package(Boost 1.85 REQUIRED COMPONENTS)
+find_package(Boost 1.90 REQUIRED COMPONENTS)
 
 ####################################################################
 
