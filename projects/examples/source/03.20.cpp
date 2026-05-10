@@ -8,7 +8,7 @@
 
 ////////////////////////////////////////////////////////////////////////
 
-// content : Runtime Type Identification (RTI)
+// content : RunTime Type Identification (RTTI)
 //
 // content : Operator typeid
 
