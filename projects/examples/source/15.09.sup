@@ -1,0 +1,119 @@
+///////////////////////////////////////////////////////////////////////////////////
+
+// chapter : Networks
+
+///////////////////////////////////////////////////////////////////////////////////
+
+// section : Transmission Control Protocol
+
+///////////////////////////////////////////////////////////////////////////////////
+
+// content : Headers and Payloads
+//
+// content : Ethernet Frames
+//
+// content : Maximum Transmission Unit (MTU)
+//
+// content : Ethernet Jumbo Frames
+//
+// content : Internet Protocol (IP) Packets
+//
+// content : Transmission Control Protocol (TCP) Segments
+//
+// content : TCP Handshake
+//
+// content : SYN, SYN-ACK and ACK Packets
+//
+// content : Tools tcpdump and telnet
+
+///////////////////////////////////////////////////////////////////////////////////
+
+// support : sudo tcpdump -e -xx -v tcp port 80
+//
+// support : telnet google.com 80
+
+///////////////////////////////////////////////////////////////////////////////////
+
+// support : https://datatracker.ietf.org/doc/html/rfc894
+//
+// support : https://datatracker.ietf.org/doc/html/rfc791
+//
+// support : https://datatracker.ietf.org/doc/html/rfc793
+
+///////////////////////////////////////////////////////////////////////////////////
+
+64 (b) : Preamble (L1) : 0b10101010 7 times and 0b10101011 by default
+
+48 (b) : Destination Address : MAC Address
+
+48 (b) : Source Address : MAC Address
+
+16 (b) : EtherType (Ethernet II) : 0x0800 for IPv4
+
+XX (b) : Payload : from 46 to MTU (B)
+
+32 (b) : Frame Check Sequence (FCS) : Cyclic Redundancy Check (CRC)
+
+///////////////////////////////////////////////////////////////////////////////////
+
+04 (b) : Version : 4 for IPv4
+
+04 (b) : Internet Header Lenght (IHL) : from 5 to 15 (32-bit words)
+
+08 (b) : Type Of Service (TOS) : 0x00 by default
+
+16 (b) : Total Length : from 20 to 65'535 (B)
+
+16 (b) : Identification (ID) : ID_next = ID_current + 1, ID_0 = random()
+
+03 (b) : Reserved, Don't Fragment and More Fragments Flags
+
+13 (b) : Fragment Offset
+
+08 (b) : Time To Live (TTL) : 64, 128 or 255 by default
+
+08 (b) : Protocol : 6 for TCP
+
+16 (b) : Checksum : Internet Header Checksum
+
+32 (b) : Source Address : IPv4 Address
+
+32 (b) : Destination Address : IPv4 Address
+
+XX (b) : Options : from 0 to 40 (B) with padding
+
+YY (b) : Payload
+
+///////////////////////////////////////////////////////////////////////////////////
+
+16 (b) : Source Port
+
+16 (b) : Destination Port
+
+32 (b) : Sequence Number : S_next = S_current + size, S_0 = random()
+
+32 (b) : Acknowledgment Number : A = S + size
+
+04 (b) : Data Offset : from 5 to 15 (32-bit words)
+
+04 (b) : Reserved
+
+01 (b) : Congestion Window Reduced Flag
+
+01 (b) : Explicit Congestion Notification Echo Flag
+
+01 (b) : Urgent Pointer Flag
+
+05 (b) : Acknowledgment, Push, Reset, Synchronize and Finish Flags
+
+16 (b) : Receive Window Size
+
+16 (b) : Checksum : IP Pseudo-Header, TCP Header and Payload Checksum
+
+16 (b) : Urgent Pointer
+
+XX (b) : Options : from 0 to 40 (B) with padding
+
+YY (b) : Payload
+
+///////////////////////////////////////////////////////////////////////////////////
