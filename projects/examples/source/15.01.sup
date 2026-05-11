@@ -1,12 +1,8 @@
-//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
 // chapter : Networks
 
-//////////////////////////////////////////////////////////
-
-// section : Networks
-
-//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
 // content : Networks
 //
@@ -30,27 +26,9 @@
 //
 // content : Wireless Access Point (WAP)
 //
-// content : Media Access Control (MAC) Layer
+// content : Media Access Control (MAC) Addresses
 //
-// content : Unicast, Broadcast and Multicast Modes
-//
-// content : Internet Protocol (IP)
-//
-// content : Addresses, Masks and Ports
-//
-// content : Public, Private, Static and Dynamic Addresses
-//
-// content : Dynamic Host Configuration Protocol (DHCP)
-//
-// content : Address Resolution Protocol (ARP)
-//
-// content : Standards IPv4 and IPv6
-//
-// content : Port Address Translation (PAT)
-//
-// content : Open Shortest Path First (OSPF) Protocol
-//
-// content : Tools ip and curl
+// content : Internet Protocol (IP) Addresses
 //
 // content : Wide Area Network (WAN)
 //
@@ -74,16 +52,12 @@
 //
 // content : Internet Control Message Protocol (ICMP)
 
-//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
-// support : lspci | grep -i net
-//
-// support : ip address && ip neighbor
-//
-// support : curl ipinfo.io
+// support : lspci
 //
 // support : ping -c 4 google.com
 //
 // support : sudo traceroute -T binance.com
 
-//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////

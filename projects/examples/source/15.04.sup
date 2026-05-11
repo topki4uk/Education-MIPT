@@ -1,13 +1,37 @@
-///////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 // chapter : Networks
 
-///////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
-// section : Networks
+// content : Media Access Control (MAC) Addresses
+//
+// content : Unicast, Broadcast and Multicast Addresses
+//
+// content : Internet Protocol (IP) Addresses
+//
+// content : Standards IPv4 and IPv6
+//
+// content : Public, Private, Static and Dynamic Addresses
+//
+// content : Hosts, Addresses, Ports and Endpoints
+//
+// content : Tools ip, nmap and curl
+//
+// content : Address Resolution Protocol (ARP)
+//
+// content : Open Shortest Path First (OSPF) Protocol
+//
+// content : Port Address Translation (PAT)
+//
+// content : Dynamic Host Configuration Protocol (DHCP)
 
-///////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
-// content : Switches Cisco SG550XG
+// support : ip address && ip neighbor
+//
+// support : sudo nmap -sn $(ip route | grep 'link' | awk '{print $1}')
+//
+// support : curl ipinfo.io
 
-///////////////////////////////////
+///////////////////////////////////////////////////////////////////////
