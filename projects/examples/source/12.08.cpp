@@ -12,7 +12,6 @@
 
 /////////////////////////////////////////////////////////
 
-#include <bit>
 #include <cassert>
 #include <cstddef>
 #include <string>
@@ -23,9 +22,9 @@ auto distance(auto * x, auto * y)
 {
     return
     (
-        std::bit_cast < std::byte * > (x) -
+        reinterpret_cast < std::byte * > (x) -
 
-        std::bit_cast < std::byte * > (y)
+        reinterpret_cast < std::byte * > (y)
     );
 }
 

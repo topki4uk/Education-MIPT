@@ -32,7 +32,7 @@ int main()
 
 //  ---------------------------------------------------
 
-    auto byte = std::bit_cast < std::byte * > (&x);
+    auto byte = reinterpret_cast < std::byte * > (&x);
 
 //  ---------------------------------------------------
 

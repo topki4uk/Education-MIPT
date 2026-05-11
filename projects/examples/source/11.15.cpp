@@ -13,7 +13,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <array>
-#include <bit>
 #include <cassert>
 #include <cstddef>
 #include <iterator>
@@ -146,9 +145,9 @@ protected :
 
 //  ---------------------------------------------------------------------------------------------
 
-    template < typename T > auto get_type() const
+    template < typename T > auto get_type()
     {
-        return std::bit_cast < T * > (std::begin(m_array));
+        return reinterpret_cast < T * > (std::begin(m_array));
     }
 
 //  ---------------------------------------------------------------------------------------------
@@ -288,14 +287,14 @@ public :
 
 //  -------------------------------------------------------------------------------------------
 
-    template < typename T > auto get() const
+    template < typename T > auto get()
     {
         return *this->template get_type < T > ();
     }
 
 //  -------------------------------------------------------------------------------------------
 
-    template < typename V > auto visit(V && visitor) const
+    template < typename V > auto visit(V && visitor)
     {
         return visit_implementation(std::forward < V > (visitor), Deque < Ts ... > ());
     }
@@ -319,7 +318,7 @@ private :
     <
         typename V, typename U, typename ... Us
     >
-    auto visit_implementation(V && visitor, Deque < U, Us ... > ) const
+    auto visit_implementation(V && visitor, Deque < U, Us ... > )
     {
         if (this->template holds_alternative < U > ())
         {
