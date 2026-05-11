@@ -12,7 +12,7 @@
 #
 # sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
 #
-# sudo apt install git cmake 
+# sudo apt install git cmake
 #
 # sudo apt install gdb valgrind kcachegrind
 #
