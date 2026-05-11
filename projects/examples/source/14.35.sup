@@ -32,7 +32,9 @@
 //
 // content : External Memory
 //
-// content : Solid-State (SSD) and Hard Disk (HDD) Drives
+// content : Solid State Drive (SSD)
+//
+// content : Hard Disk Drive (HDD)
 //
 // content : Cache Replacement Policies
 //
