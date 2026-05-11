@@ -18,9 +18,9 @@
 #
 # sudo apt install linux-tools-common linux-tools-generic coreutils util-linux procps
 #
-# sudo apt install pciutils iproute2 curl iputils-ping traceroute
+# sudo apt install pciutils iputils-ping traceroute iproute2 nmap curl
 #
-# sudo apt install lsof tcpdump telnet nmap
+# sudo apt install lsof tcpdump telnet
 #
 # sudo apt install python3 python3-dev python3-matplotlib libicu-dev libtbb-devs
 
