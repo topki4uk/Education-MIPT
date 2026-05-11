@@ -10,19 +10,25 @@
 
 // content : Headers and Payloads
 //
-// content : Ethernet Frames
+// content : Ethernet Protocol Frames
 //
 // content : Maximum Transmission Unit (MTU)
 //
-// content : Ethernet Jumbo Frames
+// content : Jumbo Frames
 //
 // content : Internet Protocol (IP) Packets
 //
+// content : Packet Fragmentation
+//
+// content : Path MTU Discovery (PMTUD)
+//
 // content : Transmission Control Protocol (TCP) Segments
+//
+// content : Maximum Segment Size (MSS)
 //
 // content : TCP Handshake
 //
-// content : SYN, SYN-ACK and ACK Packets
+// content : SYN, SYN-ACK and ACK Segments
 //
 // content : Tools tcpdump and telnet
 

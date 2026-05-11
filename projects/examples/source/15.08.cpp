@@ -12,12 +12,11 @@
 //
 // content : Portable Operating System Interface (POSIX)
 //
-// content : Linux Sockets
+// content : Stream Sockets
 
 ///////////////////////////////////////////////////////////////////////////////////
 
 #include <algorithm>
-#include <bit>
 #include <cassert>
 #include <cstring>
 #include <iterator>
@@ -58,7 +57,7 @@ int main()
 
 //  -------------------------------------------------------------------------------
 
-    connect(descriptor, std::bit_cast < sockaddr * > (&server), sizeof(server));
+    connect(descriptor, reinterpret_cast < sockaddr * > (&server), sizeof(server));
 
 //  -------------------------------------------------------------------------------
 
